@@ -268,8 +268,6 @@ const generator = new Generator(display);
 
 const heart = new Image();
 heart.src = "Assets/ImageResources/heart.png";
-const blur = new Image();
-blur.src = "Assets/ImageResources/blur.png";
 
 let words;
 let healthTarget;
