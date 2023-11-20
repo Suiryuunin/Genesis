@@ -34,6 +34,10 @@ const keyDown = (e) => {
                         
                     }
                     break;
+
+                case "Enter":
+                    display.input = "";
+                    break;
         
             }
     
