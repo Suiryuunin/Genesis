@@ -15,6 +15,7 @@ class Word {
     updatePos() {
 
         this.display.createWord(this.display.buffer, this.word, this.x, this.y, this.offsetX);
+        this.display.createWord(this.display.buffer, this.word, this.x, this.y, this.offsetX);
         if (this.y <= this.maxY && Math.floor(gameState) == 1)
             this.y += this.settings.speed;
 

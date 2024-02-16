@@ -66,7 +66,7 @@ class Slider {
         this.display.createRect(this.display.settings, this.fixedPos[0], this.fixedPos[1] + 3, this.barWidth, this.height - 6);
         
         this.display.createWord(this.display.settings, this.value, 196, this.y - 5, -0.5, false);
-        this.display.createFill(this.display.settings, this.x, this.y, this.width, this.height, 0.7)
+        this.display.createFill(this.display.settings, this.x, this.y, this.width, this.height, 0.5)
 
     }
 

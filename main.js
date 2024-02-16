@@ -130,6 +130,13 @@ const render = () => {
 
         display.drawBackground(display.buffer);
         display.drawBackground(display.settings);
+        display.createObject(display.settings, background, -16, -16, viewport[0] + 32, viewport[1] + 32, 0.5);
+
+        document.querySelector('body').style.backgroundColor = `hsl(${display.hue}, ${display.saturation}%, ${(display.brightness - 10 < 0) ? 0 : display.brightness - 10}%)`;
+        document.querySelector('div').style.filter = `hue-rotate(${display.hue}deg)`;
+        document.querySelector('div').style.opacity = `${(display.brightness -25 < 50) ? 50 : display.brightness-25}%`;
+
+
         display.createRect(display.settings, 0, 0, display.settings.canvas.width, display.settings.canvas.height, display.color, 10, 0.5);
 
         display.createWord(display.settings, "Settings", Math.floor(display.settings.canvas.width / 2), 32, -0.5, false, 1, 32);
@@ -160,6 +167,8 @@ const render = () => {
 
         
     display.drawBackground(display.buffer);
+    display.createObject(display.buffer, background, -16, -16, viewport[0] + 32, viewport[1] + 32, 0.5);
+
 
     if (generator.word != "") {
         for (let i = 0; i < words.length; i++) {
@@ -205,6 +214,7 @@ const render = () => {
     display.createWord(display.buffer, `Typed ${typed}`, display.buffer.canvas.width - 9, display.buffer.canvas.height - 17, -1, false);
 
     display.createObject(display.buffer, heart, 0, 0, 32, 32);
+
     display.createRect(display.buffer, 36, 1, 124, 32);
     if (health > 0) {
         
@@ -405,6 +415,8 @@ const generator = new Generator(display, settings);
 
 const heart = new Image();
 heart.src = "Assets/ImageResources/heart.png";
+const background = new Image();
+background.src = "Assets/ImageResources/Background.png";
 
 let words;
 let healthTarget;
@@ -515,6 +527,10 @@ const setup = () => {
     generator.Generate();
     
     resize();
+    document.querySelector('body').style.backgroundColor = `hsl(${display.hue}, ${display.saturation}%, ${(display.brightness - 10 < 0) ? 0 : display.brightness - 10}%)`;
+    document.querySelector('div').style.filter = `hue-rotate(${display.hue}deg)`;
+    document.querySelector('div').style.opacity = `${(display.brightness -25 < 50) ? 50 : display.brightness-25}%`;
+
     engine.start();
 
 }

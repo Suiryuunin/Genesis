@@ -71,8 +71,9 @@ class Display {
         ctx.globalAlpha = 1;
     }
 
-    createObject(ctx, img, x, y, width, height) {
+    createObject(ctx, img, x, y, width, height, alpha = 1) {
         
+        ctx.globalAlpha = alpha;
         ctx.drawImage(img, x, y, width, height);
 
     }
@@ -141,7 +142,6 @@ class Display {
         this.color = this.brightness <= 25 ? "white" : "black";
         
         this.display.canvas.style.borderColor = this.color;
-        document.querySelector("body").style.backgroundColor = `hsl(0, 0%, ${this.brightness}%)`;
         
     }
 
