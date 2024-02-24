@@ -1,63 +1,59 @@
 class Engine {
 
-    constructor (timeStep, update, render) {
+    constructor (fps, update, render) {
 
-        this.timeElapsed = 0;
-        this.animationRequest = undefined;
-        this.oldTime = undefined;
-        this.timeStep = timeStep;
-
-        this.updated = false;
-
+        this.time = 0;
+        this.timeStamp = 0;
+        this.timeStampR = 0;
+        this.delta = 0;
+        this.deltaR = 0;
         this.update = update;
         this.render = render;
+        this.fps = fps;
 
-        this.run = function(timeStamp) {
+        this.run = (time) => {
 
-            this.animationRequest = window.requestAnimationFrame(this.handleRun);
-            
-            this.timeElapsed += timeStamp - this.oldTime;
-            
-            this.oldTime = timeStamp;
+            this.time = time;
+            this.delta = this.time - this.timeStamp;
+            this.deltaR = this.time - this.timeStampR;
 
-            if (this.timeElapsed >= this.timeStep * 3)
-                this.timeElapsed = this.timeStep;
+            if (this.deltaR >= Math.floor(1000 / this.fps)) {
 
-            while (this.timeElapsed >= this.timeStep) {
-                
-                this.timeElapsed -= this.timeStep;
+                document.querySelector('h4').innerHTML = `Update: ${(1000 / this.delta).toFixed(2)} fps` + ((1000/this.delta > 10) ? '' : ' (ノಠ益ಠ)ノ彡┻━┻');
+                document.querySelector('h3').innerHTML = `Render: ${(1000 / this.deltaR).toFixed(2)} fps` + ((1000/this.deltaR > 10) ? '' : ' (ノಠ益ಠ)ノ彡┻━┻');
                 
                 this.update();
-                this.updated = true;
-                
-            }
-            
-            if (this.updated) {
-
-                // In case of lag (missing frames)
-                this.updated = false;
                 this.render();
-                
+
+                this.timeStampR = this.timeStamp = time;
+
+            } else if (this.delta >= Math.floor(1000 / 60)) {
+
+                document.querySelector('h4').innerHTML = `Update: ${(1000 / this.delta).toFixed(2)} fps` + ((1000/this.delta > 10) ? '' : ' (ノಠ益ಠ)ノ彡┻━┻');
+                    
+                this.update();
+
+                this.timeStamp = time;
+
             }
 
-        };
 
-        this.handleRun = (timeStep) => this.run(timeStep);
-    
+            this.animationRequest = window.requestAnimationFrame(this.run);
+
+        }
+
     }
-    
+
     start() {
-        
-        this.timeElapsed = this.timeStep;
-        this.oldTime = window.performance.now();
-        this.animationRequest = window.requestAnimationFrame(this.handleRun);
+
+        this.animationRequest = window.requestAnimationFrame(this.run);
 
     }
 
     stop() {
-        
+
         window.cancelAnimationFrame(this.animationRequest);
 
     }
 
-};
+}

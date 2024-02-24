@@ -23,7 +23,13 @@ class Display {
 
     }
 
-    createWord(ctx, word, x, y, offsetX = 0, border = true, words = 1, size = 16, alpha) {
+    measureWordWidth(ctx, word, size = 16) {
+
+        ctx.font = `${size}px MisterPixel`;
+        return ctx.measureText(word)["width"];
+    }
+
+    createWord(ctx, word, x, y, offsetX = 0, border = true, words = 1, size = 16, alpha, color = this.color) {
 
         ctx.globalAlpha  = alpha;
         ctx.lineWidth = 1;
@@ -48,7 +54,7 @@ class Display {
 
         if (border) {
 
-            ctx.strokeStyle = this.color;
+            ctx.strokeStyle = color;
             ctx.beginPath();
             ctx.rect(x, y, this.width + 8, 16 * words);
             ctx.stroke();
@@ -56,7 +62,7 @@ class Display {
         }
         
         
-        ctx.fillStyle = this.color;
+        ctx.fillStyle = color;
         if (words > 1) {
 
             for (let i = 0; i < words; i++) {

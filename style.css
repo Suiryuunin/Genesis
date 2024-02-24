@@ -34,17 +34,31 @@ body {
     width: 100%;
     height: 100%;
 
-    background-image: url(Assets/ImageResources/Background.png);
-    
-    background-position: fixed;
-    background-size: contain;
+    background-image: url(Assets/ImageResources/Background512-min.png);
 }
 
 canvas {
     z-index: 100;
+}
+#border, #borderS {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 10px double rgba(0, 0, 0, 0.5);
+    z-index: 101;
+}
 
-    border: 10px solid rgb(0, 0, 0);
+#borderS {
+    display: none;
+}
 
+h3, h4 {
+    position: absolute;
+    font-family: MisterPixel;
+    color: rgba(0, 0, 0, 0.75);
+    left: 1%;
+    display: none;
 }
 
 @font-face {

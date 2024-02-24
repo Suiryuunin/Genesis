@@ -7,6 +7,8 @@ const keyDown = (e) => {
             if (display.input == "...")
                 display.input = "";
             display.input += e.key;
+
+            
     
         }
     
@@ -46,6 +48,14 @@ const keyDown = (e) => {
             }
     
         }
+        for (let i = 0; i < words.length; i++) {
+            if (words[i] != undefined) {
+                if (display.input == words[i].word.substring(0, display.input.length))
+                    words[i].overlay = display.input;
+                else
+                    words[i].overlay = '';
+            }
+        }
 
     }
 
@@ -64,10 +74,18 @@ const keyUp = (e) => {
 
                 case 1:
                     gameState = 0 + lastPage;
+                    document.querySelector('h3').style.display = 'block';
+                    document.querySelector('h4').style.display = 'block';
+                    document.getElementById('borderS').style.display = 'block';
+
                     break;
 
                 case 0:
                     gameState = 1;
+                    document.querySelector('h3').style.display = 'none';
+                    document.querySelector('h4').style.display = 'none';
+                    document.getElementById('borderS').style.display = 'none';
+
                     break;
 
             }
