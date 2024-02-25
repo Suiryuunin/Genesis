@@ -10,8 +10,8 @@ class Display {
         this.input = "";
         this.color = "black";
         this.hue = 109;
-        this.saturation = 27;
-        this.brightness = 40;
+        this.saturation = 30;
+        this.brightness = 76;
         this.antiAlisasing = 0;
 
     }
@@ -29,9 +29,9 @@ class Display {
         return ctx.measureText(word)["width"];
     }
 
-    createWord(ctx, word, x, y, offsetX = 0, border = true, words = 1, size = 16, alpha, color = this.color) {
+    createWord(ctx, word, x, y, offsetX = 0, border = true, words = 1, size = 16, alpha = 1, color = this.color, offsetYB = 0) {
 
-        ctx.globalAlpha  = alpha;
+        ctx.globalAlpha = alpha;
         ctx.lineWidth = 1;
 
         ctx.font = `${size}px MisterPixel`;
@@ -56,7 +56,7 @@ class Display {
 
             ctx.strokeStyle = color;
             ctx.beginPath();
-            ctx.rect(x, y, this.width + 8, 16 * words);
+            ctx.rect(x, y + offsetYB, this.width + 8, size * words);
             ctx.stroke();
 
         }

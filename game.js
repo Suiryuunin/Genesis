@@ -4,7 +4,7 @@ let edge = [0, 0];
 
 let count = 0;
 let ctrl = false;
-let gameState = 1;
+let gameState = -1;
 let combo = 0;
 let comboTarget = 0;
 let score = 0;
@@ -33,7 +33,7 @@ heart.src = "Assets/ImageResources/heart.png";
 const background = new Image();
 background.src = "Assets/ImageResources/Background.png";
 
-let words;
+let words = [];
 let healthTarget;
 
 const pages = [
@@ -44,7 +44,8 @@ const pages = [
         new Slider("Words", Math.floor(display.settings.canvas.width / 2), 136, 8, 8, display, localStorage.getItem("Words"), [0, 70], 30),
         new Slider("Max Characters", Math.floor(display.settings.canvas.width / 2), 168, 8, 8, display, localStorage.getItem("MaxChar"), [0, 27], 3),
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, false, -0.1),
-        new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1)
+        new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),
+        new Button(16, 256, display, "<=", -0.5, true, "aou")
     ],
     [
         new Slider("Word Cap", Math.floor(display.settings.canvas.width / 2), 64, 8, 8, display, localStorage.getItem("MaxWords"), [0, 2], 3),
@@ -54,7 +55,8 @@ const pages = [
         new Options("Capital Letters", Math.floor(display.settings.canvas.width / 2), 192, display, ["Disabled", "Enabled"], localStorage.getItem("Caps"), -1),
         new Options("Auto Submit", Math.floor(display.settings.canvas.width / 2), 224, display, ["Disabled", "Enabled"], localStorage.getItem("Auto"), -1),
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
-        new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1)
+        new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),
+        new Button(16, 256, display, "<=", -0.5, true, "a[gop")
 
     ],
     [
@@ -63,7 +65,8 @@ const pages = [
         new Slider("Brightness", Math.floor(display.settings.canvas.width / 2), 128, 8, 8, display, localStorage.getItem("Bright"), [0, 100], 0),
         new Options("Anti-Aliasing", Math.floor(display.settings.canvas.width / 2), 160, display, ["Disabled", "Enabled"], localStorage.getItem("AA"), -1),
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
-        new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, false, 0.1)
+        new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, false, 0.1),
+        new Button(16, 256, display, "<=", -0.5, true, "io[awf")
     ]
 
 ]
@@ -134,6 +137,22 @@ const check = () => {
                     setup();
                     break;
 
+                }
+
+                if (gameState < 0)
+                {
+                    switch(display.input)
+                    {
+                        case 'New Game':
+                            return 0;
+                        case 'Instructions':
+                            return 1;
+                        case 'Quit':
+                            return 2;
+
+                    }
+                    display.input = '';
+                    break;
                 }
                 
                 display.input = "";
@@ -259,6 +278,33 @@ const setup = () => {
 
 }
 
-setup();
+const INIT = () =>
+{
+    display.buffer.canvas.width = viewport[0];
+    display.buffer.canvas.height = viewport[1];
+    display.settings.canvas.width = viewport[0];
+    display.settings.canvas.height = viewport[1];
+    
+    // Graphics
+    display.hue = pages[2][0].value;
+    display.saturation = pages[2][1].value;
+    display.brightness = pages[2][2].value;
+    pages[2][3].index *= 1;
+    display.antiAlisasing = pages[2][3].index;
+    
+    gameState = -1;
+    words[0] = new Word('New Game',     32, 144, display, settings, 0, 9 * 32, false, 24);
+    words[1] = new Word('Instructions', 32, 176, display, settings, 0, 9 * 32, false, 24);
+    words[2] = new Word('Quit',         32, 208, display, settings, 0, 9 * 32, false, 24);
+
+    resize();
+    document.querySelector('body').style.backgroundColor = `hsl(${display.hue}, ${display.saturation}%, ${(display.brightness - 10 < 0) ? 0 : display.brightness - 10}%)`;
+    document.querySelector('div').style.filter = `hue-rotate(${display.hue}deg)`;
+    document.querySelector('div').style.opacity = `${(display.brightness -25 < 50) ? 50 : display.brightness-25}%`;
+
+    engine.start();
+};
+
+INIT();
 
 window.addEventListener("resize", resize);

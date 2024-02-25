@@ -1,11 +1,13 @@
 "use strict";
 
-const render = () => {
+const render = () => 
+{
+    display.drawBackground(display.buffer);
+    display.createObject(display.buffer, background, -16, -16, viewport[0] + 32, viewport[1] + 32, 0.5);
 
     if (Math.floor(gameState) >= 0) {
         if (Math.floor(gameState) == 0) {
 
-            display.drawBackground(display.buffer);
             display.drawBackground(display.settings);
             display.createObject(display.settings, background, -16, -16, viewport[0] + 32, viewport[1] + 32, 0.5);
 
@@ -42,11 +44,6 @@ const render = () => {
             }
         
         }
-
-            
-        display.drawBackground(display.buffer);
-        display.createObject(display.buffer, background, -16, -16, viewport[0] + 32, viewport[1] + 32, 0.5);
-
 
         if (generator.word != "") {
             for (let i = 0; i < words.length; i++) {
@@ -101,10 +98,28 @@ const render = () => {
 
         }
     }
+    else
+    {
+
+        display.createWord(display.buffer, 'Genesis', 32 -8, Math.floor(display.buffer.canvas.height / 2) -48, 0, false, 1, 48);
+        display.createWord(display.buffer, 'Genesis', 32 -8, Math.floor(display.buffer.canvas.height / 2) -48, 0, false, 1, 48);
+
+        for (let i = 0; i < words.length; i++)
+        {
+            if (words[i] != undefined)
+            {
+                words[i].updatePos();
+            }
+        }
+        display.createWord(display.buffer, `[${display.input}]`, Math.floor(display.buffer.canvas.width / 2), display.buffer.canvas.height - 17, -0.5, false);
+    }
 
     display.render();
 
 };
+
+let aniCount = 0;
+let aniTimes = 0;
 
 const update = () => {
 
@@ -269,9 +284,6 @@ const update = () => {
 
                 }
 
-                if (display.input == "")
-                    display.input = "...";
-
 
                 if (settings.auto == 1)
                     check();
@@ -283,6 +295,34 @@ const update = () => {
 
         color = `hsl(${health - 20}, ${Math.min(...[display.saturation, display.brightness])}%, ${(health/healthWidth) * 50 + 25}%)`;
     }
+    else
+    {
+        if (option != undefined)
+        {
+            words[option].x += aniCount ** 2;
+            aniCount++;
+            if (words[option].x - display.measureWordWidth(display.buffer, words[option].word) > viewport[0])
+            {
+                switch(option)
+                {
+                    case 0:
+                        setup();
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        window.open("Assets/Miscellaneous/dummy.html");
+                        window.close();
+                        
+                        break;
+                }
+                option = undefined;
+                aniCount = 0;
+            }
+        }
+    }
+    if (Math.floor(gameState) != 0 && display.input == "")
+        display.input = "...";
 
 };
 

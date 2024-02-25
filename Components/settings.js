@@ -133,8 +133,19 @@ class Button {
 
             if (enabled) {
 
-                gameState += pageChange;
-                lastPage += pageChange;
+                if (pageChange * 0 == 0)
+                {
+                    gameState += pageChange;
+                    lastPage += pageChange;
+                }
+                else
+                {
+                    document.querySelector('h3').style.display = 'none';
+                    document.querySelector('h4').style.display = 'none';
+                    document.getElementById('borderS').style.display = 'none';
+                    
+                    INIT();
+                }
 
             }
         

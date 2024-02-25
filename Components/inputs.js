@@ -1,14 +1,14 @@
+let option = undefined;
+
 const keyDown = (e) => {
 
-    if (gameState == 1) {
+    if (Math.floor(gameState) != 0) {
 
         if ((e.key.length == 1 || (e.key == " " && !display.input.includes(" "))) && display.input.length < 12) {
     
             if (display.input == "...")
                 display.input = "";
             display.input += e.key;
-
-            
     
         }
     
@@ -40,7 +40,10 @@ const keyDown = (e) => {
 
                 case "Enter":
 
-                    check();
+                    if (option == undefined)
+                        option = check();
+                    else
+                        check();
 
                     display.input = "";
                     break;
