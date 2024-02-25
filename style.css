@@ -53,6 +53,20 @@ canvas {
     display: none;
 }
 
+h2 {
+    position: absolute;
+    height: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    font-family: MisterPixel;
+    font-size: 2vmax;text-align: center;
+    text-shadow: 0px 0px 1vmax red;
+    color: whitesmoke;
+    display: none;
+}
+
 h3, h4 {
     position: absolute;
     font-family: MisterPixel;

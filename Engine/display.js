@@ -147,7 +147,8 @@ class Display {
 
         this.color = this.brightness <= 25 ? "white" : "black";
         
-        this.display.canvas.style.borderColor = this.color;
+        document.getElementById('border').style.borderColor  = this.color == 'white' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)';
+        document.getElementById('borderS').style.borderColor = this.color == 'white' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)';
         
     }
 

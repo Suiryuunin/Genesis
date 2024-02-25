@@ -1,5 +1,8 @@
 "use strict";
 
+localStorage.setItem('sent', 'false');
+let tTimes = 0;
+
 class Generator {
 
     constructor(display, settings) {
@@ -12,14 +15,22 @@ class Generator {
         this.generate = function(url, callback) {
     
             const request = new XMLHttpRequest();
-    
+
             request.onload = function() {
                 
                 if (request.readyState == 4 && request.status == 200) {
                     callback(this.responseText.split(" "));
                 }
+                document.querySelector('h2').style.display = `none`;
+                localStorage.setItem('sent', 'true');
             }
-    
+
+            if (localStorage.getItem('sent') == 'false' && tTimes > 0)
+                document.querySelector('h2').style.display = `block`;
+            
+            localStorage.setItem('sent', 'false');
+            tTimes++;
+
             request.open("GET", url, true);
             request.send();
     

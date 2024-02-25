@@ -49,6 +49,7 @@ const background = new Image();
 background.src = "Assets/ImageResources/Background.png";
 
 let words = [];
+let wordsO = [];
 let healthTarget;
 
 const pages = [
@@ -308,9 +309,9 @@ const INIT = () =>
     display.antiAlisasing = pages[2][3].index;
     
     gameState = -1;
-    words[0] = new Word('New Game',     32, 144, display, settings, 0, 9 * 32, false, 24);
-    words[1] = new Word('Instructions', 32, 176, display, settings, 0, 9 * 32, false, 24);
-    words[2] = new Word('Quit',         32, 208, display, settings, 0, 9 * 32, false, 24);
+    words[0] = new Word('New Game',     32, 144, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
+    words[1] = new Word('Instructions', 32, 176, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
+    words[2] = new Word('Quit',         32, 208, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
 
     resize();
     document.querySelector('body').style.backgroundColor = `hsl(${display.hue}, ${display.saturation}%, ${(display.brightness - 10 < 0) ? 0 : display.brightness - 10}%)`;

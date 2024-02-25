@@ -101,8 +101,8 @@ const render = () =>
     else
     {
 
-        display.createWord(display.buffer, 'Genesis', 32 -8, Math.floor(display.buffer.canvas.height / 2) -48, 0, false, 1, 48);
-        display.createWord(display.buffer, 'Genesis', 32 -8, Math.floor(display.buffer.canvas.height / 2) -48, 0, false, 1, 48);
+        display.createWord(display.buffer, 'Genesis', 32 -8, Math.floor(display.buffer.canvas.height / 2) -48, 0, false, 1, 48, 1, 'orangered');
+        display.createWord(display.buffer, 'Genesis', 32 -8 + 1, Math.floor(display.buffer.canvas.height / 2) -48 + 1, 0, false, 1, 48, 0.5);
 
         display.createObject(display.buffer, ((rTStep > rTSteps / 4) && (rTStep < (rTSteps / 4 * 3))) ? heartIR : heartI, Math.floor(viewport[0] / 4 * 3) - rW / 2, Math.floor(viewport[1] / 2) - 64 + 32, rW, 128);
         
@@ -242,7 +242,7 @@ const update = () => {
                                         else
                                             clearState = "YOU DIED";
                 
-                                        words[i]  = new Word(clearState, display.buffer.canvas.width / 2, -16, display, settings, -0.5, display.buffer.canvas.height / 2 - 8, true);
+                                        words[i]  = new Word(clearState, display.buffer.canvas.width / 2, -16, display, settings, -0.5, display.buffer.canvas.height / 2 - 8, true, 24, 'black', 'red', 0.5, 1);
                                         
                                     }
 
@@ -252,7 +252,7 @@ const update = () => {
                                 
                                 if (wordsSum < settings.words) {
 
-                                    words[i] = new Word(generator.word, Math.floor(Math.random() * (display.buffer.canvas.width - generator.word.length * 10 - 5) + 5), -16, display, settings);
+                                    words[i] = new Word(generator.word, Math.floor(Math.random() * (display.buffer.canvas.width - generator.word.length * 10 - 5) + 5), -16, display, settings, 0, 9 * 32, false, 16, 0, 'orangered', 0.5, 1);
                                     wordsSum++;
                                     generator.Generate();
 
