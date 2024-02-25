@@ -140,8 +140,6 @@ class Button {
                 }
                 else
                 {
-                    document.querySelector('h3').style.display = 'none';
-                    document.querySelector('h4').style.display = 'none';
                     document.getElementById('borderS').style.display = 'none';
                     
                     INIT();

@@ -30,6 +30,21 @@ const generator = new Generator(display, settings);
 
 const heart = new Image();
 heart.src = "Assets/ImageResources/heart.png";
+
+const heartI = new Image();
+heartI.src = "Assets/ImageResources/heartIcon.png";
+const heartIR = new Image();
+heartIR.src = "Assets/ImageResources/heartIconR.png";
+
+// Rotation
+let rSteps = 64;
+let rTSteps = rSteps * 2;
+const rR = 64;
+let rStep = 1;
+let rTStep = 1;
+let rW = 128;
+let rCount = 0;
+
 const background = new Image();
 background.src = "Assets/ImageResources/Background.png";
 
@@ -45,7 +60,7 @@ const pages = [
         new Slider("Max Characters", Math.floor(display.settings.canvas.width / 2), 168, 8, 8, display, localStorage.getItem("MaxChar"), [0, 27], 3),
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, false, -0.1),
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),
-        new Button(16, 256, display, "<=", -0.5, true, "aou")
+        new Button(16, (display.settings.canvas.width - 32), display, "<=", -0.5, true, "aou")
     ],
     [
         new Slider("Word Cap", Math.floor(display.settings.canvas.width / 2), 64, 8, 8, display, localStorage.getItem("MaxWords"), [0, 2], 3),
@@ -56,7 +71,7 @@ const pages = [
         new Options("Auto Submit", Math.floor(display.settings.canvas.width / 2), 224, display, ["Disabled", "Enabled"], localStorage.getItem("Auto"), -1),
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),
-        new Button(16, 256, display, "<=", -0.5, true, "a[gop")
+        new Button(16, (display.settings.canvas.width - 32), display, "<=", -0.5, true, "a[gop")
 
     ],
     [
@@ -66,7 +81,7 @@ const pages = [
         new Options("Anti-Aliasing", Math.floor(display.settings.canvas.width / 2), 160, display, ["Disabled", "Enabled"], localStorage.getItem("AA"), -1),
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, false, 0.1),
-        new Button(16, 256, display, "<=", -0.5, true, "io[awf")
+        new Button(16, (display.settings.canvas.width - 32), display, "<=", -0.5, true, "io[awf")
     ]
 
 ]

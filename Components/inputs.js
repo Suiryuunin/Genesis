@@ -77,16 +77,12 @@ const keyUp = (e) => {
 
                 case 1:
                     gameState = 0 + lastPage;
-                    document.querySelector('h3').style.display = 'block';
-                    document.querySelector('h4').style.display = 'block';
                     document.getElementById('borderS').style.display = 'block';
 
                     break;
 
                 case 0:
                     gameState = 1;
-                    document.querySelector('h3').style.display = 'none';
-                    document.querySelector('h4').style.display = 'none';
                     document.getElementById('borderS').style.display = 'none';
 
                     break;

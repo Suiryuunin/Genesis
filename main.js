@@ -104,6 +104,9 @@ const render = () =>
         display.createWord(display.buffer, 'Genesis', 32 -8, Math.floor(display.buffer.canvas.height / 2) -48, 0, false, 1, 48);
         display.createWord(display.buffer, 'Genesis', 32 -8, Math.floor(display.buffer.canvas.height / 2) -48, 0, false, 1, 48);
 
+        display.createObject(display.buffer, ((rTStep > rTSteps / 4) && (rTStep < (rTSteps / 4 * 3))) ? heartIR : heartI, Math.floor(viewport[0] / 4 * 3) - rW / 2, Math.floor(viewport[1] / 2) - 64 + 32, rW, 128);
+        
+
         for (let i = 0; i < words.length; i++)
         {
             if (words[i] != undefined)
@@ -120,6 +123,7 @@ const render = () =>
 
 let aniCount = 0;
 let aniTimes = 0;
+let rDelay = 0;
 
 const update = () => {
 
@@ -297,9 +301,20 @@ const update = () => {
     }
     else
     {
+        rW = (Math.tan(Math.PI / rSteps * rStep) < 1000) ? ((rR * Math.sin(Math.PI / rSteps * rStep)) / (Math.tan(Math.PI / rSteps * rStep)) * 2) : 0;
+        rStep = (rStep == rSteps) ? 1 : rStep + 1;
+        rTStep = (rTStep == rTSteps) ? 1 : rTStep + 1;
+        rCount = 0;
+
         if (option != undefined)
         {
-            words[option].x += aniCount ** 2;
+            words[option].x += aniCount * 2;
+            if (rDelay > 5)
+            {
+                rSteps = rSteps - aniCount;
+                rTSteps = rSteps * 2;
+            }
+            rDelay++;
             aniCount++;
             if (words[option].x - display.measureWordWidth(display.buffer, words[option].word) > viewport[0])
             {
@@ -311,12 +326,20 @@ const update = () => {
                     case 1:
                         break;
                     case 2:
+                        rSteps = 64;
+                        rTSteps = rSteps * 2;
+                        rStep = 1;
+                        rTStep = 1;
                         window.open("Assets/Miscellaneous/dummy.html");
                         window.close();
-                        
                         break;
                 }
                 option = undefined;
+                rSteps = 64;
+                rTSteps = rSteps * 2;
+                rStep = 1;
+                rTStep = 1;
+                rDelay = 0;
                 aniCount = 0;
             }
         }
