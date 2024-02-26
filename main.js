@@ -306,7 +306,7 @@ const update = () => {
         rTStep = (rTStep == rTSteps) ? 1 : rTStep + 1;
         rCount = 0;
 
-        if (option != undefined)
+        if (option != undefined && words[option] != undefined)
         {
             words[option].x += aniCount * 2;
             if (rDelay > 5)
@@ -322,14 +322,20 @@ const update = () => {
                 {
                     case 0:
                         setup();
+                        delete words[option];
+
                         break;
                     case 1:
+                        delete words[option];
+
                         break;
                     case 2:
                         rSteps = 64;
                         rTSteps = rSteps * 2;
                         rStep = 1;
                         rTStep = 1;
+                        delete words[option];
+
                         window.open("Assets/Miscellaneous/dummy.html");
                         window.close();
                         break;
