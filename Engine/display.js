@@ -29,7 +29,7 @@ class Display {
         return ctx.measureText(word)["width"];
     }
 
-    createWord(ctx, word, x, y, offsetX = 0, border = true, words = 1, size = 16, alpha = 1, color = this.color, offsetYB = 0) {
+    createWord(ctx, word, x, y, offsetX = 0, border = true, words = 1, size = 16, alpha = 1, color = this.color, offsetYB = 0, linesMargin = 1) {
 
         ctx.globalAlpha = alpha;
         ctx.lineWidth = 1;
@@ -49,7 +49,22 @@ class Display {
         } else
             this.width = ctx.measureText(word)["width"];
 
-        if (offsetX != 0)
+        if (offsetX != 0 && words == 1)
+            x += Math.floor(this.width * offsetX);
+        
+        ctx.fillStyle = color;
+        if (words > 1) {
+
+            for (let i = 0; i < words; i++) {
+
+                ctx.fillText(word[i], x + 5 + Math.floor(this.widths[i] * offsetX), (i + 1) * (linesMargin + 14) + y, this.width + 4);
+
+            }
+
+        } else
+            ctx.fillText(word, x + 5, y + 14, this.width + 4);
+
+        if (offsetX != 0 && words > 1)
             x += Math.floor(this.width * offsetX);
 
         if (border) {
@@ -60,20 +75,6 @@ class Display {
             ctx.stroke();
 
         }
-        
-        
-        ctx.fillStyle = color;
-        if (words > 1) {
-
-            for (let i = 0; i < words; i++) {
-
-                ctx.fillText(word[i], x + 5 + (this.width - ctx.measureText(word[i])["width"]), (i + 1) * (y + 14), this.width + 4);
-
-            }
-
-        } else
-            ctx.fillText(word, x + 5, y + 14, this.width + 4);
-
         ctx.globalAlpha = 1;
     }
 

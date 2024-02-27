@@ -19,6 +19,8 @@ let typed = 0;
 let increment = 0;
 let wordsSum = 0;
 let lastPage = 0.1;
+let titleData = [];
+let titleOffset = 64;
 
 
 const display = new Display(document.querySelector("canvas"));
@@ -157,16 +159,25 @@ const check = () => {
 
                 if (gameState < 0)
                 {
-                    switch(display.input)
+                    for (let i = 0; i < words.length; i++)
                     {
-                        case 'New Game':
-                            return 0;
-                        case 'Instructions':
-                            return 1;
-                        case 'Quit':
-                            return 2;
+                        if (words[i] != undefined && words[i].word == display.input)
+                        {
+                            switch(display.input)
+                            {
+                                case 'New Game':
+                                    return 0;
+                                case 'Instructions':
+                                    return 1;
+                                case 'Quit':
+                                    return 2;
+                                case 'Back':
+                                    return 0;
 
+                            }
+                        }
                     }
+                    
                     display.input = '';
                     break;
                 }
@@ -196,6 +207,65 @@ const check = () => {
 
 };
 
+
+let instructionsS = false;
+let instructionsT = false;
+let backT = false;
+let backE = false;
+const instructionsAnimations = () =>
+{
+    if (instructionsT && words[1].x < 16)
+    {
+        words[1].x = words[1].x + Math.ceil((16 - words[1].x) / 10);
+        titleOffset = titleOffset + Math.ceil((80 - titleOffset) / 30);
+        titleData = ['Instructions', (Math.floor(display.buffer.canvas.height / 2) - titleOffset)];
+    }
+    else if (instructionsT) // Safety net
+    {
+        words[1].x = 16;
+        titleOffset = 80;
+        titleData = ['Instructions', (Math.floor(display.buffer.canvas.height / 2) - titleOffset)];
+        instructionsT = false;
+    }
+
+    if (backT && words[1].x > -208)
+    {
+        words[1].x = words[1].x + Math.floor((-208 - words[1].x) / 10);
+    }
+    else if (backT) // Safety net
+    {
+        words[1].x = -208;
+        
+        words = [];
+        words[0] = new Word('New Game',     -208, 144, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
+        words[1] = new Word('Instructions', -208, 176, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
+        words[2] = new Word('Quit',         -208, 208, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
+        titleData[0] = 'Genesis';
+
+        backT = false;
+        backE = true;
+    }
+    if (backE && words[1].x < 32)
+    {
+        for (let i = 0; i < words.length; i++)
+            words[i].x = words[i].x + Math.ceil((32 - words[i].x) / 10);
+
+        titleOffset = titleOffset + Math.floor((64 - titleOffset) / 30);
+        titleData[1] = (Math.floor(display.buffer.canvas.height / 2) - titleOffset);
+    }
+    else if (backE) // Safety net
+    {
+        words[1].x = -208;
+        titleOffset = 64;
+        titleData = ['Genesis', (Math.floor(display.buffer.canvas.height / 2) - titleOffset)];
+        
+        words = [];
+        words[0] = new Word('New Game',     32, 144, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
+        words[1] = new Word('Instructions', 32, 176, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
+        words[2] = new Word('Quit',         32, 208, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
+        backE = false;
+    }
+};
 
 const resize = () => {
 
@@ -309,6 +379,8 @@ const INIT = () =>
     display.antiAlisasing = pages[2][3].index;
     
     gameState = -1;
+
+    words = [];
     words[0] = new Word('New Game',     32, 144, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
     words[1] = new Word('Instructions', 32, 176, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
     words[2] = new Word('Quit',         32, 208, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
@@ -317,6 +389,8 @@ const INIT = () =>
     document.querySelector('body').style.backgroundColor = `hsl(${display.hue}, ${display.saturation}%, ${(display.brightness - 10 < 0) ? 0 : display.brightness - 10}%)`;
     document.querySelector('div').style.filter = `hue-rotate(${display.hue}deg)`;
     document.querySelector('div').style.opacity = `${(display.brightness -25 < 50) ? 50 : display.brightness-25}%`;
+
+    titleData = ["Genesis", (Math.floor(display.buffer.canvas.height / 2) -48)];
 
     engine.start();
 };

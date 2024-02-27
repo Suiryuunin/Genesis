@@ -101,8 +101,8 @@ const render = () =>
     else
     {
 
-        display.createWord(display.buffer, 'Genesis', 32 -8, Math.floor(display.buffer.canvas.height / 2) -48, 0, false, 1, 48, 1, 'orangered');
-        display.createWord(display.buffer, 'Genesis', 32 -8 + 1, Math.floor(display.buffer.canvas.height / 2) -48 + 1, 0, false, 1, 48, 0.5);
+        display.createWord(display.buffer, titleData[0], 32 -8, titleData[1], 0, false, 1, 48, 1, 'orangered');
+        display.createWord(display.buffer, titleData[0], 32 -8 + 1, titleData[1] + 1, 0, false, 1, 48, 0.5);
 
         display.createObject(display.buffer, ((rTStep > rTSteps / 4) && (rTStep < (rTSteps / 4 * 3))) ? heartIR : heartI, Math.floor(viewport[0] / 4 * 3) - rW / 2, Math.floor(viewport[1] / 2) - 64 + 32, rW, 128);
         
@@ -306,6 +306,8 @@ const update = () => {
         rTStep = (rTStep == rTSteps) ? 1 : rTStep + 1;
         rCount = 0;
 
+        instructionsAnimations();
+
         if (option != undefined && words[option] != undefined)
         {
             words[option].x += aniCount * 2;
@@ -318,18 +320,34 @@ const update = () => {
             aniCount++;
             if (words[option].x - display.measureWordWidth(display.buffer, words[option].word) > viewport[0])
             {
-                switch(option)
+                switch(words[option].word)
                 {
-                    case 0:
+                    case "New Game":
                         setup();
                         delete words[option];
 
                         break;
-                    case 1:
-                        delete words[option];
+
+                    case "Instructions":
+
+                        words = [];
+                        words[0] = new Word('Back', 32, 240, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
+                        words[1] = new Words([
+                            '- Type the falling words',
+                            '- Type "restart" in any capital-',
+                            '    ization or the death',
+                            '    message to restart',
+                            '- The higher the difficulty,',
+                            '    the most points every',
+                            '    letter earns',
+                            '- Try getting the highest score',
+                            '- At least try to have fun...'
+                        ], 9, -208, 84, display, 0, 16, 'black', 'red', 0.5, 1, 0.25);
+                        instructionsT = true;
 
                         break;
-                    case 2:
+
+                    case "Quit":
                         rSteps = 64;
                         rTSteps = rSteps * 2;
                         rStep = 1;
@@ -339,6 +357,12 @@ const update = () => {
                         window.open("Assets/Miscellaneous/dummy.html");
                         window.close();
                         break;
+
+                    case "Back":
+
+                        backT = true;
+                        break;
+
                 }
                 option = undefined;
                 rSteps = 64;
