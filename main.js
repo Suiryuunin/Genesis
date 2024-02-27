@@ -335,11 +335,11 @@ const update = () => {
                         words[1] = new Words([
                             '- Type the falling words',
                             '- Type "restart" in any capital-',
-                            '    ization or the death',
-                            '    message to restart',
+                            '    ization to restart',
+                            '- Press "esc" to view settings',
                             '- The higher the difficulty,',
-                            '    the most points every',
-                            '    letter earns',
+                            '    the more each letter',
+                            '    earns',
                             '- Try getting the highest score',
                             '- At least try to have fun...'
                         ], 9, -208, 84, display, 0, 16, 'black', 'red', 0.5, 1, 0.25);

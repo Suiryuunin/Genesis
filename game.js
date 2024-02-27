@@ -149,14 +149,6 @@ const check = () => {
     
             if (words[i].word == display.input) {
 
-                if (finished) {
-
-                    display.input = "";
-                    setup();
-                    break;
-
-                }
-
                 if (gameState < 0)
                 {
                     for (let i = 0; i < words.length; i++)
@@ -182,6 +174,14 @@ const check = () => {
                     break;
                 }
                 
+                if (finished) {
+
+                    display.input = "";
+                    setup();
+                    break;
+
+                }
+
                 display.input = "";
                 comboTarget += 1;
                 scoreTarget += increment * comboTarget * 0.1 * words[i].word.length;
