@@ -65,6 +65,8 @@ class Generator {
 
     storyMode(url) {
 
+        console.log("in: " + url);
+
         this.generate(url, (output) => {
 
             while (output[this.index].length > this.settings.maxChar)

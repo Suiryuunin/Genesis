@@ -256,7 +256,6 @@ const instructionsAnimations = () =>
 const resize = () => {
 
     display.resize(window.innerWidth, window.innerHeight, 9 / 12);
-    console.log(window.innerWidth);
     display.render();
 
     edge[0] = Math.floor((window.innerWidth - display.display.canvas.width) / 2); 
