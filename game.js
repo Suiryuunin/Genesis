@@ -65,7 +65,8 @@ localStorage.setItem( "Reloaded",  localStorage.getItem("Reloaded")  ??   1 );
 
 // Setup
 localStorage.setItem( "Text"     , localStorage.getItem( "Text"      ) ??   0 );
-localStorage.setItem( "GenMode"     , localStorage.getItem( "Mode"      ) ??   0 );
+localStorage.setItem( "GenMode"  , localStorage.getItem( "GenMode"      ) ??   0 );
+localStorage.setItem( "GameMode"  , localStorage.getItem( "GameMode"      ) ??   0 );
 localStorage.setItem( "Words"    , localStorage.getItem( "Words"     ) ??   0 );
 localStorage.setItem( "MaxChar"  , localStorage.getItem( "MaxChar"   ) ??  27 );
 
