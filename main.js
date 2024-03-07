@@ -30,7 +30,7 @@ const render = () =>
             switch (Math.floor(gameState * 10 - 1)) {
 
                 case 0:
-                    display.createWord(display.settings, "Gameplay", Math.floor(display.settings.canvas.width / 2) + 2, 256 - 5, -0.5, false, 1, 16);
+                    display.createWord(display.settings, "Setup", Math.floor(display.settings.canvas.width / 2) + 2, 256 - 5, -0.5, false, 1, 16);
                     break;
 
                 case 1:
@@ -38,6 +38,10 @@ const render = () =>
                     break;
 
                 case 2:
+                    display.createWord(display.settings, "Gameplay", Math.floor(display.settings.canvas.width / 2) + 2, 256 - 5, -0.5, false, 1, 16);
+                    break;
+                
+                case 3:
                     display.createWord(display.settings, "Graphics", Math.floor(display.settings.canvas.width / 2) + 2, 256 - 5, -0.5, false, 1, 16);
                     break;
 
@@ -137,47 +141,45 @@ const update = () => {
                 if (mouseInput != undefined)
                     window.addEventListener("mousemove", mouseInput.move);
                 
-                
-                settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].value, pages[0][3].value);
+                // Update settings
+                settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index,
+                    /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].value, pages[0][3].value);
 
+                // Set the local storage
 
-                // Gameplay Pt1
+                // Setup
 
                 localStorage.setItem("Text", pages[0][0].index);
-
                 localStorage.setItem("Mode", pages[0][1].index);
-
                 localStorage.setItem("Words", pages[0][2].value - pages[0][2].valueOffset);
-
                 localStorage.setItem("MaxChar", pages[0][3].value - pages[0][3].valueOffset);
 
 
-                // Gameplay Pt2
+                // Gameplay Pt1
                 
                 localStorage.setItem("MaxWords", pages[1][0].value - pages[1][0].valueOffset);
-                
                 localStorage.setItem("Interval", pages[1][1].value - pages[1][1].valueOffset);
-                
                 localStorage.setItem("Speed", pages[1][2].value - pages[1][2].valueOffset);
-                
                 localStorage.setItem("HP", pages[1][3].value - pages[1][3].valueOffset);
-                
                 localStorage.setItem("Caps", pages[1][4].index);
-                
                 localStorage.setItem("Auto", pages[1][5].index);
                 
+                // Gameplay Pt2
 
+                localStorage.setItem("Space", pages[2][0].index);
+
+                
                 // Graphics
 
-                display.hue = pages[2][0].value;
-                display.saturation = pages[2][1].value;
-                display.brightness = pages[2][2].value;
-                display.antiAlisasing = pages[2][3].index;
+                display.hue = pages[3][0].value;
+                display.saturation = pages[3][1].value;
+                display.brightness = pages[3][2].value;
+                display.antiAlisasing = pages[3][3].index;
                 
-                localStorage.setItem("Hue", pages[2][0].value);
-                localStorage.setItem("Sat", pages[2][1].value);
-                localStorage.setItem("Bright", pages[2][2].value);
-                localStorage.setItem("AA", pages[2][3].index);
+                localStorage.setItem("Hue", pages[3][0].value);
+                localStorage.setItem("Sat", pages[3][1].value);
+                localStorage.setItem("Bright", pages[3][2].value);
+                localStorage.setItem("AA", pages[3][3].index);
                 
                 break;
 

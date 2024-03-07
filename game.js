@@ -57,10 +57,11 @@ let healthTarget;
 const pages = [
 
     [
-        new Options("Text", Math.floor(display.settings.canvas.width / 2), 72, display, ["Genesis", "Lord of The Rings", "Test"], localStorage.getItem("Text"), -1),
+        new Options("Text", Math.floor(display.settings.canvas.width / 2), 72, display, ["Genesis", "Lord of The Rings", "Linear Functions"], localStorage.getItem("Text"), -1),
         new Options("Mode", Math.floor(display.settings.canvas.width / 2), 104, display, ["Story Mode", "Random"], localStorage.getItem("Mode"), -1),
         new Slider("Words", Math.floor(display.settings.canvas.width / 2), 136, 8, 8, display, localStorage.getItem("Words"), [0, 70], 30),
         new Slider("Max Characters", Math.floor(display.settings.canvas.width / 2), 168, 8, 8, display, localStorage.getItem("MaxChar"), [0, 27], 3),
+
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, false, -0.1),
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),
         new Button(16, (display.settings.canvas.width - 32), display, "<=", -0.5, true, "aou")
@@ -72,73 +73,55 @@ const pages = [
         new Slider("HP", Math.floor(display.settings.canvas.width / 2), 160, 8, 8, display, localStorage.getItem("HP"), [0, 9], 1),
         new Options("Capital Letters", Math.floor(display.settings.canvas.width / 2), 192, display, ["Disabled", "Enabled"], localStorage.getItem("Caps"), -1),
         new Options("Auto Submit", Math.floor(display.settings.canvas.width / 2), 224, display, ["Disabled", "Enabled"], localStorage.getItem("Auto"), -1),
+
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),
         new Button(16, (display.settings.canvas.width - 32), display, "<=", -0.5, true, "a[gop")
 
     ],
     [
+        new Options("Confirmation Input", Math.floor(display.settings.canvas.width / 2), 104, display, ["Enter", "Space"], localStorage.getItem("Mode"), -1),
+
+        new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
+        new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),
+        new Button(16, (display.settings.canvas.width - 32), display, "<=", -0.5, true, "io[awf")
+    ],
+    [
         new Slider("Hue", Math.floor(display.settings.canvas.width / 2), 64, 8, 8, display, localStorage.getItem("Hue"), [0, 360], 0),
         new Slider("Saturation", Math.floor(display.settings.canvas.width / 2), 96, 8, 8, display, localStorage.getItem("Sat"), [0, 100], 0),
         new Slider("Brightness", Math.floor(display.settings.canvas.width / 2), 128, 8, 8, display, localStorage.getItem("Bright"), [0, 100], 0),
         new Options("Anti-Aliasing", Math.floor(display.settings.canvas.width / 2), 160, display, ["Disabled", "Enabled"], localStorage.getItem("AA"), -1),
+
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, false, 0.1),
         new Button(16, (display.settings.canvas.width - 32), display, "<=", -0.5, true, "io[awf")
     ]
 
-]
+];
+
+// HOW TO NOT FIX A BUG
+localStorage.setItem( "Reloaded",  localStorage.getItem("Reloaded")  ??   1 );
 
 // Gameplay Pt1
-
-if (localStorage.getItem("Text") == null)
-    localStorage.setItem("Text", 0);
-
-if (localStorage.getItem("Mode") == null)
-    localStorage.setItem("Mode", 0);
-
-if (localStorage.getItem("Words") == null)
-    localStorage.setItem("Words", 0);
-
-if (localStorage.getItem("MaxChar") == null)
-    localStorage.setItem("MaxChar", 27);
+localStorage.setItem( "Text     ", localStorage.getItem( "Text"      ) ??   0 );
+localStorage.setItem( "Mode     ", localStorage.getItem( "Mode"      ) ??   0 );
+localStorage.setItem( "Words    ", localStorage.getItem( "Words"     ) ??   0 );
+localStorage.setItem( "MaxChar  ", localStorage.getItem( "MaxChar"   ) ??  27 );
 
 // Gameplay Pt2
-
-if (localStorage.getItem("Highscore") == null)
-    localStorage.setItem("Highscore", 0);
-
-if (localStorage.getItem("MaxWords") == null)
-    localStorage.setItem("MaxWords", 0);
-
-if (localStorage.getItem("Interval") == null)
-    localStorage.setItem("Interval", 20);
-
-if (localStorage.getItem("Speed") == null)
-    localStorage.setItem("Speed", 1);
-
-if (localStorage.getItem("HP") == null)
-    localStorage.setItem("HP", 2);
-
-if (localStorage.getItem("Caps") == null)
-    localStorage.setItem("Caps", 1);
-
-if (localStorage.getItem("Auto") == null)
-    localStorage.setItem("Auto", 1);
+localStorage.setItem( "Highscore", localStorage.getItem( "Highscore" ) ??   0 );
+localStorage.setItem( "MaxWords ", localStorage.getItem( "MaxWords"  ) ??   0 );
+localStorage.setItem( "Interval ", localStorage.getItem( "Interval"  ) ??  20 );
+localStorage.setItem( "Speed    ", localStorage.getItem( "Speed"     ) ??   1 );
+localStorage.setItem( "HP       ", localStorage.getItem( "HP"        ) ??   2 );
+localStorage.setItem( "Caps     ", localStorage.getItem( "Caps"      ) ??   1 );
+localStorage.setItem( "Auto     ", localStorage.getItem( "Auto"      ) ??   1 );
 
 // Graphics
-
-if (localStorage.getItem("Hue") == null)
-    localStorage.setItem("Hue", 109);
-
-if (localStorage.getItem("Sat") == null)
-    localStorage.setItem("Sat", 27);
-
-if (localStorage.getItem("Bright") == null)
-    localStorage.setItem("Bright", 40);
-
-if (localStorage.getItem("AA") == null)
-    localStorage.setItem("AA", 0);
+localStorage.setItem( "Hue      ", localStorage.getItem( "Hue"       ) ?? 109 );
+localStorage.setItem( "Sat      ", localStorage.getItem( "Sat"       ) ??  27 );
+localStorage.setItem( "Bright   ", localStorage.getItem( "Bright"    ) ??  40 );
+localStorage.setItem( "AA       ", localStorage.getItem( "AA"        ) ??   0 );
 
 
 const check = () => {
@@ -316,30 +299,20 @@ const setup = () => {
     }
 
 
-    // Gameplay Pt1
+    // Setup Settings
 
-    settings.text = pages[0][0].options[pages[0][0].index];
-    settings.mode = pages[0][1].index;
-    settings.words = pages[0][2].value;
-    settings.maxChar = pages[0][3].value;
-    settings.old = [pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].value, pages[0][3].value];
-
-
-    //Gameplay Pt2
-    settings.maxWords = pages[1][0].value;
-    settings.interval = pages[1][1].value;
-    settings.speed = pages[1][2].value;
-    settings.health = pages[1][3].value;
-    settings.caps = pages[1][4].index;
-    settings.auto = pages[1][5].index;
-
+    settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index,
+        /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].value, pages[0][3].value);
+    
+    
     // Graphics
-    display.hue = pages[2][0].value;
-    display.saturation = pages[2][1].value;
-    display.brightness = pages[2][2].value;
-    pages[2][3].index *= 1;
-    display.antiAlisasing = pages[2][3].index;
+    display.hue = pages[3][0].value;
+    display.saturation = pages[3][1].value;
+    display.brightness = pages[3][2].value;
+    pages[3][3].index *= 1;
+    display.antiAlisasing = pages[3][3].index;
 
+    settings.health = pages[1][3].value;
     healthTarget = settings.health;
 
     count = 0;
@@ -372,11 +345,11 @@ const INIT = () =>
     display.settings.canvas.height = viewport[1];
     
     // Graphics
-    display.hue = pages[2][0].value;
-    display.saturation = pages[2][1].value;
-    display.brightness = pages[2][2].value;
-    pages[2][3].index *= 1;
-    display.antiAlisasing = pages[2][3].index;
+    display.hue = pages[3][0].value;
+    display.saturation = pages[3][1].value;
+    display.brightness = pages[3][2].value;
+    pages[3][3].index *= 1;
+    display.antiAlisasing = pages[3][3].index;
     
     gameState = -1;
 
@@ -393,6 +366,13 @@ const INIT = () =>
     titleData = ["Genesis", (Math.floor(display.buffer.canvas.height / 2) -48)];
 
     engine.start();
+
+    if (localStorage.getItem("Reloaded") == 1)
+    {
+        location.reload();
+        console.log("Reloading...")
+        localStorage.setItem("Reloaded", -1);
+    }
 };
 
 INIT();

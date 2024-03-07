@@ -14,16 +14,19 @@ class Settings {
         this.caps = false;
         this.auto = 1;
         this.old = [this.text, this.mode, this.words, this.maxChar];
+        this.space = false;
 
     }
 
-    modify(maxWords, interval, speed, caps, auto, text = this.text, mode = this.mode, words = this.words, maxChar = this.maxChar) {
+    modify(maxWords, interval, speed, caps, auto, space, text = this.text, mode = this.mode, words = this.words, maxChar = this.maxChar) {
 
         this.maxWords = maxWords;
         this.interval = interval;
         this.speed = speed;
         this.caps = caps;
         this.auto = auto;
+        this.space = space;
+
         this.text = text;
         this.mode = mode;
         this.words = words;

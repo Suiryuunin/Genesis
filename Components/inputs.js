@@ -8,7 +8,10 @@ const keyDown = (e) => {
     
             if (display.input == "...")
                 display.input = "";
-            display.input += e.key;
+            if (e.code == "Backquote")
+                display.input += "∞";
+            else
+                display.input += e.key;
     
         }
     
