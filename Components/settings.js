@@ -18,6 +18,11 @@ class Settings {
 
     }
 
+    updateOld()
+    {
+        this.old = [this.text, this.mode, this.words, this.maxChar];
+    }
+
     modify(maxWords, interval, speed, caps, auto, space, text = this.text, mode = this.mode, words = this.words, maxChar = this.maxChar) {
 
         this.maxWords = maxWords;

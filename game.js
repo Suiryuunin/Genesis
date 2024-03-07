@@ -298,7 +298,6 @@ const setup = () => {
 
     }
 
-
     // Setup Settings
     settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index,
         /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].value, pages[0][3].value);
@@ -312,6 +311,9 @@ const setup = () => {
 
     settings.health = pages[1][3].value;
     healthTarget = settings.health;
+
+    // Update old settings
+    settings.updateOld();
 
     count = 0;
     ctrl = false;

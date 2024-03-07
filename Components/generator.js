@@ -31,8 +31,6 @@ class Generator {
             localStorage.setItem('sent', 'false');
             tTimes++;
 
-            console.log(url);
-
             request.open("GET", url, true);
             request.send();
     
@@ -50,12 +48,6 @@ class Generator {
 
             this.word = output[index];
 
-            if (this.word.includes("Chapter")) {
-
-                this.word = [this.word.slice(0, 7), [this.word.slice(7)]].join(" ");
-
-            }
-
             if (this.settings.caps == 0)
                 this.word = this.word.toLowerCase();
 
@@ -64,8 +56,6 @@ class Generator {
     }
 
     storyMode(url) {
-
-        console.log("in: " + url);
 
         this.generate(url, (output) => {
 

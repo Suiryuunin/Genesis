@@ -199,6 +199,7 @@ const update = () => {
                 else
                     combo += Math.floor((comboTarget - combo) / 20);
                 
+                
                 if (health >= Math.floor(healthTarget * (healthWidth / settings.health)))
                     health -= Math.ceil((health - healthTarget * (healthWidth / settings.health)) / 20);
                 else
@@ -216,64 +217,50 @@ const update = () => {
 
                 }
 
-                if (count > settings.interval) {
-
-                    if (!finished) {
-
-                        for (let i = 0; i < settings.maxWords; i++) {
-
-                            if (words[i] == undefined) {
-                
-                                if (generator.word == undefined) {
-                
+                if (count > settings.interval)
+                {
+                    if (!finished)
+                    {
+                        for (let i = 0; i < settings.maxWords; i++)
+                        {
+                            if (words[i] == undefined)
+                            {
+                                if (generator.word == undefined)
+                                {
                                     finished = true;
-                                    for (let i = 0; i < settings.maxWords; i++) {
 
-                                        if (words[i] != undefined) {
-
-                                            finished = false;
-
-                                        }
-
-                                    }
+                                    for (let i = 0; i < settings.maxWords; i++)
+                                        if (words[i] != undefined) finished = false;
                                     
-                                    if (finished) {
-
+                                    if (finished)
+                                    {
                                         if (healthTarget > 0)
                                             clearState = lost > 0 ? "CLEAR" : "FULL COMBO";
                                         else
                                             clearState = "YOU DIED";
                 
                                         words[i]  = new Word(clearState, display.buffer.canvas.width / 2, -16, display, settings, -0.5, display.buffer.canvas.height / 2 - 8, true, 24, 'black', 'red', 0.5, 1);
-                                        
                                     }
 
                                     break;
-                
                                 }
                                 
-                                if (wordsSum < settings.words) {
-
-                                    console.log("Out: " + `Assets/Texts/${(settings.text.replaceAll(" ", "")).toLowerCase()}.txt`);
+                                if (wordsSum < settings.words)
+                                {
                                     words[i] = new Word(generator.word, Math.floor(Math.random() * (display.buffer.canvas.width - generator.word.length * 10 - 5) + 5), -16, display, settings, 0, 9 * 32, false, 16, 0, 'orangered', 0.5, 1);
                                     wordsSum++;
                                     generator.Generate();
-
-
-                                } else {
-
-                                    generator.word = undefined;
-
                                 }
+                                else
+                                {
+                                    generator.word = undefined;
+                                }
+
                                 break;
-                
                             }
-                
                         }
                         count = 0;
-
                     }
-
                 } else {
 
                     for (let i = 0; i < words.length; i++) {
@@ -291,11 +278,11 @@ const update = () => {
 
                 }
 
+                count++;
 
                 if (settings.auto == 1)
                     check();
                 
-                count++;
                 break;
 
         }
