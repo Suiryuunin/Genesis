@@ -110,13 +110,13 @@ class Display {
 
         if (height / width > ratio) {
 
-            this.display.canvas.height = width * ratio - 20;
-            this.display.canvas.width = width - 20;
+            this.display.canvas.height = width * ratio;
+            this.display.canvas.width = width;
             
         } else {
 
-            this.display.canvas.height = height - 20;
-            this.display.canvas.width = height / ratio - 20;
+            this.display.canvas.height = height;
+            this.display.canvas.width = height / ratio 
 
         }
 
@@ -126,12 +126,8 @@ class Display {
 
         this.display.imageSmoothingEnabled = this.antiAlisasing;
 
-        switch (Math.floor(gameState)) {
-
-            case 1:
-                this.settings.clearRect(0, 0, this.settings.canvas.width, this.settings.canvas.height);
-
-        }
+        if (Math.floor(gameState) != 0)
+            this.settings.clearRect(0, 0, this.settings.canvas.width, this.settings.canvas.height);
 
         this.display.drawImage(this.buffer.canvas,
             0, 0,

@@ -8,9 +8,10 @@ const keyDown = (e) => {
     
             if (display.input == "...")
                 display.input = "";
+
             if (e.code == "Backquote")
                 display.input += "∞";
-            else
+            else if ( !(e.code == "Space" && (settings.check == 1 || settings.check == 2) ) || gameState == -1)
                 display.input += e.key;
     
         }
@@ -41,14 +42,30 @@ const keyDown = (e) => {
                     }
                     break;
 
+                case "Space":
+
+                    if ((settings.check == 1 && gameState != -1) || settings.check == 2)
+                    {
+                        if (option == undefined)
+                            option = check();
+                        else
+                            check();
+
+                        display.input = "";
+                    }
+                    break;
+
                 case "Enter":
 
-                    if (option == undefined)
-                        option = check();
-                    else
-                        check();
+                    if (settings.check == 0 || gameState == -1 || settings.check == 2)
+                    {
+                        if (option == undefined)
+                            option = check();
+                        else
+                            check();
 
-                    display.input = "";
+                        display.input = "";
+                    }
                     break;
         
             }

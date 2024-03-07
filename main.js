@@ -166,7 +166,7 @@ const update = () => {
                 
                 // Gameplay Pt2
 
-                localStorage.setItem("Space", pages[2][0].index);
+                localStorage.setItem("Check", pages[2][0].index);
 
                 
                 // Graphics

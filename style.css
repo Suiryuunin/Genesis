@@ -1,4 +1,5 @@
-* {
+*
+{
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
@@ -7,14 +8,16 @@
     padding: 0;
     box-sizing: border-box;
 }
-html {
+html
+{
 
     width: 100%;
     height: 100%;
     
 }
 
-body {
+body
+{
     
     align-content: center;
     align-items: center;
@@ -26,34 +29,39 @@ body {
     background-color: rgb(194, 194, 194);
 
 }
-#Background {
+#Background
+{
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
 
     background-image: url(Assets/ImageResources/Background512-min.png);
+    background-size: 55vmax 55vmax;
 }
 
-canvas {
+canvas
+{
     z-index: 100;
 }
-#border, #borderS {
+#border, #borderS
+{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 10px double rgba(0, 0, 0, 0.5);
+    border: 0.4vmax double rgba(0, 0, 0, 0.5);
     z-index: 101;
 }
 
-#borderS {
+#borderS
+{
     display: none;
 }
 
-h2 {
+h2
+{
     position: absolute;
     height: 50%;
     top: 50%;
@@ -67,7 +75,8 @@ h2 {
     display: none;
 }
 
-h3, h4 {
+h3, h4
+{
     position: absolute;
     font-family: MisterPixel;
     color: rgba(0, 0, 0, 0.75);
@@ -75,7 +84,8 @@ h3, h4 {
     display: none;
 }
 
-@font-face {
+@font-face
+{
     font-family: MisterPixel;
     src: url("Assets/MisterPixel.ttf");
 }

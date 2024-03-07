@@ -64,7 +64,7 @@ const pages = [
 
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, false, -0.1),
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),
-        new Button(16, (display.settings.canvas.width - 32), display, "<=", -0.5, true, "aou")
+        new Button(16, (display.settings.canvas.width - 32), display, "<<", -0.5, true, "aou")
     ],
     [
         new Slider("Word Cap", Math.floor(display.settings.canvas.width / 2), 64, 8, 8, display, localStorage.getItem("MaxWords"), [0, 2], 3),
@@ -76,15 +76,15 @@ const pages = [
 
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),
-        new Button(16, (display.settings.canvas.width - 32), display, "<=", -0.5, true, "a[gop")
+        new Button(16, (display.settings.canvas.width - 32), display, "<<", -0.5, true, "a[gop")
 
     ],
     [
-        new Options("Confirmation Input", Math.floor(display.settings.canvas.width / 2), 104, display, ["Enter", "Space"], localStorage.getItem("Mode"), -1),
+        new Options("Confirmation Input", Math.floor(display.settings.canvas.width / 2), 104, display, ["Enter", "Space", "Enter/Space"], localStorage.getItem("Check"), -1),
 
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),
-        new Button(16, (display.settings.canvas.width - 32), display, "<=", -0.5, true, "io[awf")
+        new Button(16, (display.settings.canvas.width - 32), display, "<<", -0.5, true, "io[awf")
     ],
     [
         new Slider("Hue", Math.floor(display.settings.canvas.width / 2), 64, 8, 8, display, localStorage.getItem("Hue"), [0, 360], 0),
@@ -94,7 +94,7 @@ const pages = [
 
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, false, 0.1),
-        new Button(16, (display.settings.canvas.width - 32), display, "<=", -0.5, true, "io[awf")
+        new Button(16, (display.settings.canvas.width - 32), display, "<<", -0.5, true, "io[awf")
     ]
 
 ];
@@ -102,26 +102,29 @@ const pages = [
 // HOW TO NOT FIX A BUG
 localStorage.setItem( "Reloaded",  localStorage.getItem("Reloaded")  ??   1 );
 
-// Gameplay Pt1
-localStorage.setItem( "Text     ", localStorage.getItem( "Text"      ) ??   0 );
-localStorage.setItem( "Mode     ", localStorage.getItem( "Mode"      ) ??   0 );
-localStorage.setItem( "Words    ", localStorage.getItem( "Words"     ) ??   0 );
-localStorage.setItem( "MaxChar  ", localStorage.getItem( "MaxChar"   ) ??  27 );
+// Setup
+localStorage.setItem( "Text"     , localStorage.getItem( "Text"      ) ??   0 );
+localStorage.setItem( "Mode"     , localStorage.getItem( "Mode"      ) ??   0 );
+localStorage.setItem( "Words"    , localStorage.getItem( "Words"     ) ??   0 );
+localStorage.setItem( "MaxChar"  , localStorage.getItem( "MaxChar"   ) ??  27 );
 
 // Gameplay Pt2
 localStorage.setItem( "Highscore", localStorage.getItem( "Highscore" ) ??   0 );
-localStorage.setItem( "MaxWords ", localStorage.getItem( "MaxWords"  ) ??   0 );
-localStorage.setItem( "Interval ", localStorage.getItem( "Interval"  ) ??  20 );
-localStorage.setItem( "Speed    ", localStorage.getItem( "Speed"     ) ??   1 );
-localStorage.setItem( "HP       ", localStorage.getItem( "HP"        ) ??   2 );
-localStorage.setItem( "Caps     ", localStorage.getItem( "Caps"      ) ??   1 );
-localStorage.setItem( "Auto     ", localStorage.getItem( "Auto"      ) ??   1 );
+localStorage.setItem( "MaxWords" , localStorage.getItem( "MaxWords"  ) ??   0 );
+localStorage.setItem( "Interval" , localStorage.getItem( "Interval"  ) ??  20 );
+localStorage.setItem( "Speed"    , localStorage.getItem( "Speed"     ) ??   1 );
+localStorage.setItem( "HP"       , localStorage.getItem( "HP"        ) ??   2 );
+localStorage.setItem( "Caps"     , localStorage.getItem( "Caps"      ) ??   1 );
+localStorage.setItem( "Auto"     , localStorage.getItem( "Auto"      ) ??   1 );
+
+// Gameplay Pt3
+localStorage.setItem( "Check"     , localStorage.getItem( "Check"      ) ??   1 );
 
 // Graphics
-localStorage.setItem( "Hue      ", localStorage.getItem( "Hue"       ) ?? 109 );
-localStorage.setItem( "Sat      ", localStorage.getItem( "Sat"       ) ??  27 );
-localStorage.setItem( "Bright   ", localStorage.getItem( "Bright"    ) ??  40 );
-localStorage.setItem( "AA       ", localStorage.getItem( "AA"        ) ??   0 );
+localStorage.setItem( "Hue"      , localStorage.getItem( "Hue"       ) ?? 109 );
+localStorage.setItem( "Sat"      , localStorage.getItem( "Sat"       ) ??  27 );
+localStorage.setItem( "Bright"   , localStorage.getItem( "Bright"    ) ??  40 );
+localStorage.setItem( "AA"       , localStorage.getItem( "AA"        ) ??   0 );
 
 
 const check = () => {
@@ -223,7 +226,7 @@ const instructionsAnimations = () =>
         words[0] = new Word('New Game',     -208, 144, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
         words[1] = new Word('Instructions', -208, 176, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
         words[2] = new Word('Quit',         -208, 208, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
-        titleData[0] = 'Genesis';
+        titleData[0] = settings.text;
 
         backT = false;
         backE = true;
@@ -240,7 +243,7 @@ const instructionsAnimations = () =>
     {
         words[1].x = -208;
         titleOffset = 64;
-        titleData = ['Genesis', (Math.floor(display.buffer.canvas.height / 2) - titleOffset)];
+        titleData = [settings.text, (Math.floor(display.buffer.canvas.height / 2) - titleOffset)];
         
         words = [];
         words[0] = new Word('New Game',     32, 144, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
@@ -252,13 +255,15 @@ const instructionsAnimations = () =>
 
 const resize = () => {
 
-    display.resize(document.documentElement.clientWidth, document.documentElement.clientHeight, 9 / 12);
+    display.resize(window.innerWidth, window.innerHeight, 9 / 12);
+    console.log(window.innerWidth);
     display.render();
 
     edge[0] = Math.floor((window.innerWidth - display.display.canvas.width) / 2); 
     edge[1] = Math.floor((window.innerHeight - display.display.canvas.height) / 2);
-    document.getElementById('border').style.width = (display.display.canvas.width+20) + 'px';
-    document.getElementById('border').style.height = (display.display.canvas.height+20) + 'px';
+    
+    document.getElementById('border').style.width = (display.display.canvas.width) + 'px';
+    document.getElementById('border').style.height = (display.display.canvas.height) + 'px';
     document.getElementById('borderS').style.width = Math.floor(display.display.canvas.width*0.8) + 'px';
     document.getElementById('borderS').style.height = Math.floor(display.display.canvas.height*0.8) + 'px';
 
@@ -278,14 +283,10 @@ for (let i = 0; i < pages.length; i++) {
 
 const setup = () => {
 
+    display.render();
+
     words = [];
 
-    engine.stop();
-
-    display.buffer.canvas.width = viewport[0];
-    display.buffer.canvas.height = viewport[1];
-    display.settings.canvas.width = viewport[0];
-    display.settings.canvas.height = viewport[1];
     generator.index = 0;
 
     for (let i = 0; i < pages.length; i++) {
@@ -300,10 +301,8 @@ const setup = () => {
 
 
     // Setup Settings
-
     settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index,
         /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].value, pages[0][3].value);
-    
     
     // Graphics
     display.hue = pages[3][0].value;
@@ -339,11 +338,11 @@ const setup = () => {
 
 const INIT = () =>
 {
-    display.buffer.canvas.width = viewport[0];
-    display.buffer.canvas.height = viewport[1];
-    display.settings.canvas.width = viewport[0];
-    display.settings.canvas.height = viewport[1];
-    
+
+    // Setup Settings
+    settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index,
+        /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].value, pages[0][3].value);
+
     // Graphics
     display.hue = pages[3][0].value;
     display.saturation = pages[3][1].value;
@@ -363,7 +362,7 @@ const INIT = () =>
     document.querySelector('div').style.filter = `hue-rotate(${display.hue}deg)`;
     document.querySelector('div').style.opacity = `${(display.brightness -25 < 50) ? 50 : display.brightness-25}%`;
 
-    titleData = ["Genesis", (Math.floor(display.buffer.canvas.height / 2) -48)];
+    titleData = [settings.text, (Math.floor(display.buffer.canvas.height / 2) - titleOffset)];
 
     engine.start();
 
@@ -374,6 +373,12 @@ const INIT = () =>
         localStorage.setItem("Reloaded", -1);
     }
 };
+
+// Only once here cuz clears the canvas for one frame :c
+display.buffer.canvas.width = viewport[0];
+display.buffer.canvas.height = viewport[1];
+display.settings.canvas.width = viewport[0];
+display.settings.canvas.height = viewport[1];
 
 INIT();
 

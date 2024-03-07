@@ -14,7 +14,7 @@ class Settings {
         this.caps = false;
         this.auto = 1;
         this.old = [this.text, this.mode, this.words, this.maxChar];
-        this.space = false;
+        this.check = false;
 
     }
 
@@ -25,7 +25,7 @@ class Settings {
         this.speed = speed;
         this.caps = caps;
         this.auto = auto;
-        this.space = space;
+        this.check = space;
 
         this.text = text;
         this.mode = mode;
