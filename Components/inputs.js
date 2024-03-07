@@ -108,6 +108,14 @@ const keyUp = (e) => {
                     break;
 
             }
+
+            if (settings.old[0] != settings.text     ||
+                settings.old[1] != settings.genMode  ||
+                settings.old[2] != settings.gameMode ||
+                settings.old[3] != settings.words    ||
+                settings.old[4] != settings.maxChar   )
+                setup();
+
             break;
 
     }

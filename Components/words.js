@@ -10,6 +10,8 @@ class Word {
         this.y = y;
         this.offsetX = offsetX;
         this.maxY = maxY;
+        this.speed = Math.round((Math.random()) * (this.settings.speed - 1)) + 1;
+
         this.centered = centered;
         this.size = size;
 
@@ -44,7 +46,7 @@ class Word {
             'red'
         );
         if (this.y <= this.maxY && Math.floor(gameState) == 1)
-            this.y += this.settings.speed;
+            this.y += (this.settings.gameMode == 1) ? this.settings.speed : this.speed;
 
     }
 

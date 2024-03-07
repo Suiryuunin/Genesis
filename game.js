@@ -74,7 +74,7 @@ localStorage.setItem( "MaxChar"  , (localStorage.getItem( "MaxChar"   ) * 0 == 0
 localStorage.setItem( "Highscore", (localStorage.getItem( "Highscore" ) * 0 == 0 && localStorage.getItem( "Highscore" ) != null) ? localStorage.getItem( "Highscore" ) :   0 );
 localStorage.setItem( "MaxWords" , (localStorage.getItem( "MaxWords"  ) * 0 == 0 && localStorage.getItem( "MaxWords"  ) != null) ? localStorage.getItem( "MaxWords"  ) :   0 );
 localStorage.setItem( "Interval" , (localStorage.getItem( "Interval"  ) * 0 == 0 && localStorage.getItem( "Interval"  ) != null) ? localStorage.getItem( "Interval"  ) :  20 );
-localStorage.setItem( "Speed"    , (localStorage.getItem( "Speed"     ) * 0 == 0 && localStorage.getItem( "Speed"     ) != null) ? localStorage.getItem( "Speed"     ) :   1 );
+localStorage.setItem( "Speed"    , (localStorage.getItem( "Speed"     ) * 0 == 0 && localStorage.getItem( "Speed"     ) != null) ? localStorage.getItem( "Speed"     ) :   0 );
 localStorage.setItem( "HP"       , (localStorage.getItem( "HP"        ) * 0 == 0 && localStorage.getItem( "HP"        ) != null) ? localStorage.getItem( "HP"        ) :   2 );
 localStorage.setItem( "Caps"     , (localStorage.getItem( "Caps"      ) * 0 == 0 && localStorage.getItem( "Caps"      ) != null) ? localStorage.getItem( "Caps"      ) :   1 );
 localStorage.setItem( "Auto"     , (localStorage.getItem( "Auto"      ) * 0 == 0 && localStorage.getItem( "Auto"      ) != null) ? localStorage.getItem( "Auto"      ) :   1 );
@@ -109,7 +109,7 @@ const pages = [
     [
         new Slider("Word Cap", Math.floor(display.settings.canvas.width / 2), 64, 8, 8, display, localStorage.getItem("MaxWords"), [0, 9], 1),
         new Slider("Time Interval", Math.floor(display.settings.canvas.width / 2), 96, 8, 8, display, localStorage.getItem("Interval"), [0, 90], 10),
-        new Slider("Speed", Math.floor(display.settings.canvas.width / 2), 128, 8, 8, display, localStorage.getItem("Speed"), [0, 4], 1),
+        new Slider("Speed", Math.floor(display.settings.canvas.width / 2), 128, 8, 8, display, localStorage.getItem("Speed"), [0, 8], 2),
         new Slider("HP", Math.floor(display.settings.canvas.width / 2), 160, 8, 8, display, localStorage.getItem("HP"), [0, 9], 1),
         new Options("Capital Letters", Math.floor(display.settings.canvas.width / 2), 192, display, ["Disabled", "Enabled"], localStorage.getItem("Caps"), -1),
         new Options("Auto Submit", Math.floor(display.settings.canvas.width / 2), 224, display, ["Disabled", "Enabled"], localStorage.getItem("Auto"), -1),

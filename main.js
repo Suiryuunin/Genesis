@@ -151,6 +151,7 @@ const update = () => {
 
                 localStorage.setItem("Text", pages[0][0].index);
                 localStorage.setItem("GenMode", pages[0][1].index);
+                localStorage.setItem("GameMode", pages[0][1].index);
                 localStorage.setItem("Words", pages[0][3].value - pages[0][3].valueOffset);
                 localStorage.setItem("MaxChar", pages[0][4].value - pages[0][4].valueOffset);
 
@@ -180,13 +181,22 @@ const update = () => {
                 localStorage.setItem("Sat", pages[3][1].value);
                 localStorage.setItem("Bright", pages[3][2].value);
                 localStorage.setItem("AA", pages[3][3].index);
+
+                // Game Modes
+                switch (settings.gameMode * 1)
+                {
+                    case 0:
+                        pages[1][2].setting = "Max Speed";
+                        break;
+                    
+                    default:
+                        pages[1][2].setting = "Speed";
+                        break;
+                }
                 
                 break;
 
             case 1:
-
-                if (settings.old[0] != settings.text || settings.old[1] != settings.genMode || settings.old[2] != settings.words || settings.old[3] != settings.maxChar)
-                    setup();
                 
                 if (score < scoreTarget)
                     score += Math.ceil((scoreTarget - score) / 10);
