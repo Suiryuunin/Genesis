@@ -44,7 +44,7 @@ const keyDown = (e) => {
 
                 case "Space":
 
-                    if ((settings.check == 1 && gameState != -1) || settings.check == 2)
+                    if ((settings.check != 0) && gameState != -1)
                     {
                         if (option == undefined)
                             option = check();
@@ -57,7 +57,7 @@ const keyDown = (e) => {
 
                 case "Enter":
 
-                    if (settings.check == 0 || gameState == -1 || settings.check == 2)
+                    if (settings.check != 1 || gameState == -1)
                     {
                         if (option == undefined)
                             option = check();

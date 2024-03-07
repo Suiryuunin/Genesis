@@ -254,7 +254,7 @@ const update = () => {
                                 
                                 if (wordsSum < settings.words) {
 
-                                    console.log("Out: " + `Assets/Texts/${(this.settings.text.replaceAll(" ", "")).toLowerCase()}.txt`);
+                                    console.log("Out: " + `Assets/Texts/${(settings.text.replaceAll(" ", "")).toLowerCase()}.txt`);
                                     words[i] = new Word(generator.word, Math.floor(Math.random() * (display.buffer.canvas.width - generator.word.length * 10 - 5) + 5), -16, display, settings, 0, 9 * 32, false, 16, 0, 'orangered', 0.5, 1);
                                     wordsSum++;
                                     generator.Generate();
