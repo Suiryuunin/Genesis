@@ -54,13 +54,52 @@ let words = [];
 let wordsO = [];
 let healthTarget;
 
+
+/*
+ * LOCAL/
+ *     /STORAGE
+ */
+
+// HOW TO NOT FIX A BUG
+localStorage.setItem( "Reloaded",  localStorage.getItem("Reloaded")  ??   1 );
+
+// Setup
+localStorage.setItem( "Text"     , localStorage.getItem( "Text"      ) ??   0 );
+localStorage.setItem( "GenMode"     , localStorage.getItem( "Mode"      ) ??   0 );
+localStorage.setItem( "Words"    , localStorage.getItem( "Words"     ) ??   0 );
+localStorage.setItem( "MaxChar"  , localStorage.getItem( "MaxChar"   ) ??  27 );
+
+// Gameplay Pt2
+localStorage.setItem( "Highscore", localStorage.getItem( "Highscore" ) ??   0 );
+localStorage.setItem( "MaxWords" , localStorage.getItem( "MaxWords"  ) ??   0 );
+localStorage.setItem( "Interval" , localStorage.getItem( "Interval"  ) ??  20 );
+localStorage.setItem( "Speed"    , localStorage.getItem( "Speed"     ) ??   1 );
+localStorage.setItem( "HP"       , localStorage.getItem( "HP"        ) ??   2 );
+localStorage.setItem( "Caps"     , localStorage.getItem( "Caps"      ) ??   1 );
+localStorage.setItem( "Auto"     , localStorage.getItem( "Auto"      ) ??   1 );
+
+// Gameplay Pt3
+localStorage.setItem( "Check"     , localStorage.getItem( "Check"      ) ??   1 );
+
+// Graphics
+localStorage.setItem( "Hue"      , localStorage.getItem( "Hue"       ) ?? 109 );
+localStorage.setItem( "Sat"      , localStorage.getItem( "Sat"       ) ??  27 );
+localStorage.setItem( "Bright"   , localStorage.getItem( "Bright"    ) ??  40 );
+localStorage.setItem( "AA"       , localStorage.getItem( "AA"        ) ??   0 );
+
+/*
+ * SETTINGS/
+ *   PAGES/
+ */
+
 const pages = [
 
     [
         new Options("Text", Math.floor(display.settings.canvas.width / 2), 72, display, ["Genesis", "Lord of The Rings", "Linear Functions"], localStorage.getItem("Text"), -1),
-        new Options("Mode", Math.floor(display.settings.canvas.width / 2), 104, display, ["Story Mode", "Random"], localStorage.getItem("Mode"), -1),
-        new Slider("Words", Math.floor(display.settings.canvas.width / 2), 136, 8, 8, display, localStorage.getItem("Words"), [0, 70], 30),
-        new Slider("Max Characters", Math.floor(display.settings.canvas.width / 2), 168, 8, 8, display, localStorage.getItem("MaxChar"), [0, 27], 3),
+        new Options("Generation Mode", Math.floor(display.settings.canvas.width / 2), 104, display, ["Story Mode", "Random"], localStorage.getItem("GenMode"), -1),
+        new Options("Game Mode", Math.floor(display.settings.canvas.width / 2), 136, display, ["Random Speed", "Set Speed", "Gravity", "Chaos"], localStorage.getItem("GameMode"), -1),
+        new Slider("Words", Math.floor(display.settings.canvas.width / 2), 168, 8, 8, display, localStorage.getItem("Words"), [0, 70], 30),
+        new Slider("Max Characters", Math.floor(display.settings.canvas.width / 2), 200, 8, 8, display, localStorage.getItem("MaxChar"), [0, 27], 3),
 
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, false, -0.1),
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),
@@ -98,34 +137,6 @@ const pages = [
     ]
 
 ];
-
-// HOW TO NOT FIX A BUG
-localStorage.setItem( "Reloaded",  localStorage.getItem("Reloaded")  ??   1 );
-
-// Setup
-localStorage.setItem( "Text"     , localStorage.getItem( "Text"      ) ??   0 );
-localStorage.setItem( "Mode"     , localStorage.getItem( "Mode"      ) ??   0 );
-localStorage.setItem( "Words"    , localStorage.getItem( "Words"     ) ??   0 );
-localStorage.setItem( "MaxChar"  , localStorage.getItem( "MaxChar"   ) ??  27 );
-
-// Gameplay Pt2
-localStorage.setItem( "Highscore", localStorage.getItem( "Highscore" ) ??   0 );
-localStorage.setItem( "MaxWords" , localStorage.getItem( "MaxWords"  ) ??   0 );
-localStorage.setItem( "Interval" , localStorage.getItem( "Interval"  ) ??  20 );
-localStorage.setItem( "Speed"    , localStorage.getItem( "Speed"     ) ??   1 );
-localStorage.setItem( "HP"       , localStorage.getItem( "HP"        ) ??   2 );
-localStorage.setItem( "Caps"     , localStorage.getItem( "Caps"      ) ??   1 );
-localStorage.setItem( "Auto"     , localStorage.getItem( "Auto"      ) ??   1 );
-
-// Gameplay Pt3
-localStorage.setItem( "Check"     , localStorage.getItem( "Check"      ) ??   1 );
-
-// Graphics
-localStorage.setItem( "Hue"      , localStorage.getItem( "Hue"       ) ?? 109 );
-localStorage.setItem( "Sat"      , localStorage.getItem( "Sat"       ) ??  27 );
-localStorage.setItem( "Bright"   , localStorage.getItem( "Bright"    ) ??  40 );
-localStorage.setItem( "AA"       , localStorage.getItem( "AA"        ) ??   0 );
-
 
 const check = () => {
 
@@ -300,7 +311,7 @@ const setup = () => {
 
     // Setup Settings
     settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index,
-        /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].value, pages[0][3].value);
+        /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].index, pages[0][3].value, pages[0][4]);
     
     // Graphics
     display.hue = pages[3][0].value;
@@ -342,7 +353,7 @@ const INIT = () =>
 
     // Setup Settings
     settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index,
-        /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].value, pages[0][3].value);
+        /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].index, pages[0][3].value, pages[0][4]);
 
     // Graphics
     display.hue = pages[3][0].value;

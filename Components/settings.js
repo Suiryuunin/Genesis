@@ -3,27 +3,33 @@ class Settings {
     constructor() {
 
         // Default values
+        // Setup
         this.text = "Genesis";
-        this.mode = 0;
+        this.genMode = 0;
+        this.gameMode = 0;
         this.words = 30;
         this.maxChar = 30;
+        
+        // Gameplay
         this.maxWords = 3;
         this.interval = 50;
         this.speed = 2;
         this.health = 3;
         this.caps = false;
         this.auto = 1;
-        this.old = [this.text, this.mode, this.words, this.maxChar];
+        this.old = [this.text, this.genMode, this.words, this.maxChar];
         this.check = false;
 
     }
 
     updateOld()
     {
-        this.old = [this.text, this.mode, this.words, this.maxChar];
+        this.old = [this.text, this.genMode, this.words, this.maxChar];
     }
 
-    modify(maxWords, interval, speed, caps, auto, space, text = this.text, mode = this.mode, words = this.words, maxChar = this.maxChar) {
+    modify(/* Gameplay -> */ maxWords, interval, speed, caps, auto, space,
+        /* Setup -> */ text = this.text, genMode = this.genMode, gameMode = this.gameMode, words = this.words, maxChar = this.maxChar)
+    {
 
         this.maxWords = maxWords;
         this.interval = interval;
@@ -33,7 +39,8 @@ class Settings {
         this.check = space;
 
         this.text = text;
-        this.mode = mode;
+        this.genMode = genMode;
+        this.gameMode = gameMode;
         this.words = words;
         this.maxChar = maxChar;
 

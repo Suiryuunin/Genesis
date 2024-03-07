@@ -75,7 +75,7 @@ class Generator {
 
     Generate() {
 
-        if (this.settings.mode == 0)
+        if (this.settings.genMode == 0)
             this.storyMode(`Assets/Texts/${(this.settings.text.replaceAll(" ", "")).toLowerCase()}.txt`);
 
         else

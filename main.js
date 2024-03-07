@@ -143,16 +143,16 @@ const update = () => {
                 
                 // Update settings
                 settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index,
-                    /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].value, pages[0][3].value);
+                    /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].index, pages[0][3].value, pages[0][4]);
 
                 // Set the local storage
 
                 // Setup
 
                 localStorage.setItem("Text", pages[0][0].index);
-                localStorage.setItem("Mode", pages[0][1].index);
-                localStorage.setItem("Words", pages[0][2].value - pages[0][2].valueOffset);
-                localStorage.setItem("MaxChar", pages[0][3].value - pages[0][3].valueOffset);
+                localStorage.setItem("GenMode", pages[0][1].index);
+                localStorage.setItem("Words", pages[0][3].value - pages[0][3].valueOffset);
+                localStorage.setItem("MaxChar", pages[0][4].value - pages[0][4].valueOffset);
 
 
                 // Gameplay Pt1
@@ -185,7 +185,7 @@ const update = () => {
 
             case 1:
 
-                if (settings.old[0] != settings.text || settings.old[1] != settings.mode || settings.old[2] != settings.words || settings.old[3] != settings.maxChar)
+                if (settings.old[0] != settings.text || settings.old[1] != settings.genMode || settings.old[2] != settings.words || settings.old[3] != settings.maxChar)
                     setup();
                 
                 if (score < scoreTarget)
