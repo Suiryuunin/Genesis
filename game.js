@@ -61,32 +61,32 @@ let healthTarget;
  */
 
 // HOW TO NOT FIX A BUG
-localStorage.setItem( "Reloaded",  localStorage.getItem("Reloaded")  ??   1 );
+localStorage.setItem( "Reloaded" , (localStorage.getItem( "Reloaded"  ) * 0 == 0) ? localStorage.getItem( "Reloaded"  ) :   1 );
 
 // Setup
-localStorage.setItem( "Text"     , localStorage.getItem( "Text"      ) ??   0 );
-localStorage.setItem( "GenMode"  , localStorage.getItem( "GenMode"   ) ??   0 );
-localStorage.setItem( "GameMode" , localStorage.getItem( "GameMode"  ) ??   0 );
-localStorage.setItem( "Words"    , localStorage.getItem( "Words"     ) ??   0 );
-localStorage.setItem( "MaxChar"  , localStorage.getItem( "MaxChar"   ) ??  27 );
+localStorage.setItem( "Text"     , (localStorage.getItem( "Text"      ) * 0 == 0) ? localStorage.getItem( "Text"      ) :   0 );
+localStorage.setItem( "GenMode"  , (localStorage.getItem( "GenMode"   ) * 0 == 0) ? localStorage.getItem( "GenMode"   ) :   0 );
+localStorage.setItem( "GameMode" , (localStorage.getItem( "GameMode"  ) * 0 == 0) ? localStorage.getItem( "GameMode"  ) :   0 );
+localStorage.setItem( "Words"    , (localStorage.getItem( "Words"     ) * 0 == 0) ? localStorage.getItem( "Words"     ) :   0 );
+localStorage.setItem( "MaxChar"  , (localStorage.getItem( "MaxChar"   ) * 0 == 0) ? localStorage.getItem( "MaxChar"   ) :  27 );
 
 // Gameplay Pt2
-localStorage.setItem( "Highscore", localStorage.getItem( "Highscore" ) ??   0 );
-localStorage.setItem( "MaxWords" , localStorage.getItem( "MaxWords"  ) ??   0 );
-localStorage.setItem( "Interval" , localStorage.getItem( "Interval"  ) ??  20 );
-localStorage.setItem( "Speed"    , localStorage.getItem( "Speed"     ) ??   1 );
-localStorage.setItem( "HP"       , localStorage.getItem( "HP"        ) ??   2 );
-localStorage.setItem( "Caps"     , localStorage.getItem( "Caps"      ) ??   1 );
-localStorage.setItem( "Auto"     , localStorage.getItem( "Auto"      ) ??   1 );
+localStorage.setItem( "Highscore", (localStorage.getItem( "Highscore" ) * 0 == 0) ? localStorage.getItem( "Highscore" ) :   0 );
+localStorage.setItem( "MaxWords" , (localStorage.getItem( "MaxWords"  ) * 0 == 0) ? localStorage.getItem( "MaxWords"  ) :   0 );
+localStorage.setItem( "Interval" , (localStorage.getItem( "Interval"  ) * 0 == 0) ? localStorage.getItem( "Interval"  ) :  20 );
+localStorage.setItem( "Speed"    , (localStorage.getItem( "Speed"     ) * 0 == 0) ? localStorage.getItem( "Speed"     ) :   1 );
+localStorage.setItem( "HP"       , (localStorage.getItem( "HP"        ) * 0 == 0) ? localStorage.getItem( "HP"        ) :   2 );
+localStorage.setItem( "Caps"     , (localStorage.getItem( "Caps"      ) * 0 == 0) ? localStorage.getItem( "Caps"      ) :   1 );
+localStorage.setItem( "Auto"     , (localStorage.getItem( "Auto"      ) * 0 == 0) ? localStorage.getItem( "Auto"      ) :   1 );
 
 // Gameplay Pt3
-localStorage.setItem( "Check"     , localStorage.getItem( "Check"      ) ??   1 );
+localStorage.setItem( "Check"    , (localStorage.getItem( "Check"     ) * 0 == 0) ? localStorage.getItem( "Check"     ) :   1 );
 
 // Graphics
-localStorage.setItem( "Hue"      , localStorage.getItem( "Hue"       ) ?? 109 );
-localStorage.setItem( "Sat"      , localStorage.getItem( "Sat"       ) ??  27 );
-localStorage.setItem( "Bright"   , localStorage.getItem( "Bright"    ) ??  40 );
-localStorage.setItem( "AA"       , localStorage.getItem( "AA"        ) ??   0 );
+localStorage.setItem( "Hue"      , (localStorage.getItem( "Hue"       ) * 0 == 0) ? localStorage.getItem( "Hue"       ) : 109 );
+localStorage.setItem( "Sat"      , (localStorage.getItem( "Sat"       ) * 0 == 0) ? localStorage.getItem( "Sat"       ) :  27 );
+localStorage.setItem( "Bright"   , (localStorage.getItem( "Bright"    ) * 0 == 0) ? localStorage.getItem( "Bright"    ) :  40 );
+localStorage.setItem( "AA"       , (localStorage.getItem( "AA"        ) * 0 == 0) ? localStorage.getItem( "AA"        ) :   0 );
 
 /*
  * SETTINGS/
