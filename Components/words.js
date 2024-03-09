@@ -19,7 +19,7 @@ class Word {
         this.offsetX = offsetX;
         this.maxY = maxY;
         this.speed = Math.round((Math.random()) * (this.settings.speed - 1)) + 1;
-        this.velX = Math.round((Math.random()) * (this.settings.speed - 1)) + 1;
+        this.velX = (Math.round((Math.random()) * (this.settings.speed - 1)) + 1) * (Math.round(Math.random()) * 2 - 1);
         this.velY = 0;
         this.gravity = Math.round((Math.random()) * (this.settings.speed - 1)) + 1;
         this.loss = 0.5;
@@ -133,7 +133,7 @@ class Word {
         {
             case ((this.collide(target, i, 'rb') || this.collide(target, i, 'lb') || this.collide(target, i, 'rlb')) && !this.b[i]):
             {
-                this.velY = this.gravity * 2 - this.loss;
+                this.velY = this.gravity * 3 - this.loss;
                 this.cumLoss += this.loss;
                 break;
             }
