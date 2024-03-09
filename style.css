@@ -41,9 +41,14 @@ body
     background-size: 55vmax 55vmax;
 }
 
+input
+{
+    position: absolute;
+}
+
 canvas
 {
-    z-index: 100;
+    z-index: 1;
 }
 #border, #borderS
 {
@@ -52,7 +57,7 @@ canvas
     left: 50%;
     transform: translate(-50%, -50%);
     border: 0.4vmax double rgba(0, 0, 0, 0.5);
-    z-index: 101;
+    z-index: 2;
 }
 
 #borderS
