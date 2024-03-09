@@ -2,6 +2,8 @@ let option = undefined;
 
 const keyDown = (e) => {
 
+    document.querySelector("h5").innerHTML = e.code;
+
     if (Math.floor(gameState) != 0) {
 
         if ((e.key.length == 1 || (e.key == " " && !display.input.includes(" "))) && display.input.length < 12) {
