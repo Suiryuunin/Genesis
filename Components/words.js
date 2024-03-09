@@ -133,24 +133,23 @@ class Word {
         {
             case ((this.collide(target, i, 'rb') || this.collide(target, i, 'lb') || this.collide(target, i, 'rlb')) && !this.b[i]):
             {
-                this.velY = this.gravity * 3 - this.loss;
+                this.velY = target.gravity * 3 - this.loss;
                 this.cumLoss += this.loss;
                 break;
             }
             case ((this.collide(target, i, 'rt') || this.collide(target, i, 'lt') || this.collide(target, i, 'rlt')) && !this.t[i]):
             {
-                this.velY -= this.gravity;
-                this.cumLoss += this.loss;
+                this.velY = -Math.abs(target.velY);
                 break;
             }
             case ((this.collide(target, i, 'rt') || this.collide(target, i, 'rb') || this.collide(target, i, 'rtb')) && !this.r[i]):
             {
-                this.velX = -(Math.abs(this.velX) - this.loss);
+                this.velX = -(Math.abs(target.velX) - this.loss);
                 break;
             }
             case ((this.collide(target, i, 'lt') || this.collide(target, i, 'lb') || this.collide(target, i, 'ltb')) && !this.l[i]):
             {
-                this.velX = (Math.abs(this.velX) - this.loss);
+                this.velX = (Math.abs(target.velX) - this.loss);
                 break;
             }
         }
@@ -209,12 +208,15 @@ class Word {
                     this.velX = -(Math.abs(this.velX) - this.loss);
 
                 this.velY -= this.gravity/10;
-
-                this.x += this.velX;
-                this.y -= this.velY;
             }
         }
 
+    }
+
+    updateVel()
+    {
+        this.x += this.velX;
+        this.y -= this.velY;
     }
 
 }

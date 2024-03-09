@@ -56,6 +56,12 @@ const render = () =>
                     words[i].updatePos();
                 
             }
+            for (let i = 0; i < words.length; i++) {
+
+                if (words[i] != undefined)
+                    words[i].updateVel();
+                
+            }
             
         }
 
