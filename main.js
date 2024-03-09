@@ -132,7 +132,7 @@ let rDelay = 0;
 const update = () => {
 
     if (Math.floor(gameState) >= 0) {
-        increment = Math.round(10 * (settings.maxWords / 2) / (settings.interval / 40) * (settings.speed * 5) / (settings.health / 10) + settings.caps * 500);
+        increment = Math.round(10 * (settings.maxWords / 2) / (settings.interval / 40) * (settings.gameMode == 2 ? (5 / (settings.speed * (5**2))) : (settings.speed * 5)) / (settings.health / 10) + settings.caps * 500);
 
         switch (Math.floor(gameState)) {
 
@@ -151,7 +151,7 @@ const update = () => {
 
                 localStorage.setItem("Text", pages[0][0].index);
                 localStorage.setItem("GenMode", pages[0][1].index);
-                localStorage.setItem("GameMode", pages[0][1].index);
+                localStorage.setItem("GameMode", pages[0][2].index);
                 localStorage.setItem("Words", pages[0][3].value - pages[0][3].valueOffset);
                 localStorage.setItem("MaxChar", pages[0][4].value - pages[0][4].valueOffset);
 
@@ -183,17 +183,31 @@ const update = () => {
                 localStorage.setItem("AA", pages[3][3].index);
 
                 // Game Modes
-                switch (settings.gameMode * 1)
+                if (settings.gameMode * 1 != settings.oGameMode * 1)
                 {
-                    case 0:
-                        pages[1][2].setting = "Max Speed";
-                        break;
-                    
-                    default:
-                        pages[1][2].setting = "Speed";
-                        break;
+                    switch (settings.gameMode * 1)
+                    {
+                        case 0:
+                            pages[1][2].setting = "Max Speed";
+                            pages[1][2].minMax[1] = 8;
+                            break;
+                        
+                        case 1:
+                            pages[1][2].setting = "Speed";
+                            pages[1][2].minMax[1] = 8;
+                            break;
+
+                        case 2:
+                            pages[1][2].setting = "Max Speed";
+                            pages[1][2].minMax[1] = 3;
+                            if (pages[1][2].value > 5)
+                                pages[1][2].value = 5;
+                            break;
+                    }
+                    pages[1][2].x = Math.floor((pages[1][2].value - pages[1][2].valueOffset) * (pages[1][2].barWidth) / (pages[1][2].minMax[1])) + (pages[1][2].fixedPos[0] - Math.floor(pages[1][2].width / 2));
+                    settings.oGameMode = settings.gameMode;
                 }
-                
+
                 break;
 
             case 1:
@@ -249,7 +263,7 @@ const update = () => {
                                         else
                                             clearState = "YOU DIED";
                 
-                                        words[i]  = new Word(clearState, display.buffer.canvas.width / 2, -16, display, settings, -0.5, display.buffer.canvas.height / 2 - 8, true, 24, 'black', 'red', 0.5, 1);
+                                        words[i]  = new Word(clearState, display.buffer.canvas.width / 2, -16, display, settings, -0.5, viewport[1] - 8, true, 24, 'black', 'red', 0.5, 1);
                                     }
 
                                     break;
@@ -257,7 +271,7 @@ const update = () => {
                                 
                                 if (wordsSum < settings.words)
                                 {
-                                    words[i] = new Word(generator.word, Math.floor(Math.random() * (display.buffer.canvas.width - generator.word.length * 10 - 5) + 5), -16, display, settings, 0, 9 * 32, false, 16, 0, 'orangered', 0.5, 1);
+                                    words[i] = new Word(generator.word, Math.floor(Math.random() * (display.buffer.canvas.width - generator.word.length * 10 - 5) + 5), 196, display, settings, 0, viewport[1], false, 16, 0, 'orangered', 0.5, 1);
                                     wordsSum++;
                                     generator.Generate();
                                 }

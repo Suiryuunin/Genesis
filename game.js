@@ -98,7 +98,7 @@ const pages = [
     [
         new Options("Text", Math.floor(display.settings.canvas.width / 2), 72, display, ["Genesis", "Lord of The Rings", "Linear Functions"], localStorage.getItem("Text"), -1),
         new Options("Generation Mode", Math.floor(display.settings.canvas.width / 2), 104, display, ["Story Mode", "Random"], localStorage.getItem("GenMode"), -1),
-        new Options("Game Mode", Math.floor(display.settings.canvas.width / 2), 136, display, ["Random Speed", "Set Speed", "Gravity", "Chaos"], localStorage.getItem("GameMode"), -1),
+        new Options("Game Mode", Math.floor(display.settings.canvas.width / 2), 136, display, ["Random Speed", "Set Speed", "Bouncy", "Chaos"], localStorage.getItem("GameMode"), -1),
         new Slider("Words", Math.floor(display.settings.canvas.width / 2), 168, 8, 8, display, localStorage.getItem("Words"), [0, 70], 30),
         new Slider("Max Characters", Math.floor(display.settings.canvas.width / 2), 200, 8, 8, display, localStorage.getItem("MaxChar"), [0, 27], 3),
 

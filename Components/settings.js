@@ -7,6 +7,7 @@ class Settings {
         this.text = "Genesis";
         this.genMode = 0;
         this.gameMode = 0;
+        this.oGameMode = 0;
         this.words = 30;
         this.maxChar = 30;
         
