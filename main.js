@@ -271,7 +271,7 @@ const update = () => {
                                 
                                 if (wordsSum < settings.words)
                                 {
-                                    words[i] = new Word(generator.word, Math.floor(Math.random() * (display.buffer.canvas.width - generator.word.length * 10 - 5) + 5), 196, display, settings, 0, viewport[1], false, 16, 0, 'orangered', 0.5, 1);
+                                    words[i] = new Word(generator.word, Math.floor(Math.random() * (display.buffer.canvas.width - generator.word.length * 10 - 5) + 5), -16, display, settings, 0, viewport[1], false, 16, 0, 'orangered', 0.5, 1);
                                     wordsSum++;
                                     generator.Generate();
                                 }

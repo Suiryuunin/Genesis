@@ -69,6 +69,22 @@ class Word {
         else
         {this.l[i] = false;}
 
+        if
+        (
+            ( //this has its both edges outside the zone of the target's horizontal side
+                this.x + this.w * this.offsetX - 4 < target.x + target.w * target.offsetX - 4 && //left <-
+                this.x + this.w * (this.offsetX+1) + 10 > target.x + target.w * (target.offsetX+1) + 10 //right ->
+            )
+        )
+        {
+            sides += "rl";
+            if (update)
+            {
+                this.r[i] = true;
+                this.l[i] = true;
+            }
+        }
+
         //Vertical
 
         if
@@ -81,6 +97,7 @@ class Word {
         {sides += "t"; if (update) this.t[i] = true;}
         else
         {this.t[i] = false;}
+
         if
         (
             ( //this has its bottom edge around the same zone as the target's vertical side
@@ -91,6 +108,22 @@ class Word {
         {sides += "b"; if (update) this.b[i] = true;}
         else
         {this.b[i] = false;}
+
+        if
+        (
+            ( //this has its both edges outside the zone of the target's vertical side
+                this.y < target.y && //top ^
+                this.y + this.h > target.y + target.h //bottom v
+            )
+        )
+        {
+            sides += "tb";
+            if (update)
+            {
+                this.t[i] = true;
+                this.b[i] = true;
+            }
+        }
 
         return (sides.includes(forWhat));
     }
@@ -104,9 +137,9 @@ class Word {
                 this.cumLoss += this.loss;
                 break;
             }
-            case ((this.collide(target, i, 'rb') || this.collide(target, i, 'lb') || this.collide(target, i, 'rlb')) && !this.t[i]):
+            case ((this.collide(target, i, 'rt') || this.collide(target, i, 'lt') || this.collide(target, i, 'rlt')) && !this.t[i]):
             {
-                this.velY -= -this.gravity;
+                this.velY -= this.gravity;
                 this.cumLoss += this.loss;
                 break;
             }
