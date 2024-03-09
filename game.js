@@ -67,7 +67,7 @@ localStorage.setItem( "Reloaded" , (localStorage.getItem( "Reloaded"  ) * 0 == 0
 localStorage.setItem( "Text"     , (localStorage.getItem( "Text"      ) * 0 == 0 && localStorage.getItem( "Text"      ) != null) ? localStorage.getItem( "Text"      ) :   0 );
 localStorage.setItem( "GenMode"  , (localStorage.getItem( "GenMode"   ) * 0 == 0 && localStorage.getItem( "GenMode"   ) != null) ? localStorage.getItem( "GenMode"   ) :   0 );
 localStorage.setItem( "GameMode" , (localStorage.getItem( "GameMode"  ) * 0 == 0 && localStorage.getItem( "GameMode"  ) != null) ? localStorage.getItem( "GameMode"  ) :   0 );
-localStorage.setItem( "Words"    , (localStorage.getItem( "Words"     ) * 0 == 0 && localStorage.getItem( "Words"     ) != null) ? localStorage.getItem( "Words"     ) :   0 );
+localStorage.setItem( "Words"    , (localStorage.getItem( "Words"     ) * 0 == 0 && localStorage.getItem( "Words"     ) != null) ? localStorage.getItem( "Words"     ) :   2 );
 localStorage.setItem( "MaxChar"  , (localStorage.getItem( "MaxChar"   ) * 0 == 0 && localStorage.getItem( "MaxChar"   ) != null) ? localStorage.getItem( "MaxChar"   ) :  27 );
 
 // Gameplay Pt2
