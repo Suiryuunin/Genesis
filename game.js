@@ -85,7 +85,7 @@ localStorage.setItem( "Check"    , (localStorage.getItem( "Check"     ) * 0 == 0
 // Graphics
 localStorage.setItem( "Hue"      , (localStorage.getItem( "Hue"       ) * 0 == 0 && localStorage.getItem( "Hue"       ) != null) ? localStorage.getItem( "Hue"       ) : 109 );
 localStorage.setItem( "Sat"      , (localStorage.getItem( "Sat"       ) * 0 == 0 && localStorage.getItem( "Sat"       ) != null) ? localStorage.getItem( "Sat"       ) :  27 );
-localStorage.setItem( "Bright"   , (localStorage.getItem( "Bright"    ) * 0 == 0 && localStorage.getItem( "Bright"    ) != null) ? localStorage.getItem( "Bright"    ) :  40 );
+localStorage.setItem( "Bright"   , (localStorage.getItem( "Bright"    ) * 0 == 0 && localStorage.getItem( "Bright"    ) != null) ? localStorage.getItem( "Bright"    ) :  72 );
 localStorage.setItem( "AA"       , (localStorage.getItem( "AA"        ) * 0 == 0 && localStorage.getItem( "AA"        ) != null) ? localStorage.getItem( "AA"        ) :   0 );
 
 /*
