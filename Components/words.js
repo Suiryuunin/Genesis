@@ -22,12 +22,16 @@ class Word {
         this.velX = (Math.round((Math.random()) * (this.settings.speed - 1)) + 1) * (Math.round(Math.random()) * 2 - 1);
         this.velY = 0;
         this.gravity = Math.round((Math.random()) * (this.settings.speed - 1)) + 1;
-        this.loss = 0.5;
-        this.cumLoss = 0.5;
+
+        this.mass = (this.display.measureWordWidth(this.display.buffer, this.word, this.size) * Math.round(16 * size / 16 + 2 - (size - 16) * 2)) / (this.display.measureWordWidth(this.display.buffer, "OOOO", 16) * 18);
+        this.loss = (this.settings.gameMode == 3 ? 0 : 0.5);
+        this.cumLoss = this.loss
         this.r = [];
         this.l = [];
         this.t = [];
         this.b = [];
+
+        this.updated = false;
 
         this.centered = centered;
         this.size = size;
@@ -50,8 +54,8 @@ class Word {
         if
         (
             ( //this has its right edge around the same zone as the target's horizontal side
-                this.x + this.w * (this.offsetX+1) + 10 > target.x + target.w * target.offsetX - 4 && //right ->
-                this.x + this.w * (this.offsetX+1) + 10 < target.x + target.w * (target.offsetX+1) + 10 //right <-
+                this.x + this.w * (this.offsetX+1) + 8 > target.x + target.w * target.offsetX - 4 && //right ->
+                this.x + this.w * (this.offsetX+1) + 8 < target.x + target.w * (target.offsetX+1) + 8 //right <-
             )
         )
         {sides += "r"; if (update) this.r[i] = true;}
@@ -62,7 +66,7 @@ class Word {
         (
             ( //this has its left edge around the same zone as the target's horizontal side
                 this.x + this.w * this.offsetX - 4 > target.x + target.w * target.offsetX - 4 && //left ->
-                this.x + this.w * this.offsetX - 4 < target.x + target.w * (target.offsetX+1) + 10 //left <-
+                this.x + this.w * this.offsetX - 4 < target.x + target.w * (target.offsetX+1) + 8 //left <-
             )
         )
         {sides += "l"; if (update) this.l[i] = true;}
@@ -73,7 +77,7 @@ class Word {
         (
             ( //this has its both edges outside the zone of the target's horizontal side
                 this.x + this.w * this.offsetX - 4 < target.x + target.w * target.offsetX - 4 && //left <-
-                this.x + this.w * (this.offsetX+1) + 10 > target.x + target.w * (target.offsetX+1) + 10 //right ->
+                this.x + this.w * (this.offsetX+1) + 8 > target.x + target.w * (target.offsetX+1) + 8 //right ->
             )
         )
         {
@@ -89,7 +93,7 @@ class Word {
 
         if
         (
-            ( //this has its bottom edge around the same zone as the target's vertical side
+            ( //this has its top edge around the same zone as the target's vertical side
                 this.y > target.y && //top v
                 this.y < target.y + target.h //top ^
             )
@@ -133,23 +137,43 @@ class Word {
         {
             case ((this.collide(target, i, 'rb') || this.collide(target, i, 'lb') || this.collide(target, i, 'rlb')) && !this.b[i]):
             {
-                this.velY = target.gravity * 3 - this.loss;
-                this.cumLoss += this.loss;
+                // this.velY = target.gravity * 3 - this.loss;
+                // this.cumLoss += this.loss;
+                this.velY = ((this.mass - target.mass)/(this.mass + target.mass)*this.velY) + (2*target.mass/(this.mass+target.mass)*target.velY);
+                target.velY = (2*this.mass/(this.mass+target.mass)*this.velY) + ((target.mass - this.mass)/(this.mass + target.mass)*target.velY);
+                target.updated = true;
+
+                this.y = target.y - this.h;
                 break;
             }
             case ((this.collide(target, i, 'rt') || this.collide(target, i, 'lt') || this.collide(target, i, 'rlt')) && !this.t[i]):
             {
-                this.velY = -Math.abs(target.velY);
+                // this.velY = -Math.abs(target.velY);
+                this.velY = ((this.mass - target.mass)/(this.mass + target.mass)*this.velY) + (2*target.mass/(this.mass+target.mass)*target.velY);
+                target.velY = (2*this.mass/(this.mass+target.mass)*this.velY) + ((target.mass - this.mass)/(this.mass + target.mass)*target.velY);
+                target.updated = true;
+                
+                this.y = target.y + target.h;
                 break;
             }
             case ((this.collide(target, i, 'rt') || this.collide(target, i, 'rb') || this.collide(target, i, 'rtb')) && !this.r[i]):
             {
-                this.velX = -(Math.abs(target.velX) - this.loss);
+                // this.velX = -(Math.abs(target.velX) - this.loss);
+                this.velX = ((this.mass - target.mass)/(this.mass + target.mass)*this.velX) + (2*target.mass/(this.mass+target.mass)*target.velX);
+                target.velX = (2*this.mass/(this.mass+target.mass)*this.velX) + ((target.mass - this.mass)/(this.mass + target.mass)*target.velX);
+                target.updated = true;
+
+                this.x = target.x + target.w * target.offsetX - this.w * (this.offsetX+1) - 14;
                 break;
             }
             case ((this.collide(target, i, 'lt') || this.collide(target, i, 'lb') || this.collide(target, i, 'ltb')) && !this.l[i]):
             {
-                this.velX = (Math.abs(target.velX) - this.loss);
+                // this.velX = (Math.abs(target.velX) - this.loss);
+                this.velX = ((this.mass - target.mass)/(this.mass + target.mass)*this.velX) + (2*target.mass/(this.mass+target.mass)*target.velX);
+                target.velX = (2*this.mass/(this.mass+target.mass)*this.velX) + ((target.mass - this.mass)/(this.mass + target.mass)*target.velX);
+                target.updated = true;
+
+                this.x = target.x + target.w * (target.offsetX+1) + 14 - this.w * this.offsetX;
                 break;
             }
         }
@@ -162,23 +186,10 @@ class Word {
         if (this.cH2)
             this.color2 = this.display.color;
 
-        this.w = this.display.measureWordWidth(this.display.buffer, this.word, this.size);
-
-        this.display.createWord(this.display.buffer, this.word, this.x - 1, this.y - 1, this.offsetX, true, 1, this.size, this.alpha2, this.color2, (this.size>16) ? -this.size/4 : 0);
-        this.display.createWord(this.display.buffer, this.word, this.x, this.y, this.offsetX, true, 1, this.size, this.alpha, this.color, (this.size>16) ? -this.size/4 : 0);
-        this.display.createWord(this.display.buffer, this.overlay,
-            (this.centered) ? (this.x - Math.round(this.w/2)) : this.x, this.y,
-            (this.centered) ? 0 : this.offsetX, false, 1, this.size, this.alphaO,
-            'red'
-        );
-        this.display.createWord(this.display.buffer, this.overlay,
-            (this.centered) ? (this.x - Math.round(this.w/2)) : this.x, this.y,
-            (this.centered) ? 0 : this.offsetX, false, 1, this.size, this.alphaO,
-            'red'
-        );
-
         if (Math.floor(gameState) == 1)
         {
+            this.w = this.display.measureWordWidth(this.display.buffer, this.word, this.size);
+
             if (this.settings.gameMode <= 1) //Normal fall
             {
                 if (this.y <= this.maxY)
@@ -191,6 +202,7 @@ class Word {
                     if (words[i] != undefined && words[i].id != this.id)
                     {
                         this.collisionCheck(words[i], i);
+
                         this.collide(words[i], i, 'meh', true);
                     }
                 }
@@ -201,13 +213,14 @@ class Word {
                     this.cumLoss += this.loss;
                 }
 
+                if (this.settings.gameMode == 3 && this.y <= 0)
+                    this.velY = -this.gravity;
+
                 if ((this.x + this.w * this.offsetX - 4 <= 0))
-                    this.velX = (Math.abs(this.velX) - this.loss);
+                    this.velX = (Math.abs(this.velX) - this.loss > 0.1) ? Math.abs(this.velX) - this.loss > 0.1 : 0;
 
-                if (this.x + this.w * (this.offsetX+1) + 10 >= viewport[0])
-                    this.velX = -(Math.abs(this.velX) - this.loss);
-
-                this.velY -= this.gravity/10;
+                if (this.x + this.w * (this.offsetX+1) + 8 >= viewport[0] - 4)
+                    this.velX = -(Math.abs(this.velX) - this.loss > 0.1) ? -(Math.abs(this.velX) - this.loss > 0.1) : 0;
             }
         }
 
@@ -215,8 +228,81 @@ class Word {
 
     updateVel()
     {
-        this.x += this.velX;
-        this.y -= this.velY;
+        if (Math.floor(gameState) == 1)
+        {
+            this.velY -= this.gravity/10;
+
+            this.x += this.velX;
+            this.y -= this.velY;
+        }
+        
+    }
+
+    noClipping()
+    {
+        if (gameState == 1 && this.settings.gameMode > 1)
+        {
+            for (let i = 0; i < words.length; i++)
+            {
+                if (words[i] != undefined && words[i].id != this.id)
+                {
+                    switch(true)
+                    {
+                        case ((this.collide(words[i], i, 'rb') || this.collide(words[i], i, 'lb') || this.collide(words[i], i, 'rlb')) && !this.b[i]):
+                        {
+                            this.y = words[i].y - this.h;
+                            break;
+                        }
+                        case ((this.collide(words[i], i, 'rt') || this.collide(words[i], i, 'lt') || this.collide(words[i], i, 'rlt')) && !this.t[i]):
+                        {
+                            this.y = words[i].y + words[i].h;
+                            break;
+                        }
+                        case ((this.collide(words[i], i, 'rt') || this.collide(words[i], i, 'rb') || this.collide(words[i], i, 'rtb')) && !this.r[i]):
+                        {
+                            this.x = words[i].x + words[i].w * words[i].offsetX - this.w * (this.offsetX+1) - 14;
+                            break;
+                        }
+                        case ((this.collide(words[i], i, 'lt') || this.collide(words[i], i, 'lb') || this.collide(words[i], i, 'ltb')) && !this.l[i]):
+                        {
+                            this.x = words[i].x + words[i].w * (words[i].offsetX+1) + 14 - this.w * this.offsetX;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if ((this.x + this.w * this.offsetX - 4 <= 0))
+                this.x =  0 - this.w * this.offsetX + 4;
+
+            if (this.x + this.w * (this.offsetX+1) + 8 >= viewport[0] - 4)
+                this.x = viewport[0] - this.w * (this.offsetX+1) - 12;
+
+            if (this.settings.gameMode == 3 && this.y + this.h >= this.maxY)
+                this.y = this.maxY - this.h;
+
+            if (this.settings.gameMode == 3 && this.y <= 0)
+                this.y = 0;
+        }
+        
+    }
+
+    updateRender()
+    {
+        
+        this.display.createWord(this.display.buffer, this.word, this.x - 1, this.y - 1, this.offsetX, true, 1, this.size, this.alpha2, this.color2, (this.size>16) ? -this.size/4 : 0);
+        this.display.createWord(this.display.buffer, this.word, this.x, this.y, this.offsetX, true, 1, this.size, this.alpha, this.color, (this.size>16) ? -this.size/4 : 0);
+        this.display.createWord(this.display.buffer, this.overlay,
+            (this.centered) ? (this.x - Math.round(this.w/2)) : this.x, this.y,
+            (this.centered) ? 0 : this.offsetX, false, 1, this.size, this.alphaO,
+            'red'
+        );
+        this.display.createWord(this.display.buffer, this.overlay,
+            (this.centered) ? (this.x - Math.round(this.w/2)) : this.x, this.y,
+            (this.centered) ? 0 : this.offsetX, false, 1, this.size, this.alphaO,
+            'red'
+        );
+        
     }
 
 }

@@ -53,13 +53,15 @@ const render = () =>
             for (let i = 0; i < words.length; i++) {
 
                 if (words[i] != undefined)
+                {
                     words[i].updatePos();
-                
-            }
-            for (let i = 0; i < words.length; i++) {
-
-                if (words[i] != undefined)
-                    words[i].updateVel();
+                    if (settings.gameMode > 1)
+                    {
+                        words[i].noClipping();
+                        words[i].updateVel();
+                    }
+                    words[i].updateRender();
+                }
                 
             }
             
@@ -122,6 +124,7 @@ const render = () =>
             if (words[i] != undefined)
             {
                 words[i].updatePos();
+                words[i].updateRender();
             }
         }
         display.createWord(display.buffer, `[${display.input}]`, Math.floor(display.buffer.canvas.width / 2), display.buffer.canvas.height - 17, -0.5, false);
@@ -134,6 +137,8 @@ const render = () =>
 let aniCount = 0;
 let aniTimes = 0;
 let rDelay = 0;
+
+let instances = 0;
 
 const update = () => {
 
@@ -209,6 +214,13 @@ const update = () => {
                             if (pages[1][2].value > 5)
                                 pages[1][2].value = 5;
                             break;
+
+                        case 3:
+                            pages[0][3].value = 1000;
+                            pages[1][0].value = 1000;
+                            pages[1][1].value = 0;
+                            pages[1][2].value = 10;
+                            break;
                     }
                     pages[1][2].x = Math.floor((pages[1][2].value - pages[1][2].valueOffset) * (pages[1][2].barWidth) / (pages[1][2].minMax[1])) + (pages[1][2].fixedPos[0] - Math.floor(pages[1][2].width / 2));
                     settings.oGameMode = settings.gameMode;
@@ -277,6 +289,10 @@ const update = () => {
                                 
                                 if (wordsSum < settings.words)
                                 {
+                                                    
+                                    instances++;
+                                    console.log(instances)
+
                                     words[i] = new Word(generator.word, Math.floor(Math.random() * (display.buffer.canvas.width - generator.word.length * 10 - 5) + 5), -16, display, settings, 0, viewport[1], false, 16, 0, 'orangered', 0.5, 1);
                                     wordsSum++;
                                     generator.Generate();
@@ -295,7 +311,7 @@ const update = () => {
 
                     for (let i = 0; i < words.length; i++) {
 
-                        if (words[i] != undefined && words[i].y > viewport[1] ) {
+                        if (settings.gameMode != 3 && words[i] != undefined && words[i].y > viewport[1] ) {
                 
                             comboTarget = 0;
                             lost += 1;
