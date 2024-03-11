@@ -23,9 +23,10 @@ class Generator {
                 }
                 document.querySelector('h2').style.display = `none`;
                 localStorage.setItem('sent', 'true');
+                tTimes = 0;
             }
 
-            if (localStorage.getItem('sent') == 'false' && tTimes > 0)
+            if (localStorage.getItem('sent') == 'false' && tTimes > 3)
                 document.querySelector('h2').style.display = `block`;
             
             localStorage.setItem('sent', 'false');

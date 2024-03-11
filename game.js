@@ -139,6 +139,83 @@ const pages = [
 
 ];
 
+const gameModeUpdate = (init = false) => {
+    if (settings.gameMode * 1 != settings.oGameMode * 1 || init)
+    {
+        switch (settings.gameMode * 1)
+        {
+            case 0:
+                pages[0][1].alpha = 1;
+
+                pages[0][3].minMax[1] = 70;
+                pages[0][3].value = 100;
+                pages[0][3].alpha = 1;
+
+                pages[1][0].minMax[1] = 9;
+                pages[1][0].value = 10;
+                pages[1][0].alpha = 1;
+
+                pages[1][1].value = 10;
+                pages[1][1].valueOffset = 10;
+                pages[1][1].alpha = 1;
+
+                pages[1][2].setting = "Max Speed";
+                pages[1][2].value = 10;
+                pages[1][2].alpha = 1;
+
+                pages[1][3].fake = undefined;
+                pages[1][3].alpha = 1;
+
+                break;
+            
+            case 1:
+                pages[1][2].setting = "Speed";
+                break;
+
+            case 2:
+                pages[1][2].setting = "Max Speed";
+                pages[1][2].minMax[1] = 3;
+                if (pages[1][2].value > 5)
+                    pages[1][2].value = 5;
+                break;
+
+            case 3:
+                pages[0][1].index = 1;
+                pages[0][1].alpha = 0.5;
+
+                pages[0][3].minMax[1] = 970;
+                pages[0][3].value = 1000;
+                pages[0][3].alpha = 0.5;
+
+                pages[1][0].minMax[1] = 999;
+                pages[1][0].value = 1000;
+                pages[1][0].alpha = 0.5;
+
+                pages[1][1].value = 0;
+                pages[1][1].valueOffset = 0;
+                pages[1][1].alpha = 0.5;
+
+                pages[1][2].minMax[1] = 8;
+                pages[1][2].value = 10;
+                pages[1][2].alpha = 0.5;
+                
+                pages[1][3].value = 10;
+                pages[1][3].fake = "∞";
+                pages[1][3].alpha = 0.5;
+                break;
+        }
+        pages[0][3].x = Math.floor((pages[0][3].value - pages[0][3].valueOffset) * (pages[0][3].barWidth) / (pages[0][3].minMax[1])) + (pages[0][3].fixedPos[0] - Math.floor(pages[0][3].width / 2));
+        pages[1][0].x = Math.floor((pages[1][0].value - pages[1][0].valueOffset) * (pages[1][0].barWidth) / (pages[1][0].minMax[1])) + (pages[1][0].fixedPos[0] - Math.floor(pages[1][0].width / 2));
+        pages[1][1].x = Math.floor((pages[1][1].value - pages[1][1].valueOffset) * (pages[1][1].barWidth) / (pages[1][1].minMax[1])) + (pages[1][1].fixedPos[0] - Math.floor(pages[1][1].width / 2));
+        pages[1][2].x = Math.floor((pages[1][2].value - pages[1][2].valueOffset) * (pages[1][2].barWidth) / (pages[1][2].minMax[1])) + (pages[1][2].fixedPos[0] - Math.floor(pages[1][2].width / 2));
+        
+        settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index,
+            /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].index, pages[0][3].value, pages[0][4]);
+
+        settings.oGameMode = settings.gameMode;
+    }
+};
+
 const check = () => {
 
     for (let i = 0; i < words.length; i++) {
@@ -309,6 +386,8 @@ const setup = () => {
         }
 
     }
+    
+    gameModeUpdate();
 
     // Setup Settings
     settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index,
@@ -351,7 +430,6 @@ const setup = () => {
 
 const INIT = () =>
 {
-
     // Setup Settings
     settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index,
         /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].index, pages[0][3].value, pages[0][4]);

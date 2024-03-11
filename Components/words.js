@@ -192,8 +192,11 @@ class Word {
 
             if (this.settings.gameMode <= 1) //Normal fall
             {
-                if (this.y <= this.maxY)
+                if (this.y < this.maxY)
                     this.y += (this.settings.gameMode == 1) ? this.settings.speed : this.speed;
+                if (this.y > this.maxY)
+                    this.y = this.maxY;
+
             }
             else //Bouncy
             {
@@ -213,8 +216,8 @@ class Word {
                     this.cumLoss += this.loss;
                 }
 
-                if (this.settings.gameMode == 3 && this.y <= 0)
-                    this.velY = -this.gravity;
+                // if (this.settings.gameMode == 3 && this.y <= 0)
+                //     this.velY = -this.gravity;
 
                 if ((this.x + this.w * this.offsetX - 4 <= 0))
                     this.velX = (Math.abs(this.velX) - this.loss > 0.1) ? Math.abs(this.velX) - this.loss > 0.1 : 0;
@@ -281,8 +284,8 @@ class Word {
             if (this.settings.gameMode == 3 && this.y + this.h >= this.maxY)
                 this.y = this.maxY - this.h;
 
-            if (this.settings.gameMode == 3 && this.y <= 0)
-                this.y = 0;
+            // if (this.settings.gameMode == 3 && this.y <= 0)
+            //     this.y = 0;
         }
         
     }

@@ -66,6 +66,7 @@ class Slider {
         this.height = height;
         this.display = display;
         this.value = value;
+        this.fake;
         this.minMax = minMax;
         this.valueOffset = valueOffset;
 
@@ -83,7 +84,7 @@ class Slider {
         this.display.createRect(this.display.settings, this.x, this.y, this.width, this.height, this.display.color, 1, this.alpha);
         this.display.createRect(this.display.settings, this.fixedPos[0], this.fixedPos[1] + 3, this.barWidth, this.height - 6, this.display.color, 1, this.alpha);
         
-        this.display.createWord(this.display.settings, this.value, 188, this.y - 5, -0.5, false, 1, 16, this.alpha);
+        this.display.createWord(this.display.settings, (this.fake == undefined ? this.value : this.fake), 188, this.y - 5, -0.5, false, 1, 16, this.alpha);
         this.display.createFill(this.display.settings, this.x, this.y, this.width, this.height, 0.5 - (1-this.alpha) / 2)
 
     }

@@ -148,7 +148,7 @@ let instances = 0;
 const update = () => {
 
     if (Math.floor(gameState) >= 0) {
-        increment = Math.round(10 * (settings.maxWords / 2) / (settings.interval / 40) * (settings.gameMode == 2 ? (5 / (settings.speed * (5**2))) : (settings.speed * 5)) / (settings.health / 10) + settings.caps * 500);
+        increment = (settings.gameMode != 3 ? Math.round(10 * (settings.maxWords / 2) / (settings.interval / 40) * (settings.gameMode == 2 ? (5 / (settings.speed * (5**2))) : (settings.speed * 5)) / (settings.health / 10) + settings.caps * 500) : 0);
 
         switch (Math.floor(gameState)) {
 
@@ -199,64 +199,7 @@ const update = () => {
                 localStorage.setItem("AA", pages[3][3].index);
 
                 // Game Modes
-                if (settings.gameMode * 1 != settings.oGameMode * 1)
-                {
-                    switch (settings.gameMode * 1)
-                    {
-                        case 0:
-                            pages[0][3].minMax[1] = 70;
-                            pages[0][3].value = 100;
-                            pages[0][3].alpha = 1;
-
-                            pages[1][0].minMax[1] = 9;
-                            pages[1][0].value = 10;
-                            pages[1][0].alpha = 1;
-
-                            pages[1][1].value = 10;
-                            pages[1][1].valueOffset = 10;
-                            pages[1][1].alpha = 1;
-
-                            pages[1][2].setting = "Max Speed";
-                            pages[1][2].value = 10;
-                            pages[1][2].alpha = 1;
-
-                            break;
-                        
-                        case 1:
-                            pages[1][2].setting = "Speed";
-                            break;
-
-                        case 2:
-                            pages[1][2].setting = "Max Speed";
-                            pages[1][2].minMax[1] = 3;
-                            if (pages[1][2].value > 5)
-                                pages[1][2].value = 5;
-                            break;
-
-                        case 3:
-                            pages[0][3].minMax[1] = 970;
-                            pages[0][3].value = 1000;
-                            pages[0][3].alpha = 0.5;
-
-                            pages[1][0].minMax[1] = 999;
-                            pages[1][0].value = 1000;
-                            pages[1][0].alpha = 0.5;
-
-                            pages[1][1].value = 0;
-                            pages[1][1].valueOffset = 0;
-                            pages[1][1].alpha = 0.5;
-
-                            pages[1][2].minMax[1] = 8;
-                            pages[1][2].value = 10;
-                            pages[1][2].alpha = 0.5;
-                            break;
-                    }
-                    pages[0][3].x = Math.floor((pages[0][3].value - pages[0][3].valueOffset) * (pages[0][3].barWidth) / (pages[0][3].minMax[1])) + (pages[0][3].fixedPos[0] - Math.floor(pages[0][3].width / 2));
-                    pages[1][0].x = Math.floor((pages[1][0].value - pages[1][0].valueOffset) * (pages[1][0].barWidth) / (pages[1][0].minMax[1])) + (pages[1][0].fixedPos[0] - Math.floor(pages[1][0].width / 2));
-                    pages[1][1].x = Math.floor((pages[1][1].value - pages[1][1].valueOffset) * (pages[1][1].barWidth) / (pages[1][1].minMax[1])) + (pages[1][1].fixedPos[0] - Math.floor(pages[1][1].width / 2));
-                    pages[1][2].x = Math.floor((pages[1][2].value - pages[1][2].valueOffset) * (pages[1][2].barWidth) / (pages[1][2].minMax[1])) + (pages[1][2].fixedPos[0] - Math.floor(pages[1][2].width / 2));
-                    settings.oGameMode = settings.gameMode;
-                }
+                gameModeUpdate();
 
                 break;
 
@@ -313,7 +256,7 @@ const update = () => {
                                         else
                                             clearState = "YOU DIED";
                 
-                                        words[i]  = new Word(clearState, display.buffer.canvas.width / 2, -16, display, settings, -0.5, viewport[1] - 8, true, 24, 'black', 'red', 0.5, 1);
+                                        words[i]  = new Word(clearState, display.buffer.canvas.width / 2, -16, display, settings, -0.5, (settings.gameMode > 1 ? viewport[1] - 8 : Math.floor(viewport[1]/2) - 8), true, 24, 'black', 'red', 0.5, 1);
                                     }
 
                                     break;
@@ -323,9 +266,8 @@ const update = () => {
                                 {
                                                     
                                     instances++;
-                                    console.log(instances)
 
-                                    words[i] = new Word(generator.word, Math.floor(Math.random() * (display.buffer.canvas.width - generator.word.length * 10 - 5) + 5), -16, display, settings, 0, viewport[1], false, 16, 0, 'orangered', 0.5, 1);
+                                    words[i] = new Word(generator.word, Math.floor(Math.random() * (display.buffer.canvas.width - generator.word.length * 10 - 5) + 5), -16, display, settings, 0, viewport[1]+1, false, 16, 0, 'orangered', 0.5, 1);
                                     wordsSum++;
                                     generator.Generate();
                                 }
@@ -339,21 +281,19 @@ const update = () => {
                         }
                         count = 0;
                     }
-                } else {
+                }
 
-                    for (let i = 0; i < words.length; i++) {
+                for (let i = 0; i < words.length; i++) {
 
-                        if (settings.gameMode != 3 && words[i] != undefined && words[i].y > viewport[1] ) {
-                
-                            comboTarget = 0;
-                            lost += 1;
-                            healthTarget -= 1;
-                            delete words[i];
-                
-                        }
-                
+                    if (settings.gameMode != 3 && words[i] != undefined && words[i].y > viewport[1] ) {
+            
+                        comboTarget = 0;
+                        lost += 1;
+                        healthTarget -= 1;
+                        delete words[i];
+            
                     }
-
+            
                 }
 
                 count++;
