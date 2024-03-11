@@ -2,8 +2,6 @@ let option = undefined;
 
 const keyDown = (e) => {
 
-    document.querySelector("h5").innerHTML = e.code;
-
     if (Math.floor(gameState) != 0) {
 
         if ((e.key.length == 1 || (e.key == " " && !display.input.includes(" "))) && display.input.length < 12) {
@@ -168,7 +166,7 @@ class MouseInput {
 
             for (let i = 0; i < page.length; i++) {
 
-                if ( page[i].type == "slider" && ((e.clientX - edge[0] > Math.floor((page[i].fixedPos[0] / 384 * 0.8 + 0.1) * display.display.canvas.width) && e.clientX - edge[0] < Math.floor(((page[i].fixedPos[0] + page[i].barWidth) / 384 * 0.8 + 0.1) * display.display.canvas.width)) && (e.clientY - edge[1] > Math.floor((page[i].fixedPos[1] / 288 * 0.8 + 0.1) * display.display.canvas.height) && e.clientY - edge[1] < Math.floor(((page[i].fixedPos[1] + page[i].height) / 288 * 0.8 + 0.1) * display.display.canvas.height))) ) {
+                if ( page[i].type == "slider" && page[i].alpha == 1 && ((e.clientX - edge[0] > Math.floor((page[i].fixedPos[0] / 384 * 0.8 + 0.1) * display.display.canvas.width) && e.clientX - edge[0] < Math.floor(((page[i].fixedPos[0] + page[i].barWidth) / 384 * 0.8 + 0.1) * display.display.canvas.width)) && (e.clientY - edge[1] > Math.floor((page[i].fixedPos[1] / 288 * 0.8 + 0.1) * display.display.canvas.height) && e.clientY - edge[1] < Math.floor(((page[i].fixedPos[1] + page[i].height) / 288 * 0.8 + 0.1) * display.display.canvas.height))) ) {
 
                     page[i].x = Math.floor( Math.round( ( ( (((e.clientX - edge[0]) / display.display.canvas.width - 0.1) / 0.8 * 384) ) - page[i].fixedPos[0]) / (page[i].barWidth / page[i].minMax[1])) * (page[i].barWidth / page[i].minMax[1]) + page[i].fixedPos[0] - page[i].width / 2);
                     return (page[i]);
@@ -193,7 +191,7 @@ class MouseInput {
     
     move(e) {
     
-        if (mouseInput != undefined && mouseInput.element != undefined && mouseInput.element.type == "slider") {
+        if (mouseInput != undefined && mouseInput.element != undefined && mouseInput.element.type == "slider" && mouseInput.element.alpha == 1) {
             
             if (e.clientX - edge[0] > Math.floor((mouseInput.element.fixedPos[0] / 384 * 0.8 + 0.1) * display.display.canvas.width - (mouseInput.element.width / 2 - 4)) && e.clientX - edge[0] < Math.floor(((mouseInput.element.fixedPos[0] + mouseInput.element.barWidth) / 384 * 0.8 + 0.1) * display.display.canvas.width) )
                 mouseInput.element.x = Math.floor( Math.round( ( ( (((e.clientX - edge[0]) / display.display.canvas.width - 0.1) / 0.8 * 384) ) - mouseInput.element.fixedPos[0]) / (mouseInput.element.barWidth / mouseInput.element.minMax[1])) * (mouseInput.element.barWidth / mouseInput.element.minMax[1]) + mouseInput.element.fixedPos[0] - mouseInput.element.width / 2);

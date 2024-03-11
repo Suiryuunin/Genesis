@@ -4,6 +4,7 @@ const render = () =>
 {
     display.drawBackground(display.buffer);
     display.createObject(display.buffer, background, -16, -16, viewport[0] + 32, viewport[1] + 32, 0.5);
+    display.createRect(display.buffer, 1, 1, viewport[0]-2, viewport[1]-2, display.color, 2, 0.5);
 
     if (Math.floor(gameState) >= 0) {
         if (Math.floor(gameState) == 0) {
@@ -100,15 +101,19 @@ const render = () =>
         display.createWord(display.buffer, `Lost ${lost}`, 1, display.buffer.canvas.height - 17, 0, false);
         display.createWord(display.buffer, `Typed ${typed}`, display.buffer.canvas.width - 9, display.buffer.canvas.height - 17, -1, false);
 
-        display.createObject(display.buffer, heart, 0, 0, 32, 32);
+        display.createObject(display.buffer, (settings.gameMode != 3 ? heart : heartI), 2, 2, 32, 32);
 
-        display.createRect(display.buffer, 36, 1, 124, 32);
-        if (health > 0) {
-            
-            display.createRect(display.buffer, 40, 5, health, 24, color);
-            display.createRect(display.buffer, 40, 5, health, 24, color);
+        if (settings.gameMode != 3)
+        {
+            display.createRect(display.buffer, 36, 1, 124, 32);
+            if (health > 0) {
+                
+                display.createRect(display.buffer, 40, 5, health, 24, color);
+                display.createRect(display.buffer, 40, 5, health, 24, color);
 
+            }
         }
+        
     }
     else
     {
@@ -199,13 +204,26 @@ const update = () => {
                     switch (settings.gameMode * 1)
                     {
                         case 0:
+                            pages[0][3].minMax[1] = 70;
+                            pages[0][3].value = 100;
+                            pages[0][3].alpha = 1;
+
+                            pages[1][0].minMax[1] = 9;
+                            pages[1][0].value = 10;
+                            pages[1][0].alpha = 1;
+
+                            pages[1][1].value = 10;
+                            pages[1][1].valueOffset = 10;
+                            pages[1][1].alpha = 1;
+
                             pages[1][2].setting = "Max Speed";
-                            pages[1][2].minMax[1] = 8;
+                            pages[1][2].value = 10;
+                            pages[1][2].alpha = 1;
+
                             break;
                         
                         case 1:
                             pages[1][2].setting = "Speed";
-                            pages[1][2].minMax[1] = 8;
                             break;
 
                         case 2:
@@ -216,12 +234,26 @@ const update = () => {
                             break;
 
                         case 3:
+                            pages[0][3].minMax[1] = 970;
                             pages[0][3].value = 1000;
+                            pages[0][3].alpha = 0.5;
+
+                            pages[1][0].minMax[1] = 999;
                             pages[1][0].value = 1000;
+                            pages[1][0].alpha = 0.5;
+
                             pages[1][1].value = 0;
+                            pages[1][1].valueOffset = 0;
+                            pages[1][1].alpha = 0.5;
+
+                            pages[1][2].minMax[1] = 8;
                             pages[1][2].value = 10;
+                            pages[1][2].alpha = 0.5;
                             break;
                     }
+                    pages[0][3].x = Math.floor((pages[0][3].value - pages[0][3].valueOffset) * (pages[0][3].barWidth) / (pages[0][3].minMax[1])) + (pages[0][3].fixedPos[0] - Math.floor(pages[0][3].width / 2));
+                    pages[1][0].x = Math.floor((pages[1][0].value - pages[1][0].valueOffset) * (pages[1][0].barWidth) / (pages[1][0].minMax[1])) + (pages[1][0].fixedPos[0] - Math.floor(pages[1][0].width / 2));
+                    pages[1][1].x = Math.floor((pages[1][1].value - pages[1][1].valueOffset) * (pages[1][1].barWidth) / (pages[1][1].minMax[1])) + (pages[1][1].fixedPos[0] - Math.floor(pages[1][1].width / 2));
                     pages[1][2].x = Math.floor((pages[1][2].value - pages[1][2].valueOffset) * (pages[1][2].barWidth) / (pages[1][2].minMax[1])) + (pages[1][2].fixedPos[0] - Math.floor(pages[1][2].width / 2));
                     settings.oGameMode = settings.gameMode;
                 }
