@@ -154,9 +154,10 @@ const update = () => {
             if (display.input == "...")
                 display.input = "";
             display.input += input.value;
-            input.value = "";
         }
     }
+    if (mobile)
+        input.value = "";
 
     if (Math.floor(gameState) >= 0) {
         increment = (settings.gameMode != 3 ? Math.round(10 * (settings.maxWords / 2) / (settings.interval / 40) * (settings.gameMode == 2 ? (5 / (settings.speed * (5**2))) : (settings.speed * 5)) / (settings.health / 10) + settings.caps * 500) : 0);
