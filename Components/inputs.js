@@ -5,7 +5,7 @@ const keyDown = (e) => {
 
     if (Math.floor(gameState) != 0) {
 
-        if ((e.key.length == 1 || (e.key == " " && !display.input.includes(" "))) && display.input.length < 12) {
+        if (!mobile && ((e.key.length == 1 || (e.key == " " && !display.input.includes(" "))) && display.input.length < 12)) {
     
             if (display.input == "...")
                 display.input = "";
