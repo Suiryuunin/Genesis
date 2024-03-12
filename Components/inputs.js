@@ -1,6 +1,7 @@
 let option = undefined;
 
 const keyDown = (e) => {
+    document.querySelector("h5").innerHTML = `${e.code}/${e.keyCode}`;
 
     if (Math.floor(gameState) != 0) {
 
