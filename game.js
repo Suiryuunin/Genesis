@@ -276,6 +276,38 @@ const check = () => {
 
             }
 
+            if (display.input.toLowerCase() == "esc") {
+
+                switch(Math.floor(gameState)) {
+
+                case 1:
+                    gameState = 0 + lastPage;
+                    document.getElementById('borderS').style.display = 'block';
+
+                    break;
+
+                case 0:
+                    gameState = 1;
+                    document.getElementById('borderS').style.display = 'none';
+
+                    break;
+
+                }
+
+                if (
+                    (
+                    settings.old[0] != settings.text     ||
+                    settings.old[1] != settings.genMode  ||
+                    settings.old[2] != settings.gameMode ||
+                    settings.old[3] != settings.words    ||
+                    settings.old[4] != settings.maxChar) &&
+                    gameState != -1                        )
+                    setup();
+
+                break;
+
+            }
+
         }
 
     }
