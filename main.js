@@ -147,7 +147,7 @@ let instances = 0;
 
 const update = () => {
 
-    if (Math.floor(gameState) != 0)
+    if (gameState == 1 || gameState == -1)
     {
         if (mobile && input.value != "" && display.input.length < 12)
         {
