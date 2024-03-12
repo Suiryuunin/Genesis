@@ -340,10 +340,13 @@ class Words {
         if (this.cH2)
             this.color2 = this.display.color;
 
+    }
+
+    updateRender()
+    {
         // this.display.createWord(this.display.buffer, this.word, this.x, this.y, this.offsetX, true, 1, this.size);
         this.display.createWord(this.display.buffer, this.words, this.x - 1, this.y - 1, this.offsetX, false, this.lines, this.size, this.alpha2, this.color2, (this.size>16) ? -this.size/4 : 0, 1);
         this.display.createWord(this.display.buffer, this.words, this.x,       this.y,       this.offsetX, false, this.lines, this.size, this.alpha,  this.color,  (this.size>16) ? -this.size/4 : 0, 1);
-
     }
 
 }
