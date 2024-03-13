@@ -18,7 +18,7 @@ const keyDown = (e) => {
         }
     }
     
-    if (Math.floor(gameState) != 0 || mobile)
+    if (Math.floor(gameState) != 0 && !mobile)
     {
         if (display.input != "...") {
     
@@ -79,19 +79,53 @@ const keyDown = (e) => {
             }
     
         }
-        if (!mobile)
-        {
-            for (let i = 0; i < words.length; i++) {
-                if (words[i] != undefined) {
-                    if (display.input == words[i].word.substring(0, display.input.length))
-                        words[i].overlay = display.input;
-                    else
-                        words[i].overlay = '';
-                }
+        
+        for (let i = 0; i < words.length; i++) {
+            if (words[i] != undefined) {
+                if (display.input == words[i].word.substring(0, display.input.length))
+                    words[i].overlay = display.input;
+                else
+                    words[i].overlay = '';
             }
         }
-        
 
+    }
+
+    if (mobile)
+    {
+        switch (e.keyCode) {
+            
+            case 32:
+
+                if ((settings.check != 0) && gameState != -1)
+                {
+                    if (option == undefined)
+                        option = check();
+                    else
+                        check();
+
+                    display.input = "";
+                    if (mobile)
+                        input.value = "";
+                }
+                break;
+
+            case 13:
+
+                if (settings.check != 1 || gameState == -1)
+                {
+                    if (option == undefined)
+                        option = check();
+                    else
+                        check();
+
+                    display.input = "";
+                    if (mobile)
+                        input.value = "";
+                }
+                break;
+    
+        }
     }
 
 }
