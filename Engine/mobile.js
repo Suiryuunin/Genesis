@@ -9,4 +9,4 @@ const mobile = window.mobileAndTabletCheck();
 const input = document.querySelector("input");
 
 if (mobile)
-    input.style.zIndex = 1000;
+    input.style.zIndex = 3;

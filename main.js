@@ -147,17 +147,26 @@ let instances = 0;
 
 const update = () => {
 
-    if (gameState == 1 || gameState == -1)
+    if (mobile)
     {
-        if (mobile && input.value != "" && display.input.length < 12)
-        {
-            if (display.input == "...")
-                display.input = "";
-            display.input += input.value;
+        if (input.value.length > 12 && (Math.floor(gameState) != 0))
+            input.value = input.value.substring(0, 11);
+        else if (input.value.length > 1 && (Math.floor(gameState) == 0))
+            input.value = input.value.substring(0, 1);
+
+        if (settings.check != 0 && input.value.includes(" ") && Math.floor(gameState != -1))
+            input.value = input.value.replace(" ", "");
+        display.input = input.value;
+        
+        for (let i = 0; i < words.length; i++) {
+            if (words[i] != undefined) {
+                if (display.input == words[i].word.substring(0, display.input.length))
+                    words[i].overlay = display.input;
+                else
+                    words[i].overlay = '';
+            }
         }
     }
-    if (mobile)
-        input.value = "";
 
     if (Math.floor(gameState) >= 0) {
         increment = (settings.gameMode != 3 ? Math.round(10 * (settings.maxWords / 2) / (settings.interval / 40) * (settings.gameMode == 2 ? (5 / (settings.speed * (5**2))) : (settings.speed * 5)) / (settings.health / 10) + settings.caps * 500) : 0);
@@ -394,7 +403,7 @@ const update = () => {
             }
         }
     }
-    if (Math.floor(gameState) != 0 && display.input == "")
+    if (display.input == "")
         display.input = "...";
 
 };

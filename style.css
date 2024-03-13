@@ -49,7 +49,7 @@ input
     width: 50vmax;
     height: 4vmax;
     transform: translate(-50%, 0);
-    opacity: 50%;
+    opacity: 0;
 }
 
 canvas

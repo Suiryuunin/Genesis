@@ -3,9 +3,9 @@ let option = undefined;
 const keyDown = (e) => {
     document.querySelector("h5").innerHTML = `${e.code}/${e.keyCode}`;
 
-    if (Math.floor(gameState) != 0) {
+    if (Math.floor(gameState) != 0 && !mobile) {
 
-        if (!mobile && ((e.key.length == 1 || (e.key == " " && !display.input.includes(" "))) && display.input.length < 12)) {
+        if ((e.key.length == 1 || (e.key == " " && !display.input.includes(" "))) && display.input.length < 12) {
     
             if (display.input == "...")
                 display.input = "";
@@ -16,7 +16,10 @@ const keyDown = (e) => {
                 display.input += e.key;
     
         }
+    }
     
+    if (Math.floor(gameState) != 0 || mobile)
+    {
         if (display.input != "...") {
     
             switch (e.code) {
@@ -53,6 +56,8 @@ const keyDown = (e) => {
                             check();
 
                         display.input = "";
+                        if (mobile)
+                            input.value = "";
                     }
                     break;
 
@@ -66,20 +71,26 @@ const keyDown = (e) => {
                             check();
 
                         display.input = "";
+                        if (mobile)
+                            input.value = "";
                     }
                     break;
         
             }
     
         }
-        for (let i = 0; i < words.length; i++) {
-            if (words[i] != undefined) {
-                if (display.input == words[i].word.substring(0, display.input.length))
-                    words[i].overlay = display.input;
-                else
-                    words[i].overlay = '';
+        if (!mobile)
+        {
+            for (let i = 0; i < words.length; i++) {
+                if (words[i] != undefined) {
+                    if (display.input == words[i].word.substring(0, display.input.length))
+                        words[i].overlay = display.input;
+                    else
+                        words[i].overlay = '';
+                }
             }
         }
+        
 
     }
 

@@ -245,19 +245,25 @@ const check = () => {
                         }
                     }
                     
-                    display.input = '';
+                    display.input = "";
+                    if (mobile)
+                        input.value = "";
                     break;
                 }
                 
                 if (finished) {
 
                     display.input = "";
+                    if (mobile)
+                        input.value = "";
                     setup();
                     break;
 
                 }
 
                 display.input = "";
+                if (mobile)
+                    input.value = "";
                 comboTarget += 1;
                 scoreTarget += increment * comboTarget * 0.1 * words[i].word.length;
                 typed += 1;
@@ -271,12 +277,14 @@ const check = () => {
             if (display.input.toLowerCase() == "restart") {
 
                 display.input = "";
+                if (mobile)
+                    input.value = "";
                 setup();
                 break;
 
             }
 
-            if (display.input.toLowerCase() == "esc") {
+            if (display.input.toLowerCase() == "~") {
 
                 switch(Math.floor(gameState)) {
 
