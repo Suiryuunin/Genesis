@@ -61,7 +61,7 @@ let healthTarget;
  */
 
 // HOW TO NOT FIX A BUG
-localStorage.setItem( "Reloaded" , (localStorage.getItem( "Reloaded"  ) * 0 == 0 && localStorage.getItem( "Reloaded"  ) != null) ? localStorage.getItem( "Reloaded"  ) :   1 );
+localStorage.setItem( "Reloaded" , (localStorage.getItem( "Reloaded"  ) * 0 == 0 && localStorage.getItem( "Reloaded"  ) != null) ? localStorage.getItem( "Reloaded"  ) :   0 );
 
 // Setup
 localStorage.setItem( "Text"     , (localStorage.getItem( "Text"      ) * 0 == 0 && localStorage.getItem( "Text"      ) != null) ? localStorage.getItem( "Text"      ) :   0 );
@@ -497,11 +497,11 @@ const INIT = () =>
 
     engine.start();
 
-    if (localStorage.getItem("Reloaded") == 1)
+    if (localStorage.getItem("Reloaded")*1 < 2)
     {
         location.reload();
         console.log("Reloading...")
-        localStorage.setItem("Reloaded", -1);
+        localStorage.setItem("Reloaded", (localStorage.getItem("Reloaded")*1+1));
     }
 };
 
