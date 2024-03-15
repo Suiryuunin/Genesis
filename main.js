@@ -179,7 +179,7 @@ const update = () => {
                     window.addEventListener("mousemove", mouseInput.move);
                 
                 // Update settings
-                settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index,
+                settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index, pages[2][1].value, pages[2][2].index,
                     /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].index, pages[0][3].value, pages[0][4]);
 
                 // Set the local storage
@@ -191,6 +191,18 @@ const update = () => {
                 localStorage.setItem("GameMode", pages[0][2].index);
                 localStorage.setItem("Words", pages[0][3].value - pages[0][3].valueOffset);
                 localStorage.setItem("MaxChar", pages[0][4].value - pages[0][4].valueOffset);
+
+                if (pages[0][3].value > 100)
+                {
+                    pages[0][1].index = 1;
+                    pages[0][1].alpha = 0.5;
+                    pages[0][3].fake = "∞";
+                }
+                else
+                {
+                    pages[0][1].alpha = 1;
+                    pages[0][3].fake = undefined;
+                }
 
 
                 // Gameplay Pt1
@@ -205,6 +217,8 @@ const update = () => {
                 // Gameplay Pt2
 
                 localStorage.setItem("Check", pages[2][0].index);
+                localStorage.setItem("BF", pages[2][1].value);
+                localStorage.setItem("Ceil", pages[2][2].index);
 
                 
                 // Graphics
@@ -265,25 +279,34 @@ const update = () => {
                             {
                                 if (generator.word == undefined)
                                 {
-                                    finished = true;
 
-                                    for (let i = 0; i < settings.maxWords; i++)
-                                        if (words[i] != undefined) finished = false;
+                                    for (let i = 0; i < words.length; i++)
+                                        if (words[i] != "CLEAR" || words[i] != "YOU DIED" || words[i] != "FULL COMBO") delete words[i];
                                     
-                                    if (finished)
-                                    {
-                                        if (healthTarget > 0)
-                                            clearState = lost > 0 ? "CLEAR" : "FULL COMBO";
-                                        else
-                                            clearState = "YOU DIED";
-                
-                                        words[i]  = new Word(clearState, display.buffer.canvas.width / 2, -16, display, settings, -0.5, (settings.gameMode > 1 ? viewport[1] - 8 : Math.floor(viewport[1]/2) - 8), true, 24, 'black', 'red', 0.5, 1);
-                                    }
+                                    if (healthTarget > 0)
+                                        clearState = lost > 0 ? "CLEAR" : "FULL COMBO";
+                                    else
+                                        clearState = "YOU DIED";
+            
+                                    words[i]  = new Word(clearState, display.buffer.canvas.width / 2, -16, display, settings, -0.5, (settings.gameMode > 1 ? viewport[1] - 8 : Math.floor(viewport[1]/2) - 8), true, 24, 'black', 'red', 0.5, 1);
 
+                                    finished = true;
                                     break;
                                 }
-                                
-                                if (wordsSum < settings.words)
+
+                                // Chaos Gamemode has, in reality a 250 word cap, in contrary the the ∞ it pretends to be...
+                                while (wordsSum >= 250)
+                                {
+                                    let i = 0;
+                                    while (words[i] == undefined)
+                                    {
+                                        i++;
+                                    }
+                                    
+                                    delete words[i];
+                                    wordsSum--;
+                                }
+                                if (wordsSum < settings.words || settings.words > 100)
                                 {
                                                     
                                     instances++;

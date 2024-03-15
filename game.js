@@ -81,6 +81,8 @@ localStorage.setItem( "Auto"     , (localStorage.getItem( "Auto"      ) * 0 == 0
 
 // Gameplay Pt3
 localStorage.setItem( "Check"    , (localStorage.getItem( "Check"     ) * 0 == 0 && localStorage.getItem( "Check"     ) != null) ? localStorage.getItem( "Check"     ) :   1 );
+localStorage.setItem( "BF"       , (localStorage.getItem( "BF"        ) * 0 == 0 && localStorage.getItem( "BF"        ) != null) ? localStorage.getItem( "BF"        ) :   0 );
+localStorage.setItem( "Ceil"     , (localStorage.getItem( "Ceil"      ) * 0 == 0 && localStorage.getItem( "Ceil"      ) != null) ? localStorage.getItem( "Ceil"      ) :   0 );
 
 // Graphics
 localStorage.setItem( "Hue"      , (localStorage.getItem( "Hue"       ) * 0 == 0 && localStorage.getItem( "Hue"       ) != null) ? localStorage.getItem( "Hue"       ) : 109 );
@@ -99,7 +101,7 @@ const pages = [
         new Options("Text", Math.floor(display.settings.canvas.width / 2), 72, display, ["Genesis", "Lord of The Rings", "Linear Functions"], localStorage.getItem("Text"), -1),
         new Options("Generation Mode", Math.floor(display.settings.canvas.width / 2), 104, display, ["Story Mode", "Random"], localStorage.getItem("GenMode"), -1),
         new Options("Game Mode", Math.floor(display.settings.canvas.width / 2), 136, display, ["Random Speed", "Set Speed", "Bouncy", "Chaos"], localStorage.getItem("GameMode"), -1),
-        new Slider("Words", Math.floor(display.settings.canvas.width / 2), 168, 8, 8, display, localStorage.getItem("Words"), [0, 70], 30),
+        new Slider("Words", Math.floor(display.settings.canvas.width / 2), 168, 8, 8, display, localStorage.getItem("Words"), [0, 71], 30),
         new Slider("Max Characters", Math.floor(display.settings.canvas.width / 2), 200, 8, 8, display, localStorage.getItem("MaxChar"), [0, 27], 3),
 
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, false, -0.1),
@@ -120,7 +122,9 @@ const pages = [
 
     ],
     [
-        new Options("Confirmation Input", Math.floor(display.settings.canvas.width / 2), 104, display, ["Enter", "Space", "Enter/Space"], localStorage.getItem("Check"), -1),
+        new Options("Confirmation Input", Math.floor(display.settings.canvas.width / 2), 96, display, ["Enter", "Space", "Enter/Space"], localStorage.getItem("Check"), -1),
+        new Slider("Bouncing Factor", Math.floor(display.settings.canvas.width / 2), Math.floor(display.settings.canvas.height / 2) + 107, 8, 8, display, localStorage.getItem("BF"), [0, 3], 0),
+        new Options("Ceiling", Math.floor(display.settings.canvas.width / 2), Math.floor(display.settings.canvas.height / 2) + 64, display, ["Disabled", "Enabled"], localStorage.getItem("Ceil"), -1),
 
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),
@@ -138,6 +142,7 @@ const pages = [
     ]
 
 ];
+console.log(Math.floor(display.settings.canvas.height / 2) + 64 - 96)
 
 const gameModeUpdate = (init = false) => {
     if (settings.gameMode * 1 != settings.oGameMode * 1 || init)
@@ -177,6 +182,10 @@ const gameModeUpdate = (init = false) => {
                 pages[1][2].minMax[1] = 3;
                 if (pages[1][2].value > 5)
                     pages[1][2].value = 5;
+
+                pages[2][1].alpha = 1;
+                pages[2][1].value = 0;
+                pages[2][2].alpha = 1;
                 break;
 
             case 3:
@@ -202,14 +211,21 @@ const gameModeUpdate = (init = false) => {
                 pages[1][3].value = 10;
                 pages[1][3].fake = "∞";
                 pages[1][3].alpha = 0.5;
+
+                pages[2][1].value = 3;
+                pages[2][1].alpha = 0.5;
+
+                pages[2][2].index = 1;
+                pages[2][2].alpha = 0.5;
                 break;
         }
         pages[0][3].x = Math.floor((pages[0][3].value - pages[0][3].valueOffset) * (pages[0][3].barWidth) / (pages[0][3].minMax[1])) + (pages[0][3].fixedPos[0] - Math.floor(pages[0][3].width / 2));
         pages[1][0].x = Math.floor((pages[1][0].value - pages[1][0].valueOffset) * (pages[1][0].barWidth) / (pages[1][0].minMax[1])) + (pages[1][0].fixedPos[0] - Math.floor(pages[1][0].width / 2));
         pages[1][1].x = Math.floor((pages[1][1].value - pages[1][1].valueOffset) * (pages[1][1].barWidth) / (pages[1][1].minMax[1])) + (pages[1][1].fixedPos[0] - Math.floor(pages[1][1].width / 2));
         pages[1][2].x = Math.floor((pages[1][2].value - pages[1][2].valueOffset) * (pages[1][2].barWidth) / (pages[1][2].minMax[1])) + (pages[1][2].fixedPos[0] - Math.floor(pages[1][2].width / 2));
+        pages[2][1].x = Math.floor((pages[2][1].value - pages[2][1].valueOffset) * (pages[2][1].barWidth) / (pages[2][1].minMax[1])) + (pages[2][1].fixedPos[0] - Math.floor(pages[2][1].width / 2));
         
-        settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index,
+        settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index, pages[2][1].value, pages[2][2].index,
             /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].index, pages[0][3].value, pages[0][4]);
 
         settings.oGameMode = settings.gameMode;
@@ -430,7 +446,7 @@ const setup = () => {
     gameModeUpdate();
 
     // Setup Settings
-    settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index,
+    settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index, pages[2][1].value, pages[2][2].index,
         /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].index, pages[0][3].value, pages[0][4]);
     
     // Graphics
@@ -471,7 +487,7 @@ const setup = () => {
 const INIT = () =>
 {
     // Setup Settings
-    settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index,
+    settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index, pages[2][1].value, pages[2][2].index,
         /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].index, pages[0][3].value, pages[0][4]);
 
     // Graphics

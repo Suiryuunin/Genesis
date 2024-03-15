@@ -15,6 +15,8 @@ class Settings {
         this.maxWords = 3;
         this.interval = 50;
         this.speed = 2;
+        this.bF = 0;
+        this.ceil = 0;
         this.health = 3;
         this.caps = false;
         this.auto = 1;
@@ -28,7 +30,7 @@ class Settings {
         this.old = [this.text, this.genMode, this.gameMode, this.words, this.maxChar];
     }
 
-    modify(/* Gameplay -> */ maxWords, interval, speed, caps, auto, space,
+    modify(/* Gameplay -> */ maxWords, interval, speed, caps, auto, space, bF, ceil,
         /* Setup -> */ text = this.text, genMode = this.genMode, gameMode = this.gameMode, words = this.words, maxChar = this.maxChar)
     {
 
@@ -38,6 +40,8 @@ class Settings {
         this.caps = caps;
         this.auto = auto;
         this.check = space;
+        this.bF = bF;
+        this.ceil = ceil;
 
         this.text = text;
         this.genMode = genMode;

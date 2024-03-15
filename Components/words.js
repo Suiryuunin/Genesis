@@ -139,7 +139,7 @@ class Word {
             {
                 // this.velY = target.gravity * 3 - this.loss;
                 // this.cumLoss += this.loss;
-                this.velY = ((this.mass - target.mass)/(this.mass + target.mass)*this.velY) + (2*target.mass/(this.mass+target.mass)*target.velY);
+                this.velY = ((this.mass - target.mass)/(this.mass + target.mass)*this.velY) + (2*target.mass/(this.mass+target.mass)*target.velY) + this.settings.bF;
                 target.velY = (2*this.mass/(this.mass+target.mass)*this.velY) + ((target.mass - this.mass)/(this.mass + target.mass)*target.velY);
                 target.updated = true;
 
@@ -150,7 +150,7 @@ class Word {
             {
                 // this.velY = -Math.abs(target.velY);
                 this.velY = ((this.mass - target.mass)/(this.mass + target.mass)*this.velY) + (2*target.mass/(this.mass+target.mass)*target.velY);
-                target.velY = (2*this.mass/(this.mass+target.mass)*this.velY) + ((target.mass - this.mass)/(this.mass + target.mass)*target.velY);
+                target.velY = (2*this.mass/(this.mass+target.mass)*this.velY) + ((target.mass - this.mass)/(this.mass + target.mass)*target.velY) + this.settings.bF;
                 target.updated = true;
                 
                 this.y = target.y + target.h;
@@ -212,12 +212,12 @@ class Word {
 
                 if (this.y + this.h >= this.maxY)
                 {
-                    this.velY = this.gravity * 3 - this.cumLoss;
+                    this.velY = this.gravity * 3 + this.settings.bF - this.cumLoss;
                     this.cumLoss += this.loss;
                 }
 
-                // if (this.settings.gameMode == 3 && this.y <= 0)
-                //     this.velY = -this.gravity;
+                if (this.settings.ceil*1 == 1 && this.y <= 0)
+                    this.velY = -this.gravity;
 
                 if ((this.x + this.w * this.offsetX - 4 <= 0))
                     this.velX = (Math.abs(this.velX) - this.loss > 0.1) ? Math.abs(this.velX) - this.loss > 0.1 : 0;
@@ -284,8 +284,8 @@ class Word {
             if (this.settings.gameMode == 3 && this.y + this.h >= this.maxY)
                 this.y = this.maxY - this.h;
 
-            // if (this.settings.gameMode == 3 && this.y <= 0)
-            //     this.y = 0;
+            if (this.settings.ceil*1 == 1 && this.y <= 0)
+                this.y = 0;
         }
         
     }
