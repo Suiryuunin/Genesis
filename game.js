@@ -459,7 +459,7 @@ const setup = () => {
 
     generator.Generate();
     
-    resize();
+    if (document.activeElement != input) resize();
     document.querySelector('body').style.backgroundColor = `hsl(${display.hue}, ${display.saturation}%, ${(display.brightness - 10 < 0) ? 0 : display.brightness - 10}%)`;
     document.querySelector('div').style.filter = `hue-rotate(${display.hue}deg)`;
     document.querySelector('div').style.opacity = `${(display.brightness -25 < 50) ? 50 : display.brightness-25}%`;
@@ -488,7 +488,7 @@ const INIT = () =>
     words[1] = new Word('Instructions', 32, 176, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
     words[2] = new Word('Quit',         32, 208, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
 
-    resize();
+    if (document.activeElement != input) resize();
     document.querySelector('body').style.backgroundColor = `hsl(${display.hue}, ${display.saturation}%, ${(display.brightness - 10 < 0) ? 0 : display.brightness - 10}%)`;
     document.querySelector('div').style.filter = `hue-rotate(${display.hue}deg)`;
     document.querySelector('div').style.opacity = `${(display.brightness -25 < 50) ? 50 : display.brightness-25}%`;
@@ -513,4 +513,4 @@ display.settings.canvas.height = viewport[1];
 
 INIT();
 
-window.addEventListener("resize", () => {if (document.activeElement != input) resize()});
+window.addEventListener("resize", () => {if (document.activeElement != input) resize();});
