@@ -513,4 +513,4 @@ display.settings.canvas.height = viewport[1];
 
 INIT();
 
-window.addEventListener("resize", resize);
+window.addEventListener("resize", () => {if (document.activeElement != input) resize()});
