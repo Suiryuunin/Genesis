@@ -2,18 +2,19 @@ let id = 0;
 
 class Word {
 
-    constructor(word, x, y, display, settings, offsetX = 0, maxY = 9 * 32, centered = false, size = 16, color, color2, alpha = 1, alpha2 = 0, alphaO = 1) {
+    constructor(word, x, y, display, settings, offsetX = 0, maxY = 9 * 32, centered = false, size = 16, color, color2, alpha = 1, alpha2 = 0, alphaO = 1, ctx) {
 
         this.id = id;
         id++;
 
         this.display = display;
+        this.ctx = ctx == undefined ? this.display.buffer : ctx;
         this.settings = settings;
         this.word = word;
         this.overlay = '';
         this.x = x;
         this.y = y;
-        this.w = this.display.measureWordWidth(this.display.buffer, this.word, this.size);
+        this.w = this.display.measureWordWidth(this.ctx, this.word, this.size);
         this.h = Math.round(16 * size / 16 + 2 - (size - 16) * 2);
 
         this.offsetX = offsetX;
@@ -23,7 +24,7 @@ class Word {
         this.velY = 0;
         this.gravity = Math.round((Math.random()) * (this.settings.speed - 1)) + 1;
 
-        this.mass = (this.display.measureWordWidth(this.display.buffer, this.word, this.size) * Math.round(16 * size / 16 + 2 - (size - 16) * 2)) / (this.display.measureWordWidth(this.display.buffer, "OOOO", 16) * 18);
+        this.mass = (this.display.measureWordWidth(this.ctx, this.word, this.size) * Math.round(16 * size / 16 + 2 - (size - 16) * 2)) / (this.display.measureWordWidth(this.ctx, "OOOO", 16) * 18);
         this.loss = (this.settings.gameMode == 3 ? 0 : 0.5);
         this.cumLoss = this.loss
         this.r = [];
@@ -188,7 +189,7 @@ class Word {
 
         if (Math.floor(gameState) == 1)
         {
-            this.w = this.display.measureWordWidth(this.display.buffer, this.word, this.size);
+            this.w = this.display.measureWordWidth(this.ctx, this.word, this.size);
 
             if (this.settings.gameMode <= 1) //Normal fall
             {
@@ -293,14 +294,14 @@ class Word {
     updateRender()
     {
         
-        this.display.createWord(this.display.buffer, this.word, this.x - 1, this.y - 1, this.offsetX, true, 1, this.size, this.alpha2, this.color2, (this.size>16) ? -this.size/4 : 0);
-        this.display.createWord(this.display.buffer, this.word, this.x, this.y, this.offsetX, true, 1, this.size, this.alpha, this.color, (this.size>16) ? -this.size/4 : 0);
-        this.display.createWord(this.display.buffer, this.overlay,
-            (this.centered) ? (this.x - Math.round(this.w/2)) : this.x, this.y,
+        this.display.createWord(this.ctx, this.word, this.x - 1, this.y - 1, this.offsetX, true, 1, this.size, this.alpha2, this.color2, (this.size>16) ? -this.size/4 : 0);
+        this.display.createWord(this.ctx, this.word, this.x, this.y, this.offsetX, true, 1, this.size, this.alpha, this.color, (this.size>16) ? -this.size/4 : 0);
+        this.display.createWord(this.ctx, this.overlay,
+            (this.centered) ? (this.x - Math.round(this.w/2)) : this.x - 1, this.y - 1,
             (this.centered) ? 0 : this.offsetX, false, 1, this.size, this.alphaO,
             'red'
         );
-        this.display.createWord(this.display.buffer, this.overlay,
+        this.display.createWord(this.ctx, this.overlay,
             (this.centered) ? (this.x - Math.round(this.w/2)) : this.x, this.y,
             (this.centered) ? 0 : this.offsetX, false, 1, this.size, this.alphaO,
             'red'
@@ -312,9 +313,10 @@ class Word {
 
 class Words {
 
-    constructor(words, lines, x, y, display, offsetX = 0, size = 16, color, color2, alpha = 1, alpha2 = 0) {
+    constructor(words, lines, x, y, display, offsetX = 0, size = 16, color, color2, alpha = 1, alpha2 = 0, ctx) {
 
         this.display = display;
+        this.ctx = ctx == undefined ? this.display.buffer : ctx;
         this.word = "や";
         this.words = words;
         this.lines = lines;
@@ -344,9 +346,9 @@ class Words {
 
     updateRender()
     {
-        // this.display.createWord(this.display.buffer, this.word, this.x, this.y, this.offsetX, true, 1, this.size);
-        this.display.createWord(this.display.buffer, this.words, this.x - 1, this.y - 1, this.offsetX, false, this.lines, this.size, this.alpha2, this.color2, (this.size>16) ? -this.size/4 : 0, 1);
-        this.display.createWord(this.display.buffer, this.words, this.x,       this.y,       this.offsetX, false, this.lines, this.size, this.alpha,  this.color,  (this.size>16) ? -this.size/4 : 0, 1);
+        // this.display.createWord(this.ctx, this.word, this.x, this.y, this.offsetX, true, 1, this.size);
+        this.display.createWord(this.ctx, this.words, this.x - 1, this.y - 1, this.offsetX, false, this.lines, this.size, this.alpha2, this.color2, (this.size>16) ? -this.size/4 : 0, 1);
+        this.display.createWord(this.ctx, this.words, this.x,       this.y,       this.offsetX, false, this.lines, this.size, this.alpha,  this.color,  (this.size>16) ? -this.size/4 : 0, 1);
     }
 
 }

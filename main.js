@@ -46,6 +46,11 @@ const render = () =>
                     display.createWord(display.settings, "Graphics", Math.floor(display.settings.canvas.width / 2) + 2, 256 - 5, -0.5, false, 1, 16);
                     break;
 
+                case 4:
+                    display.createWord(display.settings, "Graphics", Math.floor(display.settings.canvas.width / 2) + 2, 256 - 5, -0.5, false, 1, 16);
+                    preview.updateRender();
+                    break;
+
             }
         
         }
@@ -118,7 +123,7 @@ const render = () =>
     else
     {
 
-        display.createWord(display.buffer, titleData[0], 32 -8, titleData[1], 0, false, 1, 48, 1, 'orangered');
+        display.createWord(display.buffer, titleData[0], 32 -8, titleData[1], 0, false, 1, 48, 1, `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`);
         display.createWord(display.buffer, titleData[0], 32 -8 + 1, titleData[1] + 1, 0, false, 1, 48, 0.5);
 
         display.createObject(display.buffer, ((rTStep > rTSteps / 4) && (rTStep < (rTSteps / 4 * 3))) ? heartIR : heartI, Math.floor(viewport[0] / 4 * 3) - rW / 2, Math.floor(viewport[1] / 2) - 64 + 32, rW, 128);
@@ -177,6 +182,15 @@ const update = () => {
 
                 if (mouseInput != undefined)
                     window.addEventListener("mousemove", mouseInput.move);
+
+                if (pages[4][0].changed || pages[4][1].changed || pages[4][2].changed)
+                {
+                    for (let i = 0; i < words.length; i++)
+                    {
+                        words[i].color2 = `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`;
+                    }
+                    preview.color2 = `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`;
+                }
                 
                 // Update settings
                 settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index, pages[2][1].value, pages[2][2].index,
@@ -226,12 +240,25 @@ const update = () => {
                 display.hue = pages[3][0].value;
                 display.saturation = pages[3][1].value;
                 display.brightness = pages[3][2].value;
+
                 display.antiAlisasing = pages[3][3].index;
+                engine.fps = pages[3][4].value;
                 
                 localStorage.setItem("Hue", pages[3][0].value);
                 localStorage.setItem("Sat", pages[3][1].value);
                 localStorage.setItem("Bright", pages[3][2].value);
                 localStorage.setItem("AA", pages[3][3].index);
+                localStorage.setItem("FPS", pages[3][4].value - pages[3][4].valueOffset);
+
+                // Graphics Pt2
+
+                display.hueW        = pages[4][0].value;
+                display.saturationW = pages[4][1].value;
+                display.brightnessW = pages[4][2].value;
+                
+                localStorage.setItem("HueW"   , pages[4][0].value);
+                localStorage.setItem("SatW"   , pages[4][1].value);
+                localStorage.setItem("BrightW", pages[4][2].value);
 
                 // Game Modes
                 gameModeUpdate();
@@ -288,7 +315,7 @@ const update = () => {
                                     else
                                         clearState = "YOU DIED";
             
-                                    words[i]  = new Word(clearState, display.buffer.canvas.width / 2, -16, display, settings, -0.5, (settings.gameMode > 1 ? viewport[1] - 8 : Math.floor(viewport[1]/2) - 8), true, 24, 'black', 'red', 0.5, 1);
+                                    words[i]  = new Word(clearState, display.buffer.canvas.width / 2, -16, display, settings, -0.5, (settings.gameMode > 1 ? viewport[1] - 8 : Math.floor(viewport[1]/2) - 8), true, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1);
 
                                     finished = true;
                                     break;
@@ -311,7 +338,7 @@ const update = () => {
                                                     
                                     instances++;
 
-                                    words[i] = new Word(generator.word, Math.floor(Math.random() * (display.buffer.canvas.width - generator.word.length * 10 - 5) + 5), -16, display, settings, 0, viewport[1]+1, false, 16, 0, 'orangered', 0.5, 1);
+                                    words[i] = new Word(generator.word, Math.floor(Math.random() * (display.buffer.canvas.width - generator.word.length * 10 - 5) + 5), -16, display, settings, 0, viewport[1]+1, false, 16, 0, `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1);
                                     wordsSum++;
                                     generator.Generate();
                                 }
@@ -383,7 +410,7 @@ const update = () => {
                     case "Instructions":
 
                         words = [];
-                        words[0] = new Word('Back', 32, 240, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
+                        words[0] = new Word('Back', 32, 240, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
                         words[1] = new Words([
                             '- Type the falling words',
                             '- Type "restart" in any capital-',
@@ -394,7 +421,7 @@ const update = () => {
                             '    earns',
                             '- Try getting the highest score',
                             '- At least try to have fun...'
-                        ], 9, -208, 84, display, 0, 16, 'black', 'red', 0.5, 1, 0.25);
+                        ], 9, -208, 84, display, 0, 16, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
                         instructionsT = true;
 
                         break;

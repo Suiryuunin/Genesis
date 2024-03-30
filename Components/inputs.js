@@ -1,7 +1,6 @@
 let option = undefined;
 
 const keyDown = (e) => {
-    document.querySelector("h5").innerHTML = `${e.code}/${e.keyCode}`;
 
     if (Math.floor(gameState) != 0 && !mobile) {
 
@@ -253,7 +252,8 @@ class MouseInput {
                 mouseInput.element.x = mouseInput.element.fixedPos[0] + mouseInput.element.barWidth - Math.floor(mouseInput.element.width / 2);
 
             mouseInput.updateValue();
-
+            if (mouseInput.element.changed === false)
+                mouseInput.element.changed = true;
         }
     
     }

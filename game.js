@@ -72,7 +72,7 @@ localStorage.setItem( "MaxChar"  , (localStorage.getItem( "MaxChar"   ) * 0 == 0
 
 // Gameplay Pt2
 localStorage.setItem( "Highscore", (localStorage.getItem( "Highscore" ) * 0 == 0 && localStorage.getItem( "Highscore" ) != null) ? localStorage.getItem( "Highscore" ) :   0 );
-localStorage.setItem( "MaxWords" , (localStorage.getItem( "MaxWords"  ) * 0 == 0 && localStorage.getItem( "MaxWords"  ) != null) ? localStorage.getItem( "MaxWords"  ) :   0 );
+localStorage.setItem( "MaxWords" , (localStorage.getItem( "MaxWords"  ) * 0 == 0 && localStorage.getItem( "MaxWords"  ) != null) ? localStorage.getItem( "MaxWords"  ) :   2 );
 localStorage.setItem( "Interval" , (localStorage.getItem( "Interval"  ) * 0 == 0 && localStorage.getItem( "Interval"  ) != null) ? localStorage.getItem( "Interval"  ) :  20 );
 localStorage.setItem( "Speed"    , (localStorage.getItem( "Speed"     ) * 0 == 0 && localStorage.getItem( "Speed"     ) != null) ? localStorage.getItem( "Speed"     ) :   0 );
 localStorage.setItem( "HP"       , (localStorage.getItem( "HP"        ) * 0 == 0 && localStorage.getItem( "HP"        ) != null) ? localStorage.getItem( "HP"        ) :   2 );
@@ -80,7 +80,7 @@ localStorage.setItem( "Caps"     , (localStorage.getItem( "Caps"      ) * 0 == 0
 localStorage.setItem( "Auto"     , (localStorage.getItem( "Auto"      ) * 0 == 0 && localStorage.getItem( "Auto"      ) != null) ? localStorage.getItem( "Auto"      ) :   1 );
 
 // Gameplay Pt3
-localStorage.setItem( "Check"    , (localStorage.getItem( "Check"     ) * 0 == 0 && localStorage.getItem( "Check"     ) != null) ? localStorage.getItem( "Check"     ) :   1 );
+localStorage.setItem( "Check"    , (localStorage.getItem( "Check"     ) * 0 == 0 && localStorage.getItem( "Check"     ) != null) ? localStorage.getItem( "Check"     ) :   0 );
 localStorage.setItem( "BF"       , (localStorage.getItem( "BF"        ) * 0 == 0 && localStorage.getItem( "BF"        ) != null) ? localStorage.getItem( "BF"        ) :   0 );
 localStorage.setItem( "Ceil"     , (localStorage.getItem( "Ceil"      ) * 0 == 0 && localStorage.getItem( "Ceil"      ) != null) ? localStorage.getItem( "Ceil"      ) :   0 );
 
@@ -89,6 +89,12 @@ localStorage.setItem( "Hue"      , (localStorage.getItem( "Hue"       ) * 0 == 0
 localStorage.setItem( "Sat"      , (localStorage.getItem( "Sat"       ) * 0 == 0 && localStorage.getItem( "Sat"       ) != null) ? localStorage.getItem( "Sat"       ) :  27 );
 localStorage.setItem( "Bright"   , (localStorage.getItem( "Bright"    ) * 0 == 0 && localStorage.getItem( "Bright"    ) != null) ? localStorage.getItem( "Bright"    ) :  72 );
 localStorage.setItem( "AA"       , (localStorage.getItem( "AA"        ) * 0 == 0 && localStorage.getItem( "AA"        ) != null) ? localStorage.getItem( "AA"        ) :   0 );
+localStorage.setItem( "FPS"      , (localStorage.getItem( "FPS"       ) * 0 == 0 && localStorage.getItem( "FPS"       ) != null) ? localStorage.getItem( "FPS"       ) :  20 );
+
+// Graphics Pt2
+localStorage.setItem( "HueW"      , (localStorage.getItem( "HueW"       ) * 0 == 0 && localStorage.getItem( "HueW"       ) != null) ? localStorage.getItem( "HueW"       ) :   0 );
+localStorage.setItem( "SatW"      , (localStorage.getItem( "SatW"       ) * 0 == 0 && localStorage.getItem( "SatW"       ) != null) ? localStorage.getItem( "SatW"       ) :  50 );
+localStorage.setItem( "BrightW"   , (localStorage.getItem( "BrightW"    ) * 0 == 0 && localStorage.getItem( "BrightW"    ) != null) ? localStorage.getItem( "BrightW"    ) :   0 );
 
 /*
  * SETTINGS/
@@ -97,7 +103,7 @@ localStorage.setItem( "AA"       , (localStorage.getItem( "AA"        ) * 0 == 0
 
 const pages = [
 
-    [
+    [ // 0. SETUP
         new Options("Text", Math.floor(display.settings.canvas.width / 2), 72, display, ["Genesis", "Lord of The Rings", "Linear Functions"], localStorage.getItem("Text"), -1),
         new Options("Generation Mode", Math.floor(display.settings.canvas.width / 2), 104, display, ["Story Mode", "Random"], localStorage.getItem("GenMode"), -1),
         new Options("Game Mode", Math.floor(display.settings.canvas.width / 2), 136, display, ["Random Speed", "Set Speed", "Bouncy", "Chaos"], localStorage.getItem("GameMode"), -1),
@@ -108,7 +114,7 @@ const pages = [
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),
         new Button(16, (display.settings.canvas.width - 32), display, "<<", -0.5, true, "aou")
     ],
-    [
+    [ // 1. GAMEPLAY
         new Slider("Word Cap", Math.floor(display.settings.canvas.width / 2), 64, 8, 8, display, localStorage.getItem("MaxWords"), [0, 9], 1),
         new Slider("Time Interval", Math.floor(display.settings.canvas.width / 2), 96, 8, 8, display, localStorage.getItem("Interval"), [0, 90], 10),
         new Slider("Speed", Math.floor(display.settings.canvas.width / 2), 128, 8, 8, display, localStorage.getItem("Speed"), [0, 8], 2),
@@ -121,7 +127,7 @@ const pages = [
         new Button(16, (display.settings.canvas.width - 32), display, "<<", -0.5, true, "a[gop")
 
     ],
-    [
+    [ // 2. GAMEPLAY
         new Options("Confirmation Input", Math.floor(display.settings.canvas.width / 2), 96, display, ["Enter", "Space", "Enter/Space"], localStorage.getItem("Check"), -1),
         new Slider("Bouncing Factor", Math.floor(display.settings.canvas.width / 2), Math.floor(display.settings.canvas.height / 2) + 107, 8, 8, display, localStorage.getItem("BF"), [0, 3], 0),
         new Options("Ceiling", Math.floor(display.settings.canvas.width / 2), Math.floor(display.settings.canvas.height / 2) + 64, display, ["Disabled", "Enabled"], localStorage.getItem("Ceil"), -1),
@@ -130,11 +136,21 @@ const pages = [
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),
         new Button(16, (display.settings.canvas.width - 32), display, "<<", -0.5, true, "io[awf")
     ],
-    [
+    [ // 3. GRAPHICS
         new Slider("Hue", Math.floor(display.settings.canvas.width / 2), 64, 8, 8, display, localStorage.getItem("Hue"), [0, 360], 0),
         new Slider("Saturation", Math.floor(display.settings.canvas.width / 2), 96, 8, 8, display, localStorage.getItem("Sat"), [0, 100], 0),
         new Slider("Brightness", Math.floor(display.settings.canvas.width / 2), 128, 8, 8, display, localStorage.getItem("Bright"), [0, 100], 0),
-        new Options("Anti-Aliasing", Math.floor(display.settings.canvas.width / 2), 160, display, ["Disabled", "Enabled"], localStorage.getItem("AA"), -1),
+        new Options("Anti-Aliasing", Math.floor(display.settings.canvas.width / 2), 176, display, ["Disabled", "Enabled"], localStorage.getItem("AA"), -1),
+        new Slider("FPS", Math.floor(display.settings.canvas.width / 2), 208, 8, 8, display, localStorage.getItem("FPS"), [0, 50], 10),
+
+        new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
+        new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),
+        new Button(16, (display.settings.canvas.width - 32), display, "<<", -0.5, true, "io[awf")
+    ],
+    [ // 4. GRAPHICS
+        new Slider("Word Hue", Math.floor(display.settings.canvas.width / 2), 64, 8, 8, display, localStorage.getItem("HueW"), [0, 360], 0),
+        new Slider("Word Saturation", Math.floor(display.settings.canvas.width / 2), 96, 8, 8, display, localStorage.getItem("SatW"), [0, 100], 0),
+        new Slider("Word Brightness", Math.floor(display.settings.canvas.width / 2), 128, 8, 8, display, localStorage.getItem("BrightW"), [0, 100], 0),
 
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, false, 0.1),
@@ -142,7 +158,12 @@ const pages = [
     ]
 
 ];
-console.log(Math.floor(display.settings.canvas.height / 2) + 64 - 96)
+
+// Graphics Pt2
+
+pages[4][0].changed = false;
+pages[4][1].changed = false;
+pages[4][2].changed = false;
 
 const gameModeUpdate = (init = false) => {
     if (settings.gameMode * 1 != settings.oGameMode * 1 || init)
@@ -368,9 +389,9 @@ const instructionsAnimations = () =>
         words[1].x = -208;
         
         words = [];
-        words[0] = new Word('New Game',     -208, 144, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
-        words[1] = new Word('Instructions', -208, 176, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
-        words[2] = new Word('Quit',         -208, 208, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
+        words[0] = new Word('New Game',     -208, 144, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
+        words[1] = new Word('Instructions', -208, 176, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
+        words[2] = new Word('Quit',         -208, 208, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
         titleData[0] = settings.text;
 
         backT = false;
@@ -391,9 +412,9 @@ const instructionsAnimations = () =>
         titleData = [settings.text, (Math.floor(display.buffer.canvas.height / 2) - titleOffset)];
         
         words = [];
-        words[0] = new Word('New Game',     32, 144, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
-        words[1] = new Word('Instructions', 32, 176, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
-        words[2] = new Word('Quit',         32, 208, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
+        words[0] = new Word('New Game',     32, 144, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
+        words[1] = new Word('Instructions', 32, 176, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
+        words[2] = new Word('Quit',         32, 208, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
         backE = false;
     }
 };
@@ -450,11 +471,16 @@ const setup = () => {
         /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].index, pages[0][3].value, pages[0][4]);
     
     // Graphics
-    display.hue = pages[3][0].value;
+    display.hue        = pages[3][0].value;
     display.saturation = pages[3][1].value;
     display.brightness = pages[3][2].value;
     pages[3][3].index *= 1;
     display.antiAlisasing = pages[3][3].index;
+
+    // Graphics Pt2
+    display.hueW        = pages[4][0].value;
+    display.saturationW = pages[4][1].value;
+    display.brightnessW = pages[4][2].value;
 
     settings.health = pages[1][3].value;
     healthTarget = settings.health;
@@ -484,6 +510,7 @@ const setup = () => {
 
 }
 
+let preview = {};
 const INIT = () =>
 {
     // Setup Settings
@@ -491,18 +518,25 @@ const INIT = () =>
         /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].index, pages[0][3].value, pages[0][4]);
 
     // Graphics
-    display.hue = pages[3][0].value;
+    display.hue        = pages[3][0].value;
     display.saturation = pages[3][1].value;
     display.brightness = pages[3][2].value;
     pages[3][3].index *= 1;
     display.antiAlisasing = pages[3][3].index;
+
+    // Graphics Pt2
+    display.hueW        = pages[4][0].value;
+    display.saturationW = pages[4][1].value;
+    display.brightnessW = pages[4][2].value;
     
+    preview = new Word('PREVIEW', Math.floor(display.settings.canvas.width / 2), 160, display, settings, -0.5, viewport[1], true, 16, 0, `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 1, display.settings);
+
     gameState = -1;
 
     words = [];
-    words[0] = new Word('New Game',     32, 144, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
-    words[1] = new Word('Instructions', 32, 176, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
-    words[2] = new Word('Quit',         32, 208, display, settings, 0, 9 * 32, false, 24, 'black', 'red', 0.5, 1, 0.25);
+    words[0] = new Word('New Game',     32, 144, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
+    words[1] = new Word('Instructions', 32, 176, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
+    words[2] = new Word('Quit',         32, 208, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
 
     if (document.activeElement != input) resize();
     document.querySelector('body').style.backgroundColor = `hsl(${display.hue}, ${display.saturation}%, ${(display.brightness - 10 < 0) ? 0 : display.brightness - 10}%)`;

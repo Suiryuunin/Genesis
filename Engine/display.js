@@ -12,6 +12,11 @@ class Display {
         this.hue = 109;
         this.saturation = 30;
         this.brightness = 76;
+
+        this.hueW = 16;
+        this.saturationW = 100;
+        this.brightnessW = 50;
+
         this.antiAlisasing = 0;
 
     }
