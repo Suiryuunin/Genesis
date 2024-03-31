@@ -11,6 +11,13 @@ track.addEventListener('ended', () => {
     track.currentTime = 0;
 });
 
+document.onvisibilitychange = () => {
+    if (document.visibilityState === "hidden")
+        track.pause();
+    else
+        track.play();
+};
+
 addEventListener('keydown', (e) => {
     switch(e.code)
     {
