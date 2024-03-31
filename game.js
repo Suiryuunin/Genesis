@@ -85,9 +85,9 @@ localStorage.setItem( "BF"       , (localStorage.getItem( "BF"        ) * 0 == 0
 localStorage.setItem( "Ceil"     , (localStorage.getItem( "Ceil"      ) * 0 == 0 && localStorage.getItem( "Ceil"      ) != null) ? localStorage.getItem( "Ceil"      ) :   0 );
 
 // Graphics
-localStorage.setItem( "Hue"      , (localStorage.getItem( "Hue"       ) * 0 == 0 && localStorage.getItem( "Hue"       ) != null) ? localStorage.getItem( "Hue"       ) : 109 );
-localStorage.setItem( "Sat"      , (localStorage.getItem( "Sat"       ) * 0 == 0 && localStorage.getItem( "Sat"       ) != null) ? localStorage.getItem( "Sat"       ) :  27 );
-localStorage.setItem( "Bright"   , (localStorage.getItem( "Bright"    ) * 0 == 0 && localStorage.getItem( "Bright"    ) != null) ? localStorage.getItem( "Bright"    ) :  72 );
+localStorage.setItem( "Hue"      , (localStorage.getItem( "Hue"       ) * 0 == 0 && localStorage.getItem( "Hue"       ) != null) ? localStorage.getItem( "Hue"       ) :  14 );
+localStorage.setItem( "Sat"      , (localStorage.getItem( "Sat"       ) * 0 == 0 && localStorage.getItem( "Sat"       ) != null) ? localStorage.getItem( "Sat"       ) :  69 );
+localStorage.setItem( "Bright"   , (localStorage.getItem( "Bright"    ) * 0 == 0 && localStorage.getItem( "Bright"    ) != null) ? localStorage.getItem( "Bright"    ) : 100 );
 localStorage.setItem( "AA"       , (localStorage.getItem( "AA"        ) * 0 == 0 && localStorage.getItem( "AA"        ) != null) ? localStorage.getItem( "AA"        ) :   0 );
 localStorage.setItem( "FPS"      , (localStorage.getItem( "FPS"       ) * 0 == 0 && localStorage.getItem( "FPS"       ) != null) ? localStorage.getItem( "FPS"       ) :  20 );
 
@@ -95,6 +95,7 @@ localStorage.setItem( "FPS"      , (localStorage.getItem( "FPS"       ) * 0 == 0
 localStorage.setItem( "HueW"      , (localStorage.getItem( "HueW"       ) * 0 == 0 && localStorage.getItem( "HueW"       ) != null) ? localStorage.getItem( "HueW"       ) :   0 );
 localStorage.setItem( "SatW"      , (localStorage.getItem( "SatW"       ) * 0 == 0 && localStorage.getItem( "SatW"       ) != null) ? localStorage.getItem( "SatW"       ) :  50 );
 localStorage.setItem( "BrightW"   , (localStorage.getItem( "BrightW"    ) * 0 == 0 && localStorage.getItem( "BrightW"    ) != null) ? localStorage.getItem( "BrightW"    ) :   0 );
+localStorage.setItem( "Track"     , (localStorage.getItem( "Track"      ) * 0 == 0 && localStorage.getItem( "Track"      ) != null) ? localStorage.getItem( "Track"      ) :   0 );
 
 /*
  * SETTINGS/
@@ -153,6 +154,13 @@ const pages = [
         new Slider("Word Brightness", Math.floor(display.settings.canvas.width / 2), 128, 8, 8, display, localStorage.getItem("BrightW"), [0, 100], 0),
 
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
+        new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),
+        new Button(16, (display.settings.canvas.width - 32), display, "<<", -0.5, true, "io[awf")
+    ],
+    [ // 5. AUDIO
+        new Options("Track", Math.floor(display.settings.canvas.width / 2), 96, display, ["Genesis-Stereo", "Genesis-Mono"], localStorage.getItem("Track"), -1),
+        
+        new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, false, 0.1),
         new Button(16, (display.settings.canvas.width - 32), display, "<<", -0.5, true, "io[awf")
     ]
@@ -164,6 +172,10 @@ const pages = [
 pages[4][0].changed = false;
 pages[4][1].changed = false;
 pages[4][2].changed = false;
+
+// Audio
+
+pages[5][0].changed = false;
 
 const gameModeUpdate = (init = false) => {
     if (settings.gameMode * 1 != settings.oGameMode * 1 || init)
@@ -517,6 +529,8 @@ const INIT = () =>
     settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index, pages[2][1].value, pages[2][2].index,
         /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].index, pages[0][3].value, pages[0][4]);
 
+    track.playbackRate = 1 + (settings.speed - 4)/10;
+
     // Graphics
     display.hue        = pages[3][0].value;
     display.saturation = pages[3][1].value;
@@ -530,6 +544,9 @@ const INIT = () =>
     display.brightnessW = pages[4][2].value;
     
     preview = new Word('PREVIEW', Math.floor(display.settings.canvas.width / 2), 160, display, settings, -0.5, viewport[1], true, 16, 0, `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 1, display.settings);
+
+    // Audio
+    track.src = _audioPath+`Tracks/${pages[5][0].options[pages[5][0].index].replace("-", "")}.wav`;
 
     gameState = -1;
 

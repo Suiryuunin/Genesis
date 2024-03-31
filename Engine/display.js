@@ -9,11 +9,11 @@ class Display {
         this.settings = document.createElement("canvas").getContext("2d");
         this.input = "";
         this.color = "black";
-        this.hue = 109;
-        this.saturation = 30;
-        this.brightness = 76;
+        this.hue = 14;
+        this.saturation = 69;
+        this.brightness = 100;
 
-        this.hueW = 16;
+        this.hueW = 14;
         this.saturationW = 100;
         this.brightnessW = 50;
 

@@ -184,6 +184,9 @@ const mouseUp = () => {
 
         mouseInput.element.index *= 1;
         mouseInput.element.index = (mouseInput.element.index + 1) % mouseInput.element.options.length;
+        
+        if (mouseInput.element.changed === false)
+            mouseInput.element.changed = true;
 
     }
 

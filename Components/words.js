@@ -293,6 +293,7 @@ class Word {
 
     updateRender()
     {
+        this.color = this.display.color;
         
         this.display.createWord(this.ctx, this.word, this.x - 1, this.y - 1, this.offsetX, true, 1, this.size, this.alpha2, this.color2, (this.size>16) ? -this.size/4 : 0);
         this.display.createWord(this.ctx, this.word, this.x, this.y, this.offsetX, true, 1, this.size, this.alpha, this.color, (this.size>16) ? -this.size/4 : 0);

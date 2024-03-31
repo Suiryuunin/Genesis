@@ -187,7 +187,8 @@ const update = () => {
                 {
                     for (let i = 0; i < words.length; i++)
                     {
-                        words[i].color2 = `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`;
+                        if (words[i] != undefined)
+                            words[i].color2 = `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`;
                     }
                     preview.color2 = `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`;
                 }
@@ -195,6 +196,9 @@ const update = () => {
                 // Update settings
                 settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index, pages[2][1].value, pages[2][2].index,
                     /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].index, pages[0][3].value, pages[0][4]);
+
+                track.playbackRate = 1 + (settings.speed - 4)/10;
+                
 
                 // Set the local storage
 
@@ -260,6 +264,19 @@ const update = () => {
                 localStorage.setItem("SatW"   , pages[4][1].value);
                 localStorage.setItem("BrightW", pages[4][2].value);
 
+                // Audio
+
+                if (pages[5][0].changed)
+                {
+                    pages[5][0].changed = false;
+                    const currentTime = track.currentTime;
+                    track.src = _audioPath+`Tracks/${pages[5][0].options[pages[5][0].index].replace("-", "")}.wav`;
+                    track.currentTime = currentTime;
+                    track.play();
+                }
+                localStorage.setItem("Track", pages[5][0].index);
+
+
                 // Game Modes
                 gameModeUpdate();
 
@@ -321,7 +338,7 @@ const update = () => {
                                     break;
                                 }
 
-                                // Chaos Gamemode has, in reality a 250 word cap, in contrary the the ∞ it pretends to be...
+                                // Chaos Gamemode has, in reality a 250 word cap, in contrary to the ∞ it pretends to be...
                                 while (wordsSum >= 250)
                                 {
                                     let i = 0;
@@ -421,7 +438,7 @@ const update = () => {
                             '    earns',
                             '- Try getting the highest score',
                             '- At least try to have fun...'
-                        ], 9, -208, 84, display, 0, 16, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
+                        ], 9, -208, 84, display, 0, 16, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1);
                         instructionsT = true;
 
                         break;
