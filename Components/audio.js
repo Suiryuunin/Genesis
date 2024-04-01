@@ -22,36 +22,40 @@ document.onvisibilitychange = () => {
 let submitOnce = false;
 addEventListener('keydown', (e) => {
 
-    let sfx = new Audio();
-    sfx.volume = SFX.volume;
-    sfx.pause();
-    sfx.currentTime = 0;
-
-    switch(e.code)
+    if (Math.floor(gameState) != 0 || mobile)
     {
-        case "Space": case "Enter":
+        let sfx = new Audio();
+        sfx.volume = SFX.volume;
+        sfx.pause();
+        sfx.currentTime = 0;
+
+        switch(e.code)
         {
-            if (!submitOnce)
+            case "Space": case "Enter":
             {
-                submitOnce = true;
-                sfx.src = _audioPath+"sfx/SubmitDown.wav";
-                sfx.play();
+                if (!submitOnce)
+                {
+                    submitOnce = true;
+                    sfx.src = _audioPath+"sfx/SubmitDown.wav";
+                    sfx.play();
+                }
+                return;
             }
-            return;
+            case "Backspace":
+            {
+                sfx.src = _audioPath+"sfx/Backspace.wav";
+                sfx.play();
+                return;
+            }
         }
-        case "Backspace":
+        
+        if (display.input.length < 12)
         {
-            sfx.src = _audioPath+"sfx/Backspace.wav";
+            sfx.src = _audioPath+"sfx/Keyboard.wav";
             sfx.play();
-            return;
         }
     }
     
-    if (display.input.length < 12)
-    {
-        sfx.src = _audioPath+"sfx/Keyboard.wav";
-        sfx.play();
-    }
 });
 
 addEventListener("keyup", (e) => {
