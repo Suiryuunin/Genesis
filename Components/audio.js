@@ -1,6 +1,6 @@
 // Separate file for tracks, cuz both main.js and game.js are too long
 
-const _audioPath = "../Assets/Audio/";
+const _audioPath = "./Assets/Audio/";
 const track = new Audio(_audioPath+'Tracks/GenesisStereo.wav');
 const SFX = new Audio(_audioPath+'SFX/Keyboard.wav');
 
