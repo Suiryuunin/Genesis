@@ -124,6 +124,12 @@ const render = () =>
 
             }
         }
+
+        for (const particle of particles)
+        {
+            if (particle != undefined && particle.lifetime > 0)
+                particle.updateRender();
+        }
         
     }
     else
@@ -185,7 +191,7 @@ const update = () => {
         switch (Math.floor(gameState)) {
 
             case 0:
-
+            {
                 if (mouseInput != undefined)
                     window.addEventListener("mousemove", mouseInput.move);
 
@@ -295,9 +301,10 @@ const update = () => {
                 gameModeUpdate();
 
                 break;
+            }
 
             case 1:
-                
+            {
                 if (score < scoreTarget)
                     score += Math.ceil((scoreTarget - score) / 10);
                 else if (score - 1 >= scoreTarget)
@@ -321,7 +328,26 @@ const update = () => {
                 if (healthTarget <= 0 && !finished) {
 
                     for (let i = 0; i < settings.maxWords; i++)
+                    {
+                        if (words[i] != undefined)
+                        {
+                            for (let j = 0; j < Math.ceil(Math.random()*6+6); j++)
+                            {
+                                let created = false;
+                                for (let particle of particles)
+                                {
+                                    if (particle == undefined)
+                                    {
+                                        particle = new Particle(words[i].x, words[i].y);
+                                        created = true;
+                                    }
+                                }
+                                if (!created)
+                                    particles.push(new Particle(words[i].x, words[i].y));
+                            }
                             delete words[i];
+                        }
+                    }
 
                     generator.word = undefined;
 
@@ -337,9 +363,27 @@ const update = () => {
                             {
                                 if (generator.word == undefined)
                                 {
-
                                     for (let i = 0; i < words.length; i++)
-                                        if (words[i] != "CLEAR" || words[i] != "YOU DIED" || words[i] != "FULL COMBO") delete words[i];
+                                    {
+                                        if (words[i] != undefined && (words[i].word != "CLEAR" || words[i].word != "YOU DIED" || words[i].word != "FULL COMBO"))
+                                        {
+                                            for (let j = 0; j < Math.ceil(Math.random()*6+6); j++)
+                                            {
+                                                let created = false;
+                                                for (let particle of particles)
+                                                {
+                                                    if (particle == undefined)
+                                                    {
+                                                        particle = new Particle(words[i].x, words[i].y);
+                                                        created = true;
+                                                    }
+                                                }
+                                                if (!created)
+                                                    particles.push(new Particle(words[i].x, words[i].y));
+                                            }
+                                            delete words[i];
+                                        }
+                                    }
                                     
                                     if (healthTarget > 0)
                                         clearState = lost > 0 ? "CLEAR" : "FULL COMBO";
@@ -392,7 +436,29 @@ const update = () => {
                         comboTarget = 0;
                         lost += 1;
                         healthTarget -= 1;
-                        delete words[i];
+
+                        const x = words[i].x;
+                        const y = words[i].y;
+
+                        if (words[i] != undefined)
+                        {
+                            for (let j = 0; j < Math.ceil(Math.random()*6+6); j++)
+                            {
+                                let created = false;
+                                for (let particle of particles)
+                                {
+                                    if (particle == undefined)
+                                    {
+                                        particle = new Particle(x, y);
+                                        created = true;
+                                    }
+                                }
+                                if (!created)
+                                    particles.push(new Particle(x, y));
+                            }
+
+                            delete words[i];
+                        }
             
                     }
             
@@ -402,8 +468,15 @@ const update = () => {
 
                 if (settings.auto == 1)
                     check();
+
+                for (const particle of particles)
+                {
+                    if (particle != undefined && particle.lifetime > 0)
+                        particle.updatePos();
+                }
                 
                 break;
+            }
 
         }
 

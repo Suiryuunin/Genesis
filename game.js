@@ -54,6 +54,7 @@ let words = [];
 let wordsO = [];
 let healthTarget;
 
+let particles = [];
 
 /*
  * LOCAL/
@@ -322,6 +323,22 @@ const check = () => {
                 comboTarget += 1;
                 scoreTarget += increment * comboTarget * 0.1 * words[i].word.length;
                 typed += 1;
+
+                for (let j = 0; j < Math.ceil(Math.random()*6+6); j++)
+                {
+                    let created = false;
+                    for (let particle of particles)
+                    {
+                        if (particle == undefined)
+                        {
+                            particle = new Particle(words[i].x, words[i].y, 5);
+                            created = true;
+                        }
+                    }
+                    if (!created)
+                        particles.push(new Particle(words[i].x, words[i].y, 5));
+                }
+
                 delete words[i];
     
                 break;
