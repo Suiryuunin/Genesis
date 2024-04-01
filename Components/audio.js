@@ -3,7 +3,6 @@
 const _audioPath = "Assets/Audio/";
 const track = new Audio(_audioPath+'Tracks/GenesisStereo.wav');
 const SFX = new Audio(_audioPath+'SFX/Keyboard.wav');
-const eh = "my github's cursed"
 
 addEventListener('click', () => track.play());
 track.playbackRate = 1;
