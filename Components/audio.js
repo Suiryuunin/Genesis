@@ -36,14 +36,14 @@ addEventListener('keydown', (e) => {
                 if (!submitOnce)
                 {
                     submitOnce = true;
-                    sfx.src = _audioPath+"sfx/SubmitDown.wav";
+                    sfx.src = _audioPath+"SFX/SubmitDown.wav";
                     sfx.play();
                 }
                 return;
             }
             case "Backspace":
             {
-                sfx.src = _audioPath+"sfx/Backspace.wav";
+                sfx.src = _audioPath+"SFX/Backspace.wav";
                 sfx.play();
                 return;
             }
@@ -51,7 +51,7 @@ addEventListener('keydown', (e) => {
         
         if (display.input.length < 12)
         {
-            sfx.src = _audioPath+"sfx/Keyboard.wav";
+            sfx.src = _audioPath+"SFX/Keyboard.wav";
             sfx.play();
         }
     }
@@ -71,7 +71,7 @@ addEventListener("mousedown", () => {
     sfx.volume = SFX.volume;
     sfx.pause();
     sfx.currentTime = 0;
-    sfx.src = _audioPath+"sfx/MouseDown.wav";
+    sfx.src = _audioPath+"SFX/MouseDown.wav";
     sfx.play();
 });
 
@@ -80,6 +80,6 @@ addEventListener("mouseup", () => {
     sfx.volume = SFX.volume;
     sfx.pause();
     sfx.currentTime = 0;
-    sfx.src = _audioPath+"sfx/MouseUp.wav";
+    sfx.src = _audioPath+"SFX/MouseUp.wav";
     sfx.play();
 });
