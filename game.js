@@ -57,7 +57,7 @@ let healthTarget;
 
 /*
  * LOCAL/
- *     /STORAGE
+ *     /STORAGE -> least efficient way to do it, but eh, i've been feeling lazy
  */
 
 // HOW TO NOT FIX A BUG
@@ -95,7 +95,11 @@ localStorage.setItem( "FPS"      , (localStorage.getItem( "FPS"       ) * 0 == 0
 localStorage.setItem( "HueW"      , (localStorage.getItem( "HueW"       ) * 0 == 0 && localStorage.getItem( "HueW"       ) != null) ? localStorage.getItem( "HueW"       ) :   0 );
 localStorage.setItem( "SatW"      , (localStorage.getItem( "SatW"       ) * 0 == 0 && localStorage.getItem( "SatW"       ) != null) ? localStorage.getItem( "SatW"       ) :  50 );
 localStorage.setItem( "BrightW"   , (localStorage.getItem( "BrightW"    ) * 0 == 0 && localStorage.getItem( "BrightW"    ) != null) ? localStorage.getItem( "BrightW"    ) :   0 );
+
+// Audio
 localStorage.setItem( "Track"     , (localStorage.getItem( "Track"      ) * 0 == 0 && localStorage.getItem( "Track"      ) != null) ? localStorage.getItem( "Track"      ) :   0 );
+localStorage.setItem( "Volume"    , (localStorage.getItem( "Volume"     ) * 0 == 0 && localStorage.getItem( "Volume"     ) != null) ? localStorage.getItem( "Volume"     ) : 100 );
+localStorage.setItem( "SFXV"      , (localStorage.getItem( "SFXV"       ) * 0 == 0 && localStorage.getItem( "SFXV"       ) != null) ? localStorage.getItem( "SFXV"       ) : 100 );
 
 /*
  * SETTINGS/
@@ -159,6 +163,8 @@ const pages = [
     ],
     [ // 5. AUDIO
         new Options("Track", Math.floor(display.settings.canvas.width / 2), 96, display, ["Genesis-Stereo", "Genesis-Mono"], localStorage.getItem("Track"), -1),
+        new Slider("Track Volume", Math.floor(display.settings.canvas.width / 2), 128, 8, 8, display, localStorage.getItem("Volume"), [0, 100], 0),
+        new Slider("SFX Volume", Math.floor(display.settings.canvas.width / 2), 160, 8, 8, display, localStorage.getItem("SFXV"), [0, 100], 0),
         
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, false, 0.1),
@@ -547,6 +553,8 @@ const INIT = () =>
 
     // Audio
     track.src = _audioPath+`Tracks/${pages[5][0].options[pages[5][0].index].replace("-", "")}.wav`;
+    track.volume = pages[5][1].value/100;
+    SFX.volume = pages[5][2].value/100;
 
     gameState = -1;
 

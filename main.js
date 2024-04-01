@@ -51,6 +51,12 @@ const render = () =>
                     preview.updateRender();
                     break;
 
+                case 5:
+                    display.createWord(display.settings, "Audio", Math.floor(display.settings.canvas.width / 2) + 2, 256 - 5, -0.5, false, 1, 16);
+                    display.createWord(display.settings, [`Currently Playing`, pages[5][0].options[pages[5][0].index], "by 幻の夢"], Math.floor(display.buffer.canvas.width / 2), 192, -0.5, false, 3);
+
+                    break;
+
             }
         
         }
@@ -197,7 +203,10 @@ const update = () => {
                 settings.modify(pages[1][0].value, pages[1][1].value, pages[1][2].value, pages[1][4].index, pages[1][5].index, pages[2][0].index, pages[2][1].value, pages[2][2].index,
                     /* Setup -> */ pages[0][0].options[pages[0][0].index], pages[0][1].index, pages[0][2].index, pages[0][3].value, pages[0][4]);
 
-                track.playbackRate = 1 + (settings.speed - 4)/10;
+                if (settings.gameMode == 0)
+                    track.playbackRate = 1.1;
+                else
+                    track.playbackRate = 1 + (settings.speed - 4)/10;
                 
 
                 // Set the local storage
@@ -274,7 +283,12 @@ const update = () => {
                     track.currentTime = currentTime;
                     track.play();
                 }
+                track.volume = pages[5][1].value / 100;
+                SFX.volume = pages[5][2].value / 100;
+
                 localStorage.setItem("Track", pages[5][0].index);
+                localStorage.setItem("Volume", pages[5][1].value);
+                localStorage.setItem("SFXV", pages[5][2].value);
 
 
                 // Game Modes
