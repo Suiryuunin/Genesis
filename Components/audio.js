@@ -2,7 +2,8 @@
 
 const _audioPath = "Assets/Audio/";
 const track = new Audio(_audioPath+'Tracks/GenesisStereo.wav');
-const SFX = new Audio(_audioPath+'SFXs/Keyboard.wav');
+const SFX = new Audio(_audioPath+'SFX/Keyboard.wav');
+const eh = "my github's cursed"
 
 addEventListener('click', () => track.play());
 track.playbackRate = 1;
@@ -36,14 +37,14 @@ addEventListener('keydown', (e) => {
                 if (!submitOnce)
                 {
                     submitOnce = true;
-                    sfx.src = _audioPath+"SFXs/SubmitDown.wav";
+                    sfx.src = _audioPath+"SFX/SubmitDown.wav";
                     sfx.play();
                 }
                 return;
             }
             case "Backspace":
             {
-                sfx.src = _audioPath+"SFXs/Backspace.wav";
+                sfx.src = _audioPath+"SFX/Backspace.wav";
                 sfx.play();
                 return;
             }
@@ -51,7 +52,7 @@ addEventListener('keydown', (e) => {
         
         if (display.input.length < 12)
         {
-            sfx.src = _audioPath+"SFXs/Keyboard.wav";
+            sfx.src = _audioPath+"SFX/Keyboard.wav";
             sfx.play();
         }
     }
@@ -71,7 +72,7 @@ addEventListener("mousedown", () => {
     sfx.volume = SFX.volume;
     sfx.pause();
     sfx.currentTime = 0;
-    sfx.src = _audioPath+"SFXs/MouseDown.wav";
+    sfx.src = _audioPath+"SFX/MouseDown.wav";
     sfx.play();
 });
 
@@ -80,6 +81,6 @@ addEventListener("mouseup", () => {
     sfx.volume = SFX.volume;
     sfx.pause();
     sfx.currentTime = 0;
-    sfx.src = _audioPath+"SFXs/MouseUp.wav";
+    sfx.src = _audioPath+"SFX/MouseUp.wav";
     sfx.play();
 });
