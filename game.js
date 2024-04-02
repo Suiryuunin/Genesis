@@ -426,9 +426,9 @@ const instructionsAnimations = () =>
         words[1].x = -208;
         
         words = [];
-        words[0] = new Word('New Game',     -208, 144, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
-        words[1] = new Word('Instructions', -208, 176, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
-        words[2] = new Word('Quit',         -208, 208, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
+        words[0] = new Word('New Game',     -208, 144, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.75);
+        words[1] = new Word('Instructions', -208, 176, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.75);
+        words[2] = new Word('Quit',         -208, 208, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.75);
         titleData[0] = settings.text;
 
         backT = false;
@@ -449,9 +449,9 @@ const instructionsAnimations = () =>
         titleData = [settings.text, (Math.floor(display.buffer.canvas.height / 2) - titleOffset)];
         
         words = [];
-        words[0] = new Word('New Game',     32, 144, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
-        words[1] = new Word('Instructions', 32, 176, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
-        words[2] = new Word('Quit',         32, 208, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
+        words[0] = new Word('New Game',     32, 144, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.75);
+        words[1] = new Word('Instructions', 32, 176, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.75);
+        words[2] = new Word('Quit',         32, 208, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.75);
         backE = false;
     }
 };
@@ -578,9 +578,9 @@ const INIT = () =>
     gameState = -1;
 
     words = [];
-    words[0] = new Word('New Game',     32, 144, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
-    words[1] = new Word('Instructions', 32, 176, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
-    words[2] = new Word('Quit',         32, 208, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.25);
+    words[0] = new Word('New Game',     32, 144, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.75);
+    words[1] = new Word('Instructions', 32, 176, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.75);
+    words[2] = new Word('Quit',         32, 208, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.75);
 
     if (document.activeElement != input) resize();
     document.querySelector('body').style.backgroundColor = `hsl(${display.hue}, ${display.saturation}%, ${(display.brightness - 10 < 0) ? 0 : display.brightness - 10}%)`;
