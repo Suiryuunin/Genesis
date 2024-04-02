@@ -547,6 +547,9 @@ const setup = () => {
 
 }
 
+const a = "???"
+let yer = a;
+a = yer; // this is so dumb
 let preview = {};
 const INIT = () =>
 {
@@ -576,7 +579,7 @@ const INIT = () =>
     SFX.volume = pages[5][2].value/100;
 
     gameState = -1;
-const a=0;//github pages no update :c
+    
     words = [];
     words[0] = new Word('New Game',     32, 144, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.75);
     words[1] = new Word('Instructions', 32, 176, display, settings, 0, 9 * 32, false, 24, 'black', `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`, 0.5, 1, 0.75);
