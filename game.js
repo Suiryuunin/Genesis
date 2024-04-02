@@ -58,7 +58,7 @@ let particles = [];
 
 /*
  * LOCAL/
- *     /STORAGE -> least efficient way to do it, but eh, i've been feeling lazy
+ *     /STORAGE -> least efficient way to do it, but meh, I've been feeling lazy to use an object
  */
 
 // HOW TO NOT FIX A BUG
@@ -96,6 +96,7 @@ localStorage.setItem( "FPS"      , (localStorage.getItem( "FPS"       ) * 0 == 0
 localStorage.setItem( "HueW"      , (localStorage.getItem( "HueW"       ) * 0 == 0 && localStorage.getItem( "HueW"       ) != null) ? localStorage.getItem( "HueW"       ) :   0 );
 localStorage.setItem( "SatW"      , (localStorage.getItem( "SatW"       ) * 0 == 0 && localStorage.getItem( "SatW"       ) != null) ? localStorage.getItem( "SatW"       ) :  50 );
 localStorage.setItem( "BrightW"   , (localStorage.getItem( "BrightW"    ) * 0 == 0 && localStorage.getItem( "BrightW"    ) != null) ? localStorage.getItem( "BrightW"    ) :   0 );
+localStorage.setItem( "Particles" , (localStorage.getItem( "Particles"  ) * 0 == 0 && localStorage.getItem( "Particles"  ) != null) ? localStorage.getItem( "Particles"  ) :   1 );
 
 // Audio
 localStorage.setItem( "Track"     , (localStorage.getItem( "Track"      ) * 0 == 0 && localStorage.getItem( "Track"      ) != null) ? localStorage.getItem( "Track"      ) :   0 );
@@ -157,6 +158,7 @@ const pages = [
         new Slider("Word Hue", Math.floor(display.settings.canvas.width / 2), 64, 8, 8, display, localStorage.getItem("HueW"), [0, 360], 0),
         new Slider("Word Saturation", Math.floor(display.settings.canvas.width / 2), 96, 8, 8, display, localStorage.getItem("SatW"), [0, 100], 0),
         new Slider("Word Brightness", Math.floor(display.settings.canvas.width / 2), 128, 8, 8, display, localStorage.getItem("BrightW"), [0, 100], 0),
+        new Options("Particles", Math.floor(display.settings.canvas.width / 2), 176, display, ["Disabled", "Enabled"], localStorage.getItem("Particles"), -1),
 
         new Button(Math.floor(display.settings.canvas.width / 2), 256, display, "<", -0.5, true, -0.1),
         new Button(Math.floor(display.settings.canvas.width / 2) + 88, 256, display, ">", -0.5, true, 0.1),

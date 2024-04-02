@@ -278,6 +278,7 @@ const update = () => {
                 localStorage.setItem("HueW"   , pages[4][0].value);
                 localStorage.setItem("SatW"   , pages[4][1].value);
                 localStorage.setItem("BrightW", pages[4][2].value);
+                localStorage.setItem("Particles", pages[4][3].index);
 
                 // Audio
 
@@ -331,19 +332,22 @@ const update = () => {
                     {
                         if (words[i] != undefined)
                         {
-                            for (let j = 0; j < Math.ceil(Math.random()*6+6); j++)
+                            if (pages[4][3].index == 1)
                             {
-                                let created = false;
-                                for (let particle of particles)
+                                for (let j = 0; j < Math.ceil(Math.random()*6+6); j++)
                                 {
-                                    if (particle == undefined)
+                                    let created = false;
+                                    for (let particle of particles)
                                     {
-                                        particle = new Particle(words[i].x, words[i].y);
-                                        created = true;
+                                        if (particle == undefined)
+                                        {
+                                            particle = new Particle(words[i].x, words[i].y);
+                                            created = true;
+                                        }
                                     }
+                                    if (!created)
+                                        particles.push(new Particle(words[i].x, words[i].y));
                                 }
-                                if (!created)
-                                    particles.push(new Particle(words[i].x, words[i].y));
                             }
                             delete words[i];
                         }
@@ -367,19 +371,22 @@ const update = () => {
                                     {
                                         if (words[i] != undefined && (words[i].word != "CLEAR" || words[i].word != "YOU DIED" || words[i].word != "FULL COMBO"))
                                         {
-                                            for (let j = 0; j < Math.ceil(Math.random()*6+6); j++)
+                                            if (pages[4][3].index == 1)
                                             {
-                                                let created = false;
-                                                for (let particle of particles)
+                                                for (let j = 0; j < Math.ceil(Math.random()*6+6); j++)
                                                 {
-                                                    if (particle == undefined)
+                                                    let created = false;
+                                                    for (let particle of particles)
                                                     {
-                                                        particle = new Particle(words[i].x, words[i].y);
-                                                        created = true;
+                                                        if (particle == undefined)
+                                                        {
+                                                            particle = new Particle(words[i].x, words[i].y);
+                                                            created = true;
+                                                        }
                                                     }
+                                                    if (!created)
+                                                        particles.push(new Particle(words[i].x, words[i].y));
                                                 }
-                                                if (!created)
-                                                    particles.push(new Particle(words[i].x, words[i].y));
                                             }
                                             delete words[i];
                                         }
@@ -442,19 +449,22 @@ const update = () => {
 
                         if (words[i] != undefined)
                         {
-                            for (let j = 0; j < Math.ceil(Math.random()*6+6); j++)
+                            if (pages[4][3].index == 1)
                             {
-                                let created = false;
-                                for (let particle of particles)
+                                for (let j = 0; j < Math.ceil(Math.random()*6+6); j++)
                                 {
-                                    if (particle == undefined)
+                                    let created = false;
+                                    for (let particle of particles)
                                     {
-                                        particle = new Particle(x, y);
-                                        created = true;
+                                        if (particle == undefined)
+                                        {
+                                            particle = new Particle(x, y);
+                                            created = true;
+                                        }
                                     }
+                                    if (!created)
+                                        particles.push(new Particle(x, y));
                                 }
-                                if (!created)
-                                    particles.push(new Particle(x, y));
                             }
 
                             delete words[i];
