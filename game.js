@@ -547,9 +547,6 @@ const setup = () => {
 
 }
 
-let bruh = "not syncing";
-let sigh = "using old commit";
-const hhh = bruh+", "+sigh;
 let preview = {};
 const INIT = () =>
 {
