@@ -547,9 +547,6 @@ const setup = () => {
 
 }
 
-let a = "???"
-let yer = a;
-a = yer; // this is so dumb
 let preview = {};
 const INIT = () =>
 {
