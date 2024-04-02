@@ -166,7 +166,7 @@ const update = () => {
 
     if (mobile)
     {
-        if (input.value.length > 12 && (Math.floor(gameState) != 0))
+        if (input.value.length > maxLetters && (Math.floor(gameState) != 0))
             input.value = input.value.substring(0, 11);
         else if (input.value.length > 1 && (Math.floor(gameState) == 0))
             input.value = input.value.substring(0, 1);

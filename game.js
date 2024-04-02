@@ -21,7 +21,7 @@ let wordsSum = 0;
 let lastPage = 0.1;
 let titleData = [];
 let titleOffset = 64;
-
+const maxLetters = 17;
 
 const display = new Display(document.querySelector("canvas"));
 const engine = new Engine(30, update, render);
