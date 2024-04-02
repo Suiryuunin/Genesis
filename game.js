@@ -547,7 +547,7 @@ const setup = () => {
 
 }
 
-const a = "???"
+let a = "???"
 let yer = a;
 a = yer; // this is so dumb
 let preview = {};
