@@ -21,6 +21,6 @@ class Particle
     updateRender()
     {
         // Update the render
-        display.createFill(display.buffer, this.x, this.y, this.w, this.h, this.velX/this.iVelX);
+        display.createFill(display.buffer, this.x, this.y, this.w, this.h, this.velX/this.iVelX, `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`);
     }
 }

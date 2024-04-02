@@ -102,10 +102,10 @@ class Display {
 
     }
 
-    createFill(ctx, x, y, width, height, alpha = 1) {
+    createFill(ctx, x, y, width, height, alpha = 1, color = undefined) {
 
         ctx.globalAlpha = alpha;
-        ctx.fillStyle = `hsl(${this.hue}, ${this.saturation}%, ${this.brightness}%)`;
+        ctx.fillStyle = color == undefined ? `hsl(${this.hue}, ${this.saturation}%, ${this.brightness}%)` : `hsl(${display.hueW}deg, ${display.saturationW}%, ${display.brightnessW}%)`;
         ctx.fillRect(x, y, width,height);
         ctx.globalAlpha = 1;
 
