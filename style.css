@@ -38,7 +38,7 @@ body
     height: 100%;
 
     background-image: url(Assets/ImageResources/Background512-min.png);
-    background-size: 55vmax 55vmax;
+    background-size: 25vmax 25vmax;
 }
 
 input
